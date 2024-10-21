@@ -5,8 +5,8 @@ import 'package:minicore_arch_example/app/modules/home/interactor/repositories/i
 Future<void> getCompaniesListAction() async {
   final repository = injector.get<IHomeRepository>();
   isLoadingState.value = true;
-  final (result, error) = await repository.getCompanyList();
-  companiesListState.value = result;
-  errorMessage.value = error;
+  final (:companiesList, :errorMessage) = await repository.getCompaniesList();
+  companiesListState.value = companiesList;
+  errorMessageState.value = errorMessage;
   isLoadingState.value = false;
 }

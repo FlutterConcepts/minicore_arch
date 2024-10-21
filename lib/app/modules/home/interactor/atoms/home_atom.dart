@@ -3,4 +3,4 @@ import 'package:minicore_arch_example/app/modules/home/interactor/models/company
 
 final companiesListState = Atom<List<CompanyModel>>([]);
 final isLoadingState = Atom<bool>(false);
-final errorMessage = Atom<String>('');
+final errorMessageState = Atom<String>('');

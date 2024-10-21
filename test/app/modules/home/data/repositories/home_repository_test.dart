@@ -23,36 +23,30 @@ void main() {
     repository = HomeRepository(httpClient);
   });
 
-  test(
-      'Must return a list of CompanyModel when http client return response with succes',
-      () async {
+  test('Must return a list of CompanyModel when http client return response with succes', () async {
     // mock
-    when(() => httpClient.get(any())).thenAnswer((_) async =>
-        HttpResponse(data: jsonDecode(responseJson), statusCode: 200));
+    when(() => httpClient.get(any()))
+        .thenAnswer((_) async => HttpResponse(data: jsonDecode(responseJson), statusCode: 200));
 
     // act
-    final (result, error) = await repository.getCompanyList();
+    final (:companiesList, :errorMessage) = await repository.getCompaniesList();
 
     // assert
-    expect(result, isA<List<CompanyModel>>());
-    expect(result.length, equals(3));
-    expect(error.isEmpty, true);
+    expect(companiesList, isA<List<CompanyModel>>());
+    expect(companiesList.length, equals(3));
+    expect(errorMessage.isEmpty, true);
   });
 
-  test(
-      'Must return a empty list of CompanyModel when http client throws a error',
-      () async {
+  test('Must return a empty list of CompanyModel when http client throws a error', () async {
     // mock
     when(() => httpClient.get(any())).thenThrow(const HttpClientError(
-        data: {'message': 'Expired token'},
-        message: '401 - Authentication invalid',
-        stackTrace: null));
+        data: {'message': 'Expired token'}, message: '401 - Authentication invalid', stackTrace: null));
 
     // act
-    final (result, error) = await repository.getCompanyList();
+    final (:companiesList, :errorMessage) = await repository.getCompaniesList();
 
     // assert
-    expect(result.isEmpty, true);
-    expect(error, equals('401 - Authentication invalid'));
+    expect(companiesList.isEmpty, true);
+    expect(errorMessage, equals('401 - Authentication invalid'));
   });
 }

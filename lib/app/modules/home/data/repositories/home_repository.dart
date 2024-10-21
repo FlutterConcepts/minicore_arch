@@ -11,17 +11,15 @@ class HomeRepository implements IHomeRepository {
 
   HomeRepository(this.httpClient);
   @override
-  Future<(List<CompanyModel> companyList, String errorMessage)>
-      getCompanyList() async {
+  Future<({List<CompanyModel> companiesList, String errorMessage})> getCompaniesList() async {
     try {
       final response = await httpClient.get(kCompaniesEndpoint);
-      final listCompanies = List<Map<String, dynamic>>.from(response.data)
-          .map((element) => CompanyModel.fromMap(element))
-          .toList();
-      return (listCompanies, '');
-    } on IFailure catch (e) {
+      final companiesList =
+          List<Map<String, dynamic>>.from(response.data).map((element) => CompanyModel.fromMap(element)).toList();
+      return (companiesList: companiesList, errorMessage: '');
+    } on IAppFailure catch (e) {
       log(e.toString());
-      return (<CompanyModel>[], e.message);
+      return (companiesList: <CompanyModel>[], errorMessage: e.message);
     }
   }
 }

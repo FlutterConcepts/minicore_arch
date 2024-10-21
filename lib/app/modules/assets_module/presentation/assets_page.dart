@@ -42,15 +42,14 @@ class _AssetsPageState extends State<AssetsPage> {
           nodesComputedListState,
           nodesComputedListStateFiltered,
           isLoadingState,
-          errorMessage,
+          errorMessageState,
         ]);
     final List<NodeEntity> listNodes = nodesComputedListStateFiltered.value;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Assets',
-          style: textTheme.headlineMedium?.copyWith(
-              color: colorScheme.primary, fontWeight: FontWeight.bold),
+          style: textTheme.headlineMedium?.copyWith(color: colorScheme.primary, fontWeight: FontWeight.bold),
         ),
       ),
       body: Padding(
@@ -87,9 +86,9 @@ class _AssetsPageState extends State<AssetsPage> {
               const Center(
                 child: CircularProgressIndicator.adaptive(),
               )
-            else if (errorMessage.value.isNotEmpty)
+            else if (errorMessageState.value.isNotEmpty)
               Center(
-                child: Text(errorMessage.value),
+                child: Text(errorMessageState.value),
               )
             else if (listNodes.isEmpty)
               const Center(
@@ -102,8 +101,7 @@ class _AssetsPageState extends State<AssetsPage> {
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
-                          final node =
-                              nodesComputedListStateFiltered.value[index];
+                          final node = nodesComputedListStateFiltered.value[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: ExpansibleListTile(

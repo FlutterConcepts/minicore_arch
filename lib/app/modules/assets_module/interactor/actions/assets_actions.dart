@@ -6,18 +6,18 @@ import 'package:minicore_arch_example/app/modules/assets_module/interactor/repos
 Future<void> getAssetsListAction(String companyId) async {
   final repository = injector.get<IAssetsRepository>();
   isLoadingState.value = true;
-  final (result, error) = await repository.getAssetsList(companyId);
-  assetsListState.value = result;
-  errorMessage.value = error;
+  final (:assetsList, :errorMessage) = await repository.getAssetsList(companyId);
+  assetsListState.value = assetsList;
+  errorMessageState.value = errorMessage;
   isLoadingState.value = false;
 }
 
 Future<void> getLocationListAction(String companyId) async {
   final repository = injector.get<IAssetsRepository>();
   isLoadingState.value = true;
-  final (result, error) = await repository.getLocationList(companyId);
-  locationsListState.value = result;
-  errorMessage.value = error;
+  final (:locationList, :errorMessage) = await repository.getLocationList(companyId);
+  locationsListState.value = locationList;
+  errorMessageState.value = errorMessage;
   isLoadingState.value = false;
 }
 
@@ -31,11 +31,10 @@ void computeListAction() {
     nodeById[node.id] = node;
     childrenMap.putIfAbsent(node.id, () => []);
 
-    if (node.parentId != null && nodeById.containsKey(node.parentId)) {
+    if (nodeById.containsKey(node.parentId)) {
       childrenMap[node.parentId]!.add(node);
       assignedChildIds.add(node.id);
-    } else if (node.locationId != null &&
-        nodeById.containsKey(node.locationId)) {
+    } else if (nodeById.containsKey(node.locationId)) {
       childrenMap[node.locationId]!.add(node);
       assignedChildIds.add(node.id);
     }
@@ -43,13 +42,8 @@ void computeListAction() {
     node.children = childrenMap[node.id] ?? [];
   }
 
-  nodesComputedListState.value = [
-    ...locationsListState.value,
-    ...assetsListState.value
-  ]
-      .where((node) =>
-          node.parentId == null && node.locationId == null ||
-          !assignedChildIds.contains(node.id))
+  nodesComputedListState.value = [...locationsListState.value, ...assetsListState.value]
+      .where((node) => node.parentId == null && node.locationId == null || !assignedChildIds.contains(node.id))
       .toList();
 
   sortByChildren();
@@ -81,19 +75,17 @@ void filterListFromText(String filter) {
     nodesComputedListStateFiltered.value = nodesComputedListState.value;
     return;
   }
-  final list = nodesComputedListState.value.where(
-      (e) => e.name.toLowerCase().trim().contains(filter.toLowerCase().trim()));
+  final list =
+      nodesComputedListState.value.where((e) => e.name.toLowerCase().trim().contains(filter.toLowerCase().trim()));
   nodesComputedListStateFiltered.value = list.toList();
 }
 
 void filterListFromEnergySensors() {
-  final list = assetsListState.value
-      .where((e) => e.sensorType.toLowerCase().contains('energy'));
+  final list = assetsListState.value.where((e) => e.sensorType.toLowerCase().contains('energy'));
   nodesComputedListStateFiltered.value = list.toList();
 }
 
 void filterListFromCriticalAlert() {
-  final list = assetsListState.value
-      .where((e) => e.status.toLowerCase().contains('alert'));
+  final list = assetsListState.value.where((e) => e.status.toLowerCase().contains('alert'));
   nodesComputedListStateFiltered.value = list.toList();
 }

@@ -25,37 +25,31 @@ void main() {
     const String responseAssetsJson =
         '''[{"gatewayId":"TLQ367","id":"60fc4e837dfb4f001fad3f30","locationId":"60fc4e7007a5ec001e81aca9","name":"Sensor 203 - vibration","parentId":null,"sensorId":"CFP481","sensorType":"vibration","status":"alert"},{"gatewayId":"VEQ023","id":"60fc4e83513295001f4dd7b7","locationId":"60fc4e7007a5ec001e81aca9","name":"Sensor 204 - vibration","parentId":null,"sensorId":"CXW988","sensorType":"vibration","status":"alert"}]''';
 
-    test(
-        'Must return a list of AssetsModel when http client return response with success',
-        () async {
+    test('Must return a list of AssetsModel when http client return response with success', () async {
       // mock
-      when(() => httpClient.get(any())).thenAnswer((_) async =>
-          HttpResponse(data: jsonDecode(responseAssetsJson), statusCode: 200));
+      when(() => httpClient.get(any()))
+          .thenAnswer((_) async => HttpResponse(data: jsonDecode(responseAssetsJson), statusCode: 200));
 
       // act
-      final (result, error) = await repository.getAssetsList('companyId');
+      final (:assetsList, :errorMessage) = await repository.getAssetsList('companyId');
 
       // assert
-      expect(result, isA<List<AssetsModel>>());
-      expect(result.length, equals(2));
-      expect(error.isEmpty, true);
+      expect(assetsList, isA<List<AssetsModel>>());
+      expect(assetsList.length, equals(2));
+      expect(errorMessage.isEmpty, true);
     });
 
-    test(
-        'Must return a empty list of AssetsModel when http client throws a error',
-        () async {
+    test('Must return a empty list of AssetsModel when http client throws a error', () async {
       // mock
       when(() => httpClient.get(any())).thenThrow(const HttpClientError(
-          data: {'message': 'Expired token'},
-          message: '401 - Authentication invalid',
-          stackTrace: null));
+          data: {'message': 'Expired token'}, message: '401 - Authentication invalid', stackTrace: null));
 
       // act
-      final (result, error) = await repository.getAssetsList('companyId');
+      final (:assetsList, :errorMessage) = await repository.getAssetsList('companyId');
 
       // assert
-      expect(result.isEmpty, true);
-      expect(error, equals('401 - Authentication invalid'));
+      expect(assetsList.isEmpty, true);
+      expect(errorMessage, equals('401 - Authentication invalid'));
     });
   });
 
@@ -63,37 +57,31 @@ void main() {
     const String responseLocationJson =
         '''[{"id":"60fc4c8707a5ec001e8cc82f","name":"Location 3791","parentId":"60fc4c87513295001f4dd53b"},{"id":"60fc620486cd05001d229cf8","name":"Location 3792","parentId":"60fc61767dfb4f001fad58e9"}]''';
 
-    test(
-        'Must return a list of LocationModel when http client return response with success',
-        () async {
+    test('Must return a list of LocationModel when http client return response with success', () async {
       // mock
-      when(() => httpClient.get(any())).thenAnswer((_) async => HttpResponse(
-          data: jsonDecode(responseLocationJson), statusCode: 200));
+      when(() => httpClient.get(any()))
+          .thenAnswer((_) async => HttpResponse(data: jsonDecode(responseLocationJson), statusCode: 200));
 
       // act
-      final (result, error) = await repository.getLocationList('companyId');
+      final (:locationList, :errorMessage) = await repository.getLocationList('companyId');
 
       // assert
-      expect(result, isA<List<LocationModel>>());
-      expect(result.length, equals(2));
-      expect(error.isEmpty, true);
+      expect(locationList, isA<List<LocationModel>>());
+      expect(locationList.length, equals(2));
+      expect(errorMessage.isEmpty, true);
     });
 
-    test(
-        'Must return a empty list of LocationModel when http client throws a error',
-        () async {
+    test('Must return a empty list of LocationModel when http client throws a error', () async {
       // mock
       when(() => httpClient.get(any())).thenThrow(const HttpClientError(
-          data: {'message': 'Expired token'},
-          message: '401 - Authentication invalid',
-          stackTrace: null));
+          data: {'message': 'Expired token'}, message: '401 - Authentication invalid', stackTrace: null));
 
       // act
-      final (result, error) = await repository.getLocationList('companyId');
+      final (:locationList, :errorMessage) = await repository.getLocationList('companyId');
 
       // assert
-      expect(result.isEmpty, true);
-      expect(error, equals('401 - Authentication invalid'));
+      expect(locationList.isEmpty, true);
+      expect(errorMessage, equals('401 - Authentication invalid'));
     });
   });
 }

@@ -8,4 +8,4 @@ final locationsListState = Atom<List<LocationModel>>([]);
 final nodesComputedListState = Atom<List<NodeEntity>>([]);
 final nodesComputedListStateFiltered = Atom<List<NodeEntity>>([]);
 final isLoadingState = Atom<bool>(false);
-final errorMessage = Atom<String>('');
+final errorMessageState = Atom<String>('');

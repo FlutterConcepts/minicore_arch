@@ -6,7 +6,7 @@ import 'package:minicore_arch_example/app/modules/home/interactor/repositories/i
 import 'package:minicore_arch_example/app/shared/services/http_client/i_http_client.dart';
 import 'package:minicore_arch_example/app/shared/services/http_client/uno_http_client.dart';
 import 'package:minicore_arch_example/app/shared/services/local_storage/shared_preferences_service.dart';
-import 'package:minicore_arch_example/app/shared/services/theme/theme_app_store.dart';
+import 'package:minicore_arch_example/app/shared/services/theme/app_theme_store.dart';
 import 'package:uno/uno.dart';
 
 final injector = AutoInjector(on: (i) {
@@ -20,5 +20,5 @@ final injector = AutoInjector(on: (i) {
   i.add<IAssetsRepository>(AssetsRepository.new);
 
   // stores
-  i.addSingleton<ThemeAppStore>(ThemeAppStore.new);
+  i.addSingleton<AppThemeStore>(AppThemeStore.new);
 });

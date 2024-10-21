@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     context.select(() => [
           companiesListState,
           isLoadingState,
-          errorMessage,
+          errorMessageState,
         ]);
 
     return Scaffold(
@@ -52,9 +52,9 @@ class _HomePageState extends State<HomePage> {
               const Center(
                 child: CircularProgressIndicator.adaptive(),
               )
-            else if (errorMessage.value.isNotEmpty)
+            else if (errorMessageState.value.isNotEmpty)
               Center(
-                child: Text(errorMessage.value),
+                child: Text(errorMessageState.value),
               )
             else if (companiesListState.value.isEmpty)
               const Center(
@@ -78,17 +78,15 @@ class _HomePageState extends State<HomePage> {
                           color: colorScheme.primary,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 26, vertical: 32),
+                        padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 32),
                         child: Row(
                           children: [
                             CustomCompaniesIcon(color: colorScheme.onPrimary),
                             const SizedBox(width: 16),
                             Text(
                               item.name,
-                              style: textTheme.headlineMedium?.copyWith(
-                                  color: colorScheme.onPrimary,
-                                  fontWeight: FontWeight.bold),
+                              style: textTheme.headlineMedium
+                                  ?.copyWith(color: colorScheme.onPrimary, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),

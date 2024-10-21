@@ -1,8 +1,8 @@
-abstract class IFailure implements Exception {
+abstract class IAppFailure implements Exception {
   final String message;
   final StackTrace? stackTrace;
 
-  const IFailure({
+  const IAppFailure({
     required this.message,
     required this.stackTrace,
   });

@@ -7,9 +7,9 @@ import 'package:minicore_arch_example/app/injector.dart';
 import 'package:minicore_arch_example/app/interactor/app_action.dart';
 import 'package:minicore_arch_example/app/interactor/app_atom.dart';
 import 'package:minicore_arch_example/app/interactor/app_state.dart';
-import 'package:minicore_arch_example/app/routers.dart';
-import 'package:minicore_arch_example/app/shared/services/theme/theme_app_state.dart';
-import 'package:minicore_arch_example/app/shared/services/theme/theme_app_store.dart';
+import 'package:minicore_arch_example/app/router_config.dart';
+import 'package:minicore_arch_example/app/shared/services/theme/app_theme_state.dart';
+import 'package:minicore_arch_example/app/shared/services/theme/app_theme_store.dart';
 // import 'routes.dart.bak';
 
 class AppWidget extends StatefulWidget {
@@ -20,11 +20,11 @@ class AppWidget extends StatefulWidget {
 }
 
 class _AppWidgetState extends State<AppWidget> {
-  final ThemeAppStore themeStore = injector.get<ThemeAppStore>();
+  final AppThemeStore themeStore = injector.get<AppThemeStore>();
   @override
   void initState() {
     super.initState();
-    unawaited(getThemeApp());
+    unawaited(getAppTheme());
     themeStore.addListener(() {
       updateTheme(themeStore.value);
     });
@@ -42,14 +42,13 @@ class _AppWidgetState extends State<AppWidget> {
       title: 'Tractian',
       // debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-        seedColor: selectedColor,
-        brightness: selectedBrightness,
-      )),
-      themeMode: state.themeState.theme == ThemeEnum.lightTheme
-          ? ThemeMode.light
-          : ThemeMode.dark,
-      routerConfig: Routers.router,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: selectedColor,
+          brightness: selectedBrightness,
+        ),
+      ),
+      themeMode: state.themeState.theme == ThemeType.lightTheme ? ThemeMode.light : ThemeMode.dark,
+      routerConfig: appRouterConfig,
     );
   }
 }
