@@ -6,7 +6,7 @@ class AppState {
 
   AppState({required this.themeState});
 
-  static AppState empty() => AppState(themeState: ThemeAppState.initState());
+  factory AppState.empty() => AppState(themeState: ThemeAppState.initState());
 
   AppState copyWith({
     ThemeAppState? themeState,

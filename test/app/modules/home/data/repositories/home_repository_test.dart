@@ -11,7 +11,7 @@ import 'package:mocktail/mocktail.dart';
 
 class HttpClientMock extends Mock implements IHttpClient {}
 
-main() {
+void main() {
   late final IHomeRepository repository;
   late final IHttpClient httpClient;
 

@@ -39,9 +39,9 @@ class IconPainter extends CustomPainter {
       canvas.drawPath(path, paint);
     }
 
-    var widthTop2 = size.width / 3.5;
-    var widthBottom2 = size.width / 2.5;
-    var height2 = size.height / 5;
+    final widthTop2 = size.width / 3.5;
+    final widthBottom2 = size.width / 2.5;
+    final height2 = size.height / 5;
     // Desenha o retângulo superior
     drawTrapezoid(
       canvas,

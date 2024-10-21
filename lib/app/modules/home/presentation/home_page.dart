@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:asp/asp.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -17,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    getCompaniesListAction();
+    unawaited(getCompaniesListAction());
   }
 
   @override
@@ -68,8 +70,8 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context, index) {
                     final item = companiesListState.value[index];
                     return InkWell(
-                      onTap: () {
-                        context.push('/assets/${item.id}');
+                      onTap: () async {
+                        await context.push('/assets/${item.id}');
                       },
                       child: Container(
                         decoration: BoxDecoration(

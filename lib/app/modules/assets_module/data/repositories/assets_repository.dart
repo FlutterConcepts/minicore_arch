@@ -15,7 +15,8 @@ class AssetsRepository implements IAssetsRepository {
   Future<(List<LocationModel> locationList, String errorMessage)> getLocationList(String companyId) async {
     try {
       final response = await httpClient.get('$kCompaniesEndpoint/$companyId/locations');
-      final listLocation = List.from(response.data).map((element) => LocationModel.fromMap(element)).toList();
+      final listLocation =
+          List<Map<String, dynamic>>.from(response.data).map((element) => LocationModel.fromMap(element)).toList();
       return (listLocation, '');
     } on IFailure catch (e) {
       log(e.toString());
@@ -27,7 +28,8 @@ class AssetsRepository implements IAssetsRepository {
   Future<(List<AssetsModel> assetsList, String errorMessage)> getAssetsList(String companyId) async {
     try {
       final response = await httpClient.get('$kCompaniesEndpoint/$companyId/assets');
-      final listAssetes = List.from(response.data).map((element) => AssetsModel.fromMap(element)).toList();
+      final listAssetes =
+          List<Map<String, dynamic>>.from(response.data).map((element) => AssetsModel.fromMap(element)).toList();
       return (listAssetes, '');
     } on IFailure catch (e) {
       log(e.toString());

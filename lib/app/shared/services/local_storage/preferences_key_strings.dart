@@ -1,1 +1,1 @@
-const kThemePrefsKey = "THEME-PREFS-KEY";
+const kThemePrefsKey = 'THEME-PREFS-KEY';

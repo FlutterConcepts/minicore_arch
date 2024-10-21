@@ -6,10 +6,10 @@ class CustomToggleButton extends StatelessWidget {
   final void Function()? onPressed;
 
   const CustomToggleButton({
-    super.key,
     required this.icon,
     required this.text,
     required this.onPressed,
+    super.key,
   });
 
   @override

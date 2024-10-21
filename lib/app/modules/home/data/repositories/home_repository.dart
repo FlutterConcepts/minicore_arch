@@ -14,7 +14,8 @@ class HomeRepository implements IHomeRepository {
   Future<(List<CompanyModel> companyList, String errorMessage)> getCompanyList() async {
     try {
       final response = await httpClient.get(kCompaniesEndpoint);
-      final listCompanies = List.from(response.data).map((element) => CompanyModel.fromMap(element)).toList();
+      final listCompanies =
+          List<Map<String, dynamic>>.from(response.data).map((element) => CompanyModel.fromMap(element)).toList();
       return (listCompanies, '');
     } on IFailure catch (e) {
       log(e.toString());

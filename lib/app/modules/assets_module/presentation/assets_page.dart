@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:asp/asp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +23,11 @@ class _AssetsPageState extends State<AssetsPage> {
   @override
   void initState() {
     super.initState();
-    getAssetsListAction(widget.companyId).whenComplete(() {
+    unawaited(getAssetsListAction(widget.companyId).whenComplete(() {
       getLocationListAction(widget.companyId).whenComplete(() {
         computeListAction();
       });
-    });
+    }));
   }
 
   @override

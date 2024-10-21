@@ -45,7 +45,7 @@ class UnoHttpClient implements IHttpClient {
         statusCode: result.status,
         data: result.data,
       );
-    } on UnoError catch (e) {
+    } on UnoError<dynamic> catch (e) {
       throw HttpClientError(
         message: e.message,
         data: e.data,
@@ -75,7 +75,7 @@ class UnoHttpClient implements IHttpClient {
         statusCode: result.status,
         data: result.data,
       );
-    } on UnoError catch (e) {
+    } on UnoError<dynamic> catch (e) {
       throw HttpClientError(
         message: e.message,
         data: e.data,
@@ -104,7 +104,7 @@ class UnoHttpClient implements IHttpClient {
         statusCode: result.status,
         data: result.data,
       );
-    } on UnoError catch (e) {
+    } on UnoError<dynamic> catch (e) {
       throw HttpClientError(
         message: e.message,
         data: e.data,
@@ -133,7 +133,7 @@ class UnoHttpClient implements IHttpClient {
         statusCode: result.status,
         data: result.data,
       );
-    } on UnoError catch (e) {
+    } on UnoError<dynamic> catch (e) {
       throw HttpClientError(
         message: e.message,
         data: e.response?.data,
@@ -159,7 +159,7 @@ class UnoHttpClient implements IHttpClient {
         statusCode: result.status,
         data: result.data,
       );
-    } on UnoError catch (e) {
+    } on UnoError<dynamic> catch (e) {
       throw HttpClientError(
         message: e.message,
         data: e.data,
@@ -213,7 +213,7 @@ class UnoHttpClient implements IHttpClient {
 
         throw HttpClientError(
           message: '${response.status} ${response.data.toString()}',
-          data: {},
+          data: <Map<String, dynamic>>{},
           stackTrace: null,
         );
       }
@@ -227,13 +227,13 @@ class UnoHttpClient implements IHttpClient {
     } on HttpClientError catch (e, stackTrace) {
       throw HttpClientError(
         message: e.message,
-        data: {},
+        data: <Map<String, dynamic>>{},
         stackTrace: stackTrace,
       );
     } catch (e, stackTrace) {
       throw HttpClientError(
         message: e.toString(),
-        data: {},
+        data: <Map<String, dynamic>>{},
         stackTrace: stackTrace,
       );
     }

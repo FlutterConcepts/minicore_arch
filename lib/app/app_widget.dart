@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:asp/asp.dart';
@@ -23,7 +24,7 @@ class _AppWidgetState extends State<AppWidget> {
   @override
   void initState() {
     super.initState();
-    getThemeApp();
+    unawaited(getThemeApp());
     themeStore.addListener(() {
       updateTheme(themeStore.value);
     });

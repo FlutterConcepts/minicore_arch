@@ -65,7 +65,7 @@ class _ExpansibleListTileState extends State<ExpansibleListTile> {
     );
   }
 
-  changeExpanded() {
+  void changeExpanded() {
     setState(() {
       isExpanded = !isExpanded;
     });
