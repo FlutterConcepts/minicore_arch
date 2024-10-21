@@ -15,7 +15,8 @@ class CustomSearchField extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         fillColor: colorScheme.secondaryFixed,
-        prefixIcon: Icon(CupertinoIcons.search, color: colorScheme.onSecondaryFixed),
+        prefixIcon:
+            Icon(CupertinoIcons.search, color: colorScheme.onSecondaryFixed),
         hintText: hintText,
         hintStyle: TextStyle(color: colorScheme.onSecondaryFixed),
         border: OutlineInputBorder(

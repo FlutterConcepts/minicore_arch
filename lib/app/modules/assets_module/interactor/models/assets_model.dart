@@ -46,5 +46,6 @@ class AssetsModel extends NodeEntity {
 
   String toJson() => json.encode(toMap());
 
-  factory AssetsModel.fromJson(String source) => AssetsModel.fromMap(json.decode(source));
+  factory AssetsModel.fromJson(String source) =>
+      AssetsModel.fromMap(json.decode(source));
 }

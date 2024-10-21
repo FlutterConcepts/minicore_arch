@@ -7,7 +7,9 @@ void main() {
   const String id = '60fc4c8707a5ec001e8cc82f';
   const String parentId = '60fc4c87513295001f4dd53b';
   const String name = 'Location 3791';
-  test('Must return a LocationModel with name == "Location 3791" and id == "60fc4c8707a5ec001e8cc82f"', () {
+  test(
+      'Must return a LocationModel with name == "Location 3791" and id == "60fc4c8707a5ec001e8cc82f"',
+      () {
     final location = LocationModel.fromJson(locationItemResponse);
     expect(location.name, equals(name));
     expect(location.id, equals(id));

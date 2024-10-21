@@ -22,7 +22,8 @@ class CompanyModel {
 
   String toJson() => json.encode(toMap());
 
-  factory CompanyModel.fromJson(String source) => CompanyModel.fromMap(json.decode(source));
+  factory CompanyModel.fromJson(String source) =>
+      CompanyModel.fromMap(json.decode(source));
 
   CompanyModel copyWith({
     String? id,

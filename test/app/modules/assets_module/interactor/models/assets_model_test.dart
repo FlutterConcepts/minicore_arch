@@ -11,7 +11,9 @@ void main() {
   const String sensorType = 'vibration';
   const String status = 'alert';
   const String assetName = 'Sensor 204 - vibration';
-  test('Must return a AssetsModel with name == "Sensor 204 - vibration" and gatewayId == "VEQ023"', () {
+  test(
+      'Must return a AssetsModel with name == "Sensor 204 - vibration" and gatewayId == "VEQ023"',
+      () {
     final asset = AssetsModel.fromJson(assetItemResponse);
     expect(asset.name, equals(assetName));
     expect(asset.id, equals(id));

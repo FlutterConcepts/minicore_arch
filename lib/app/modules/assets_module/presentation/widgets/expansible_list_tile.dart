@@ -6,7 +6,8 @@ import 'package:minicore_arch_example/app/modules/assets_module/presentation/wid
 import 'package:minicore_arch_example/app/modules/assets_module/presentation/widgets/location_tile.dart';
 
 class ExpansibleListTile extends StatefulWidget {
-  const ExpansibleListTile({required this.item, required this.listNodes, super.key});
+  const ExpansibleListTile(
+      {required this.item, required this.listNodes, super.key});
   final NodeEntity item;
   final List<NodeEntity> listNodes;
 
@@ -34,7 +35,8 @@ class _ExpansibleListTileState extends State<ExpansibleListTile> {
           AssetsModelWidget(
             item: widget.item as AssetsModel,
             isExpanded: isExpanded,
-            isComponent: itemChilds.isEmpty || (widget.item as AssetsModel).sensorType.isNotEmpty,
+            isComponent: itemChilds.isEmpty ||
+                (widget.item as AssetsModel).sensorType.isNotEmpty,
             onTap: itemChilds.isEmpty ? null : changeExpanded,
           ),
         if (isExpanded)

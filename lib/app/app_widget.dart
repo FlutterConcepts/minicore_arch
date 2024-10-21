@@ -46,7 +46,9 @@ class _AppWidgetState extends State<AppWidget> {
         seedColor: selectedColor,
         brightness: selectedBrightness,
       )),
-      themeMode: state.themeState.theme == ThemeEnum.lightTheme ? ThemeMode.light : ThemeMode.dark,
+      themeMode: state.themeState.theme == ThemeEnum.lightTheme
+          ? ThemeMode.light
+          : ThemeMode.dark,
       routerConfig: Routers.router,
     );
   }

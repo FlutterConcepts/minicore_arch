@@ -2,10 +2,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:minicore_arch_example/app/modules/home/interactor/models/company_model.dart';
 
 void main() {
-  const String companyItemResponse = '''{"id":"662fd0ee639069143a8fc387","name":"Jaguar"}''';
+  const String companyItemResponse =
+      '''{"id":"662fd0ee639069143a8fc387","name":"Jaguar"}''';
   const String companyName = 'Jaguar';
   const String companyId = '662fd0ee639069143a8fc387';
-  test('Must return a CompanyModel with name == "Jaguar" and id == "662fd0ee639069143a8fc387"', () {
+  test(
+      'Must return a CompanyModel with name == "Jaguar" and id == "662fd0ee639069143a8fc387"',
+      () {
     final company = CompanyModel.fromJson(companyItemResponse);
     expect(company.name, equals(companyName));
     expect(company.id, equals(companyId));

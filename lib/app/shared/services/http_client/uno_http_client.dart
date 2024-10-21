@@ -193,7 +193,8 @@ class UnoHttpClient implements IHttpClient {
       if (kIsWeb && bytes != null) {
         // Se estiver rodando na web, use bytes
         // form.addFile(field, filePath, filename: filename);
-        form.addBytes(field, bytes, filename: filename, contentType: '$type/$subtype');
+        form.addBytes(field, bytes,
+            filename: filename, contentType: '$type/$subtype');
       } else if (filePath.isNotEmpty) {
         // Se estiver rodando nativamente, use o caminho do arquivo
         form.addFile(field, filePath, filename: filename);

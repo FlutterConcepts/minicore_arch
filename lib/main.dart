@@ -7,6 +7,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   injector.commit();
+
   runApp(
     const RxRoot(
       child: AppWidget(),

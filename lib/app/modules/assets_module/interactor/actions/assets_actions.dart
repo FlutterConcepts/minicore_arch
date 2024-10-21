@@ -34,7 +34,8 @@ void computeListAction() {
     if (node.parentId != null && nodeById.containsKey(node.parentId)) {
       childrenMap[node.parentId]!.add(node);
       assignedChildIds.add(node.id);
-    } else if (node.locationId != null && nodeById.containsKey(node.locationId)) {
+    } else if (node.locationId != null &&
+        nodeById.containsKey(node.locationId)) {
       childrenMap[node.locationId]!.add(node);
       assignedChildIds.add(node.id);
     }
@@ -42,8 +43,13 @@ void computeListAction() {
     node.children = childrenMap[node.id] ?? [];
   }
 
-  nodesComputedListState.value = [...locationsListState.value, ...assetsListState.value]
-      .where((node) => node.parentId == null && node.locationId == null || !assignedChildIds.contains(node.id))
+  nodesComputedListState.value = [
+    ...locationsListState.value,
+    ...assetsListState.value
+  ]
+      .where((node) =>
+          node.parentId == null && node.locationId == null ||
+          !assignedChildIds.contains(node.id))
       .toList();
 
   sortByChildren();
@@ -75,17 +81,19 @@ void filterListFromText(String filter) {
     nodesComputedListStateFiltered.value = nodesComputedListState.value;
     return;
   }
-  final list =
-      nodesComputedListState.value.where((e) => e.name.toLowerCase().trim().contains(filter.toLowerCase().trim()));
+  final list = nodesComputedListState.value.where(
+      (e) => e.name.toLowerCase().trim().contains(filter.toLowerCase().trim()));
   nodesComputedListStateFiltered.value = list.toList();
 }
 
 void filterListFromEnergySensors() {
-  final list = assetsListState.value.where((e) => e.sensorType.toLowerCase().contains('energy'));
+  final list = assetsListState.value
+      .where((e) => e.sensorType.toLowerCase().contains('energy'));
   nodesComputedListStateFiltered.value = list.toList();
 }
 
 void filterListFromCriticalAlert() {
-  final list = assetsListState.value.where((e) => e.status.toLowerCase().contains('alert'));
+  final list = assetsListState.value
+      .where((e) => e.status.toLowerCase().contains('alert'));
   nodesComputedListStateFiltered.value = list.toList();
 }

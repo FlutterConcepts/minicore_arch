@@ -27,5 +27,6 @@ class LocationModel extends NodeEntity {
 
   String toJson() => json.encode(toMap());
 
-  factory LocationModel.fromJson(String source) => LocationModel.fromMap(json.decode(source));
+  factory LocationModel.fromJson(String source) =>
+      LocationModel.fromMap(json.decode(source));
 }

@@ -13,7 +13,9 @@ class ThemeAppStore extends ValueNotifier<ThemeAppState> {
     final themePrefs = await prefs.getThemeApp();
     ThemeEnum theme;
 
-    themePrefs == ThemeEnum.darkTheme.name ? theme = ThemeEnum.darkTheme : theme = ThemeEnum.lightTheme;
+    themePrefs == ThemeEnum.darkTheme.name
+        ? theme = ThemeEnum.darkTheme
+        : theme = ThemeEnum.lightTheme;
 
     changeTheme(theme);
   }

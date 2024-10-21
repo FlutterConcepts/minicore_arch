@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomCompaniesIcon extends StatelessWidget {
-  const CustomCompaniesIcon({super.key, this.width = 40, this.height = 32, this.color});
+  const CustomCompaniesIcon(
+      {super.key, this.width = 40, this.height = 32, this.color});
   final double width;
   final double height;
   final Color? color;
@@ -29,7 +30,8 @@ class IconPainter extends CustomPainter {
       ..strokeWidth = 3; // Define a largura da borda
 
     // Função para desenhar um retângulo com borda superior menor (trapezoide)
-    void drawTrapezoid(Canvas canvas, Offset center, double widthTop, double widthBottom, double height) {
+    void drawTrapezoid(Canvas canvas, Offset center, double widthTop,
+        double widthBottom, double height) {
       final path = Path()
         ..moveTo(center.dx - widthTop / 2, center.dy - height / 2)
         ..lineTo(center.dx + widthTop / 2, center.dy - height / 2)

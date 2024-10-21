@@ -27,7 +27,9 @@ class AssetsModelWidget extends StatelessWidget {
         children: [
           if (!isComponent)
             Icon(
-              isExpanded ? CupertinoIcons.chevron_down : CupertinoIcons.chevron_right,
+              isExpanded
+                  ? CupertinoIcons.chevron_down
+                  : CupertinoIcons.chevron_right,
             ),
           Padding(
             padding: const EdgeInsets.all(2.0),
@@ -39,7 +41,8 @@ class AssetsModelWidget extends StatelessWidget {
           Flexible(
             child: Text(
               item.name,
-              style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+              style:
+                  textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
             ),
           ),
           if (item.status.contains('operating'))

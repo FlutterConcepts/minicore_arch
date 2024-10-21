@@ -49,7 +49,8 @@ class _AssetsPageState extends State<AssetsPage> {
       appBar: AppBar(
         title: Text(
           'Assets',
-          style: textTheme.headlineMedium?.copyWith(color: colorScheme.primary, fontWeight: FontWeight.bold),
+          style: textTheme.headlineMedium?.copyWith(
+              color: colorScheme.primary, fontWeight: FontWeight.bold),
         ),
       ),
       body: Padding(
@@ -101,7 +102,8 @@ class _AssetsPageState extends State<AssetsPage> {
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
-                          final node = nodesComputedListStateFiltered.value[index];
+                          final node =
+                              nodesComputedListStateFiltered.value[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: ExpansibleListTile(
