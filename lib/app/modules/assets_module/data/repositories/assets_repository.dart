@@ -12,11 +12,14 @@ class AssetsRepository implements IAssetsRepository {
 
   const AssetsRepository(this.httpClient);
   @override
-  Future<({List<LocationModel> locationList, String errorMessage})> getLocationList(String companyId) async {
+  Future<({List<LocationModel> locationList, String errorMessage})>
+      getLocationList(String companyId) async {
     try {
-      final response = await httpClient.get('$kCompaniesEndpoint/$companyId/locations');
-      final locationList =
-          List<Map<String, dynamic>>.from(response.data).map((element) => LocationModel.fromMap(element)).toList();
+      final response =
+          await httpClient.get('$kCompaniesEndpoint/$companyId/locations');
+      final locationList = List<Map<String, dynamic>>.from(response.data)
+          .map((element) => LocationModel.fromMap(element))
+          .toList();
       return (locationList: locationList, errorMessage: '');
     } on IAppFailure catch (e) {
       log(e.toString());
@@ -25,11 +28,14 @@ class AssetsRepository implements IAssetsRepository {
   }
 
   @override
-  Future<({List<AssetsModel> assetsList, String errorMessage})> getAssetsList(String companyId) async {
+  Future<({List<AssetsModel> assetsList, String errorMessage})> getAssetsList(
+      String companyId) async {
     try {
-      final response = await httpClient.get('$kCompaniesEndpoint/$companyId/assets');
-      final assetsList =
-          List<Map<String, dynamic>>.from(response.data).map((element) => AssetsModel.fromMap(element)).toList();
+      final response =
+          await httpClient.get('$kCompaniesEndpoint/$companyId/assets');
+      final assetsList = List<Map<String, dynamic>>.from(response.data)
+          .map((element) => AssetsModel.fromMap(element))
+          .toList();
       return (assetsList: assetsList, errorMessage: '');
     } on IAppFailure catch (e) {
       log(e.toString());

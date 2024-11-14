@@ -47,7 +47,9 @@ class _AppWidgetState extends State<AppWidget> {
           brightness: selectedBrightness,
         ),
       ),
-      themeMode: state.themeState.theme == ThemeType.lightTheme ? ThemeMode.light : ThemeMode.dark,
+      themeMode: state.themeState.theme == ThemeType.lightTheme
+          ? ThemeMode.light
+          : ThemeMode.dark,
       routerConfig: appRouterConfig,
     );
   }

@@ -11,11 +11,13 @@ class HomeRepository implements IHomeRepository {
 
   HomeRepository(this.httpClient);
   @override
-  Future<({List<CompanyModel> companiesList, String errorMessage})> getCompaniesList() async {
+  Future<({List<CompanyModel> companiesList, String errorMessage})>
+      getCompaniesList() async {
     try {
       final response = await httpClient.get(kCompaniesEndpoint);
-      final companiesList =
-          List<Map<String, dynamic>>.from(response.data).map((element) => CompanyModel.fromMap(element)).toList();
+      final companiesList = List<Map<String, dynamic>>.from(response.data)
+          .map((element) => CompanyModel.fromMap(element))
+          .toList();
       return (companiesList: companiesList, errorMessage: '');
     } on IAppFailure catch (e) {
       log(e.toString());

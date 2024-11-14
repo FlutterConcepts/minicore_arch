@@ -6,7 +6,8 @@ import 'package:minicore_arch_example/app/modules/assets_module/interactor/repos
 Future<void> getAssetsListAction(String companyId) async {
   final repository = injector.get<IAssetsRepository>();
   isLoadingState.value = true;
-  final (:assetsList, :errorMessage) = await repository.getAssetsList(companyId);
+  final (:assetsList, :errorMessage) =
+      await repository.getAssetsList(companyId);
   assetsListState.value = assetsList;
   errorMessageState.value = errorMessage;
   isLoadingState.value = false;
@@ -15,7 +16,8 @@ Future<void> getAssetsListAction(String companyId) async {
 Future<void> getLocationListAction(String companyId) async {
   final repository = injector.get<IAssetsRepository>();
   isLoadingState.value = true;
-  final (:locationList, :errorMessage) = await repository.getLocationList(companyId);
+  final (:locationList, :errorMessage) =
+      await repository.getLocationList(companyId);
   locationsListState.value = locationList;
   errorMessageState.value = errorMessage;
   isLoadingState.value = false;
@@ -42,8 +44,13 @@ void computeListAction() {
     node.children = childrenMap[node.id] ?? [];
   }
 
-  nodesComputedListState.value = [...locationsListState.value, ...assetsListState.value]
-      .where((node) => node.parentId == null && node.locationId == null || !assignedChildIds.contains(node.id))
+  nodesComputedListState.value = [
+    ...locationsListState.value,
+    ...assetsListState.value
+  ]
+      .where((node) =>
+          node.parentId == null && node.locationId == null ||
+          !assignedChildIds.contains(node.id))
       .toList();
 
   sortByChildren();
@@ -75,17 +82,23 @@ void filterListFromText(String filter) {
     nodesComputedListStateFiltered.value = nodesComputedListState.value;
     return;
   }
-  final list =
-      nodesComputedListState.value.where((e) => e.name.toLowerCase().trim().contains(filter.toLowerCase().trim()));
-  nodesComputedListStateFiltered.value = list.toList();
+  final list = nodesComputedListState.value
+      .where((e) =>
+          e.name.toLowerCase().trim().contains(filter.toLowerCase().trim()))
+      .toList();
+  nodesComputedListStateFiltered.value = list;
 }
 
 void filterListFromEnergySensors() {
-  final list = assetsListState.value.where((e) => e.sensorType.toLowerCase().contains('energy'));
-  nodesComputedListStateFiltered.value = list.toList();
+  final list = assetsListState.value
+      .where((e) => e.sensorType.toLowerCase().contains('energy'))
+      .toList();
+  nodesComputedListStateFiltered.value = list;
 }
 
 void filterListFromCriticalAlert() {
-  final list = assetsListState.value.where((e) => e.status.toLowerCase().contains('alert'));
-  nodesComputedListStateFiltered.value = list.toList();
+  final list = assetsListState.value
+      .where((e) => e.status.toLowerCase().contains('alert'))
+      .toList();
+  nodesComputedListStateFiltered.value = list;
 }

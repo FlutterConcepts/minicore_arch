@@ -13,7 +13,9 @@ class AppThemeStore extends ValueNotifier<AppThemeState> {
     final themePrefs = await prefs.getAppTheme();
     ThemeType theme;
 
-    themePrefs == ThemeType.darkTheme.name ? theme = ThemeType.darkTheme : theme = ThemeType.lightTheme;
+    themePrefs == ThemeType.darkTheme.name
+        ? theme = ThemeType.darkTheme
+        : theme = ThemeType.lightTheme;
 
     changeTheme(theme);
   }
