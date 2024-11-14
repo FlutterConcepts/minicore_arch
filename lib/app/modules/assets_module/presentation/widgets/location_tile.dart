@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:minicore_arch_example/app/modules/assets_module/interactor/models/location_model.dart';
 
-class LocationModelWidget extends StatelessWidget {
+class LocationTile extends StatelessWidget {
   final LocationModel item;
   final bool isExpanded;
   final bool showChevron;
   final void Function()? onTap;
 
-  const LocationModelWidget({
+  const LocationTile({
     required this.item,
     required this.isExpanded,
     required this.showChevron,
@@ -27,9 +27,7 @@ class LocationModelWidget extends StatelessWidget {
         children: [
           if (showChevron)
             Icon(
-              isExpanded
-                  ? CupertinoIcons.chevron_down
-                  : CupertinoIcons.chevron_right,
+              isExpanded ? CupertinoIcons.chevron_down : CupertinoIcons.chevron_right,
             ),
           Padding(
             padding: const EdgeInsets.all(2.0),
@@ -41,8 +39,7 @@ class LocationModelWidget extends StatelessWidget {
           Flexible(
             child: Text(
               item.name,
-              style:
-                  textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+              style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
             ),
           ),
         ],

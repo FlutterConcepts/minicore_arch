@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:minicore_arch_example/app/modules/assets_module/interactor/models/assets_model.dart';
 
-class AssetsModelWidget extends StatelessWidget {
+class AssetTile extends StatelessWidget {
   final AssetsModel item;
   final bool isExpanded;
   final bool isComponent;
   final void Function()? onTap;
 
-  const AssetsModelWidget({
+  const AssetTile({
     required this.item,
     required this.isExpanded,
     required this.isComponent,
@@ -27,9 +27,7 @@ class AssetsModelWidget extends StatelessWidget {
         children: [
           if (!isComponent)
             Icon(
-              isExpanded
-                  ? CupertinoIcons.chevron_down
-                  : CupertinoIcons.chevron_right,
+              isExpanded ? CupertinoIcons.chevron_down : CupertinoIcons.chevron_right,
             ),
           Padding(
             padding: const EdgeInsets.all(2.0),
@@ -41,8 +39,7 @@ class AssetsModelWidget extends StatelessWidget {
           Flexible(
             child: Text(
               item.name,
-              style:
-                  textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
+              style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w500),
             ),
           ),
           if (item.status.contains('operating'))

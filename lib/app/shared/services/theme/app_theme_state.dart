@@ -5,7 +5,7 @@ class AppThemeState {
 
   const AppThemeState({required this.theme});
 
-  factory AppThemeState.initState() {
+  factory AppThemeState.standard() {
     return const AppThemeState(theme: ThemeType.lightTheme);
   }
 }

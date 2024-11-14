@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+// Entity + DTO
 class CompanyModel {
   final String id;
   final String name;
@@ -22,16 +23,5 @@ class CompanyModel {
 
   String toJson() => json.encode(toMap());
 
-  factory CompanyModel.fromJson(String source) =>
-      CompanyModel.fromMap(json.decode(source));
-
-  CompanyModel copyWith({
-    String? id,
-    String? name,
-  }) {
-    return CompanyModel(
-      id: id ?? this.id,
-      name: name ?? this.name,
-    );
-  }
+  factory CompanyModel.fromJson(String source) => CompanyModel.fromMap(json.decode(source));
 }

@@ -3,15 +3,15 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:minicore_arch_example/app/shared/constants/constants.dart';
 import 'package:minicore_arch_example/app/shared/errors/http_client_error.dart';
+import 'package:minicore_arch_example/app/shared/services/http_client/http_client.dart';
 import 'package:minicore_arch_example/app/shared/services/http_client/http_response.dart';
-import 'package:minicore_arch_example/app/shared/services/http_client/i_http_client.dart';
 import 'package:minicore_arch_example/app/shared/services/http_client/typedefs.dart';
 import 'package:uno/uno.dart';
 
-class UnoHttpClient implements IHttpClient {
+class UnoHttpClientImpl implements HttpClient {
   final Uno uno;
 
-  UnoHttpClient(this.uno) {
+  UnoHttpClientImpl(this.uno) {
     uno.interceptors.request.use(
       (request) async {
         return request;
@@ -193,8 +193,7 @@ class UnoHttpClient implements IHttpClient {
       if (kIsWeb && bytes != null) {
         // Se estiver rodando na web, use bytes
         // form.addFile(field, filePath, filename: filename);
-        form.addBytes(field, bytes,
-            filename: filename, contentType: '$type/$subtype');
+        form.addBytes(field, bytes, filename: filename, contentType: '$type/$subtype');
       } else if (filePath.isNotEmpty) {
         // Se estiver rodando nativamente, use o caminho do arquivo
         form.addFile(field, filePath, filename: filename);

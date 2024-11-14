@@ -1,26 +1,24 @@
 import 'package:minicore_arch_example/app/injector.dart';
-import 'package:minicore_arch_example/app/modules/assets_module/interactor/atoms/assets_atoms.dart';
+import 'package:minicore_arch_example/app/modules/assets_module/interactor/atoms/assets_state_atoms.dart';
 import 'package:minicore_arch_example/app/modules/assets_module/interactor/models/node_entity.dart';
-import 'package:minicore_arch_example/app/modules/assets_module/interactor/repositories/i_assets_repository.dart';
+import 'package:minicore_arch_example/app/modules/assets_module/interactor/repositories/assets_repository.dart';
 
 Future<void> getAssetsListAction(String companyId) async {
-  final repository = injector.get<IAssetsRepository>();
-  isLoadingState.value = true;
-  final (:assetsList, :errorMessage) =
-      await repository.getAssetsList(companyId);
-  assetsListState.value = assetsList;
-  errorMessageState.value = errorMessage;
-  isLoadingState.value = false;
+  final repository = injector.get<AssetsRepository>();
+  AssetsSA.isLoadingStateAtom.value = true;
+  final (:assetsList, :errorMessage) = await repository.getAssetsList(companyId);
+  AssetsSA.assetsListStateAtom.value = assetsList;
+  AssetsSA.errorMessageStateAtom.value = errorMessage;
+  AssetsSA.isLoadingStateAtom.value = false;
 }
 
 Future<void> getLocationListAction(String companyId) async {
-  final repository = injector.get<IAssetsRepository>();
-  isLoadingState.value = true;
-  final (:locationList, :errorMessage) =
-      await repository.getLocationList(companyId);
-  locationsListState.value = locationList;
-  errorMessageState.value = errorMessage;
-  isLoadingState.value = false;
+  final repository = injector.get<AssetsRepository>();
+  AssetsSA.isLoadingStateAtom.value = true;
+  final (:locationList, :errorMessage) = await repository.getLocationList(companyId);
+  AssetsSA.locationsListStateAtom.value = locationList;
+  AssetsSA.errorMessageStateAtom.value = errorMessage;
+  AssetsSA.isLoadingStateAtom.value = false;
 }
 
 void computeListAction() {
@@ -29,7 +27,7 @@ void computeListAction() {
 
   final Map<String, NodeEntity> nodeById = {};
 
-  for (final node in [...locationsListState.value, ...assetsListState.value]) {
+  for (final node in [...AssetsSA.locationsListStateAtom.value, ...AssetsSA.assetsListStateAtom.value]) {
     nodeById[node.id] = node;
     childrenMap.putIfAbsent(node.id, () => []);
 
@@ -44,22 +42,18 @@ void computeListAction() {
     node.children = childrenMap[node.id] ?? [];
   }
 
-  nodesComputedListState.value = [
-    ...locationsListState.value,
-    ...assetsListState.value
-  ]
-      .where((node) =>
-          node.parentId == null && node.locationId == null ||
-          !assignedChildIds.contains(node.id))
-      .toList();
+  AssetsSA.nodesListComputedStateAtom.value = [
+    ...AssetsSA.locationsListStateAtom.value,
+    ...AssetsSA.assetsListStateAtom.value
+  ].where((node) => node.parentId == null && node.locationId == null || !assignedChildIds.contains(node.id)).toList();
 
   sortByChildren();
 
-  nodesComputedListStateFiltered.value = nodesComputedListState.value;
+  AssetsSA.nodesFilteredListComputedStateAtom.value = AssetsSA.nodesListComputedStateAtom.value;
 }
 
 void sortByChildren() {
-  nodesComputedListState.value.sort((a, b) {
+  AssetsSA.nodesListComputedStateAtom.value.sort((a, b) {
     final bool aHasChildren = a.children.isNotEmpty;
     final bool bHasChildren = b.children.isNotEmpty;
 
@@ -74,31 +68,26 @@ void sortByChildren() {
 }
 
 void filterListFromText(String filter) {
-  nodesComputedListState.value = [
-    ...locationsListState.value,
-    ...assetsListState.value,
+  AssetsSA.nodesListComputedStateAtom.value = [
+    ...AssetsSA.locationsListStateAtom.value,
+    ...AssetsSA.assetsListStateAtom.value,
   ];
   if (filter.isEmpty) {
-    nodesComputedListStateFiltered.value = nodesComputedListState.value;
+    AssetsSA.nodesFilteredListComputedStateAtom.value = AssetsSA.nodesListComputedStateAtom.value;
     return;
   }
-  final list = nodesComputedListState.value
-      .where((e) =>
-          e.name.toLowerCase().trim().contains(filter.toLowerCase().trim()))
+  final list = AssetsSA.nodesListComputedStateAtom.value
+      .where((e) => e.name.toLowerCase().trim().contains(filter.toLowerCase().trim()))
       .toList();
-  nodesComputedListStateFiltered.value = list;
+  AssetsSA.nodesFilteredListComputedStateAtom.value = list;
 }
 
 void filterListFromEnergySensors() {
-  final list = assetsListState.value
-      .where((e) => e.sensorType.toLowerCase().contains('energy'))
-      .toList();
-  nodesComputedListStateFiltered.value = list;
+  final list = AssetsSA.assetsListStateAtom.value.where((e) => e.sensorType.toLowerCase().contains('energy')).toList();
+  AssetsSA.nodesFilteredListComputedStateAtom.value = list;
 }
 
 void filterListFromCriticalAlert() {
-  final list = assetsListState.value
-      .where((e) => e.status.toLowerCase().contains('alert'))
-      .toList();
-  nodesComputedListStateFiltered.value = list;
+  final list = AssetsSA.assetsListStateAtom.value.where((e) => e.status.toLowerCase().contains('alert')).toList();
+  AssetsSA.nodesFilteredListComputedStateAtom.value = list;
 }

@@ -19,11 +19,6 @@ class SelectableButtonsState extends State<SelectableButtons> {
   int selectedIndex = -1;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -45,12 +40,9 @@ class SelectableButtonsState extends State<SelectableButtons> {
           },
           child: Container(
             margin: const EdgeInsets.only(right: 8.0),
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             decoration: BoxDecoration(
-              color: selectedIndex == index
-                  ? colorScheme.primary
-                  : colorScheme.onPrimary,
+              color: selectedIndex == index ? colorScheme.primary : colorScheme.onPrimary,
               borderRadius: BorderRadius.circular(8.0),
               border: Border.all(color: colorScheme.primary),
             ),
@@ -58,17 +50,13 @@ class SelectableButtonsState extends State<SelectableButtons> {
               children: [
                 Icon(
                   widget.children[index].icon,
-                  color: selectedIndex == index
-                      ? colorScheme.onPrimary
-                      : colorScheme.primary,
+                  color: selectedIndex == index ? colorScheme.onPrimary : colorScheme.primary,
                 ),
                 const SizedBox(width: 8.0),
                 Text(
                   widget.children[index].text,
                   style: TextStyle(
-                    color: selectedIndex == index
-                        ? colorScheme.onPrimary
-                        : colorScheme.primary,
+                    color: selectedIndex == index ? colorScheme.onPrimary : colorScheme.primary,
                   ),
                 ),
               ],

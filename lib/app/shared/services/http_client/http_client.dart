@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:minicore_arch_example/app/shared/services/http_client/typedefs.dart';
 
-abstract class IHttpClient {
+abstract class HttpClient {
   AsyncResponse get(
     String url, {
     dynamic data,

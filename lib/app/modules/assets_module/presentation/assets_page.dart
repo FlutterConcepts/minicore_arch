@@ -4,7 +4,7 @@ import 'package:asp/asp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:minicore_arch_example/app/modules/assets_module/interactor/actions/assets_actions.dart';
-import 'package:minicore_arch_example/app/modules/assets_module/interactor/atoms/assets_atoms.dart';
+import 'package:minicore_arch_example/app/modules/assets_module/interactor/atoms/assets_state_atoms.dart';
 import 'package:minicore_arch_example/app/modules/assets_module/interactor/models/node_entity.dart';
 import 'package:minicore_arch_example/app/modules/assets_module/presentation/widgets/expansible_list_tile.dart';
 import 'package:minicore_arch_example/app/shared/widgets/buttons/Selectable_buttons.dart';
@@ -37,22 +37,22 @@ class _AssetsPageState extends State<AssetsPage> {
     final textTheme = theme.textTheme;
 
     context.select(() => [
-          assetsListState,
-          locationsListState,
-          nodesComputedListState,
-          nodesComputedListStateFiltered,
-          isLoadingState,
-          errorMessageState,
+          // TODO(Kevin): verify why these two atoms are or are not necessary
+          // assetsListStateAtom,
+          // locationsListStateAtom,
+          AssetsSA.nodesListComputedStateAtom,
+          AssetsSA.nodesFilteredListComputedStateAtom,
+          AssetsSA.isLoadingStateAtom,
+          AssetsSA.errorMessageStateAtom,
         ]);
 
-    final List<NodeEntity> nodesList = nodesComputedListStateFiltered.value;
+    final List<NodeEntity> nodesList = AssetsSA.nodesFilteredListComputedStateAtom.value;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Assets',
-          style: textTheme.headlineMedium?.copyWith(
-              color: colorScheme.primary, fontWeight: FontWeight.bold),
+          style: textTheme.headlineMedium?.copyWith(color: colorScheme.primary, fontWeight: FontWeight.bold),
         ),
       ),
       body: Padding(
@@ -85,13 +85,13 @@ class _AssetsPageState extends State<AssetsPage> {
                 ],
               ),
             ),
-            if (isLoadingState.value)
+            if (AssetsSA.isLoadingStateAtom.value)
               const Center(
                 child: CircularProgressIndicator.adaptive(),
               )
-            else if (errorMessageState.value.isNotEmpty)
+            else if (AssetsSA.errorMessageStateAtom.value.isNotEmpty)
               Center(
-                child: Text(errorMessageState.value),
+                child: Text(AssetsSA.errorMessageStateAtom.value),
               )
             else if (nodesList.isEmpty)
               const Center(
@@ -104,17 +104,16 @@ class _AssetsPageState extends State<AssetsPage> {
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
-                          final node =
-                              nodesComputedListStateFiltered.value[index];
+                          final node = AssetsSA.nodesFilteredListComputedStateAtom.value[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: ExpansibleListTile(
                               item: node,
-                              listNodes: nodesComputedListState.value,
+                              listNodes: AssetsSA.nodesListComputedStateAtom.value,
                             ),
                           );
                         },
-                        childCount: nodesComputedListStateFiltered.value.length,
+                        childCount: AssetsSA.nodesFilteredListComputedStateAtom.value.length,
                       ),
                     ),
                   ],

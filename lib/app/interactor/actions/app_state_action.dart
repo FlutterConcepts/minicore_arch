@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:minicore_arch_example/app/injector.dart';
-import 'package:minicore_arch_example/app/interactor/app_atom.dart';
+import 'package:minicore_arch_example/app/interactor/atoms/app_state_atoms.dart';
 import 'package:minicore_arch_example/app/shared/services/theme/app_theme_state.dart';
 import 'package:minicore_arch_example/app/shared/services/theme/app_theme_store.dart';
 
@@ -16,5 +16,5 @@ void changeTheme(ThemeType theme) {
 }
 
 void updateTheme(AppThemeState themeState) {
-  appState.value = appState.value.copyWith(themeState: themeState);
+  AppSA.appStateAtom.value = AppSA.appStateAtom.value.copyWith(themeState: themeState);
 }
