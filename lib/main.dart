@@ -6,16 +6,7 @@ import 'package:minicore_arch_example/features/car_catalog/ui/car_catalog_page.d
 import 'package:minicore_arch_example/features/car_catalog/ui/car_catalog_provider.dart';
 
 void main() {
-  final httpClient = http.Client();
-  final fetchUseCase = FetchCarCatalogUseCaseImpl(httpClient: httpClient);
-  final carCatalogInteractor = CarCatalogInteractor(fetchUseCase: fetchUseCase);
-
-  runApp(
-    CarCatalogProvider(
-      interactor: carCatalogInteractor,
-      child: const App(),
-    ),
-  );
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
@@ -23,9 +14,17 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    final httpClient = http.Client();
+    final fetchUseCase = FetchCarCatalogUseCaseImpl(httpClient: httpClient);
+    final carCatalogInteractor =
+        CarCatalogInteractor(fetchUseCase: fetchUseCase);
+
+    return MaterialApp(
       title: 'MiniCore Arch',
-      home: CarCatalogPage(),
+      home: CarCatalogProvider(
+        interactor: carCatalogInteractor,
+        child: const CarCatalogPage(),
+      ),
     );
   }
 }
