@@ -1,6 +1,6 @@
-🇺🇸 
 # MiniCore Arch Example
 
+🇺🇸
 **MiniCore Arch** is an innovative approach created by the **Flutterando** community, based on **Clean Architecture**, designed to provide a simple yet robust way to structure Flutter projects. This project serves as a practical example of how to efficiently organize your code, reducing complexity without compromising quality and scalability.
 
 ---
@@ -104,7 +104,6 @@ Contributions are very welcome! Feel free to suggest improvements, report issues
 ---
 
 🇧🇷
-
 **MiniCore Arch** é uma abordagem inovadora criada pela comunidade do **Flutterando**, baseada no **Clean Architecture**, com o objetivo de oferecer uma maneira simples e robusta de estruturar projetos Flutter. Este projeto é um exemplo prático que demonstra como organizar seu código de forma eficiente, reduzindo a complexidade sem comprometer a qualidade e a escalabilidade.
 
 ---
@@ -204,3 +203,109 @@ Contribuições são muito bem-vindas! Sinta-se à vontade para sugerir melhoria
 
 - Abra uma **issue** para discutir ideias.
 - Envie um **pull request** para compartilhar suas contribuições com a comunidade.
+
+---
+
+## Extras
+
+🇺🇸
+The term **"Interactor"** originates from English and can be understood as **"intermediary"** or **"interaction agent"**. In the context of software development, especially in architectures like **Clean Architecture** or **MVP**, the **Interactor** plays a significant role as **the layer responsible for the business logic of the application**.
+
+---
+
+### **Meaning and Function**
+1. **Intermediary between UI and Data**:
+   - It connects the **UI (User Interface)** layer to the **Data** layer (which handles external sources like APIs or databases).
+   - Its main function is to **ensure that business logic remains isolated** from other layers.
+
+2. **Executes Business Rules**:
+   - All necessary processing or validation before sending or receiving data occurs within the Interactor.
+   - Example: calculating the total for a shopping cart, validating user information, or deciding which data to fetch from an API.
+
+3. **Decoupling**:
+   - It shields the UI layer from directly knowing the Data layer and vice versa.
+   - This promotes a cleaner, more modular design, making testing and maintenance easier.
+
+---
+
+### **Why the Name "Interactor"?**
+The name "Interactor" refers to its primary role: **interacting with different parts of the system** (UI and Data) and acting as an intermediary between them, ensuring that business logic is applied correctly.
+
+---
+
+### **Practical Example**
+Imagine an application that displays a car catalog:
+
+- **UI**:
+  - A "Fetch Cars" button is clicked.
+  - The UI sends a request to the **Interactor**.
+
+- **Interactor**:
+  - Receives the request from the UI.
+  - Decides to call the "Fetch Car Catalog" use case.
+  - Processes the result and returns it to the UI.
+
+- **Data**:
+  - The use case makes an API call or queries a database to retrieve the requested data.
+
+---
+
+### **Analogies**
+- Think of the Interactor as the **brain** of the system. It makes decisions and coordinates how information flows between other parts.
+- It’s also like a **translator**, ensuring that the UI and Data layers can communicate without knowing each other directly.
+
+---
+
+**In summary**: The Interactor is a fundamental layer for organizing and centralizing business logic, ensuring the system is modular, testable, and well-structured.
+
+---
+
+🇧🇷
+O termo **"Interactor"** vem do inglês e pode ser entendido como **"intermediador"** ou **"agente de interação"**. No contexto de desenvolvimento de software, especialmente em arquiteturas como **Clean Architecture** ou **MVP**, o **Interactor** desempenha um papel importante como **a camada responsável pela lógica de negócios da aplicação**.
+
+---
+
+### **Significado e Função**
+1. **Intermediador entre UI e Data**:
+   - Ele conecta a camada de **UI (Interface do Usuário)** à camada de **Data** (que lida com fontes externas como APIs ou bancos de dados).
+   - Sua principal função é **garantir que a lógica de negócios permaneça isolada** das outras camadas.
+
+2. **Executa Regras de Negócio**:
+   - Todo o processamento ou validação necessária antes de enviar ou receber dados ocorre no Interactor.
+   - Exemplo: calcular o total de um carrinho de compras, validar informações do usuário, ou decidir qual dado buscar na API.
+
+3. **Desacoplamento**:
+   - Ele protege a camada de UI de conhecer diretamente a camada de Data e vice-versa.
+   - Isso promove um design mais limpo e modular, facilitando testes e manutenções.
+
+---
+
+### **Por que o nome "Interactor"?**
+O nome "Interactor" é uma referência à sua função principal: **interagir com diferentes partes do sistema** (UI e Data) e atuar como um intermediário entre elas, garantindo que a lógica de negócios seja aplicada corretamente.
+
+---
+
+### **Exemplo Prático**
+Imagine um aplicativo que exibe um catálogo de carros:
+
+- **UI**:
+  - Um botão "Buscar carros" é clicado.
+  - A UI envia uma solicitação para o **Interactor**.
+
+- **Interactor**:
+  - Recebe a solicitação da UI.
+  - Decide chamar o caso de uso de "Buscar catálogo de carros".
+  - Processa o resultado e retorna para a UI.
+
+- **Data**:
+  - O caso de uso faz uma chamada à API ou consulta um banco de dados para obter os dados solicitados.
+
+---
+
+### **Analogias**
+- Pense no Interactor como o **cérebro** do sistema. Ele toma decisões e coordena como as informações fluem entre as outras partes.
+- Ele também é como um **tradutor**, garantindo que a UI e o Data possam se comunicar sem se conhecer diretamente.
+
+---
+
+**Em resumo**: O Interactor é uma camada fundamental para organizar e centralizar a lógica de negócios, garantindo que o sistema seja modular, testável e bem estruturado.
