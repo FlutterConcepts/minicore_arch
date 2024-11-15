@@ -8,7 +8,7 @@ class CarCatalogInteractor extends ValueNotifier<CarCatalogState> {
   CarCatalogInteractor({required this.fetchUseCase})
       : super(CarCatalogLoading());
 
-  void fetch() async {
+  Future<void> fetch() async {
     value = CarCatalogLoading();
     final newState = await fetchUseCase.call();
     value = newState;
