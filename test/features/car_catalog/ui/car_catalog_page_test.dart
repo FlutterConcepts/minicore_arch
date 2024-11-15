@@ -23,10 +23,12 @@ void main() {
     late CarInteractorMock interactor;
 
     setUp(() {
+      // Arrange
       interactor = CarInteractorMock();
     });
 
     testWidgets('Should correctly display the page states', (tester) async {
+      // Act
       await tester.pumpWidget(
         CarCatalogProvider(
           interactor: interactor,
@@ -36,25 +38,34 @@ void main() {
         ),
       );
 
+      // Assert
       expect(find.byKey(const Key('CarCatalogLoading')), findsOneWidget);
       expect(find.byKey(const Key('CarCatalogFailure')), findsNothing);
       expect(find.byKey(const Key('CarCatalogSuccess')), findsNothing);
 
+      // Arrange
       interactor.value = const CarCatalogSuccess(carCatalog: []);
+
+      // Act
       await tester.pump();
 
-      expect(find.byKey(const Key('CarCatalogSuccess')), findsOneWidget);
+      // Assert
       expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
+      expect(find.byKey(const Key('CarCatalogSuccess')), findsOneWidget);
       expect(find.byKey(const Key('CarCatalogFailure')), findsNothing);
 
+      // Arrange
       final String errorMessage = faker.lorem.sentence();
       interactor.value = CarCatalogFailure(errorMessage);
+
+      // Act
       await tester.pump();
 
+      // Assert
+      expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
+      expect(find.byKey(const Key('CarCatalogSuccess')), findsNothing);
       expect(find.byKey(const Key('CarCatalogFailure')), findsOneWidget);
       expect(find.text(errorMessage), findsOneWidget);
-      expect(find.byKey(const Key('CarCatalogSuccess')), findsNothing);
-      expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
     });
   });
 }

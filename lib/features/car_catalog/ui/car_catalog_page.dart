@@ -13,8 +13,8 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      CarCatalogProvider.of(context, listen: false).fetch();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await CarCatalogProvider.of(context, listen: false).fetch();
     });
   }
 

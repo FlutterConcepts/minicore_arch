@@ -11,17 +11,16 @@ import 'package:mocktail/mocktail.dart';
 class MockHttpClient extends Mock implements http.Client {}
 
 void main() {
-  late final Faker faker;
   late MockHttpClient mockHttpClient;
   late FetchCarCatalogUseCaseImpl sut;
 
   setUp(() {
+    // Arrange
     mockHttpClient = MockHttpClient();
     sut = FetchCarCatalogUseCaseImpl(httpClient: mockHttpClient);
   });
 
   setUpAll(() {
-    faker = Faker();
     registerFallbackValue(Uri.parse(''));
   });
 
@@ -36,7 +35,6 @@ void main() {
           'nome': faker.vehicle.model(),
         };
       }));
-
       when(() => mockHttpClient.get(any())).thenAnswer(
         (_) async => http.Response(mockResponseData, 200),
       );
@@ -57,7 +55,6 @@ void main() {
       // Arrange
       const mockStatusCode = 404;
       final mockMessage = faker.lorem.sentence();
-
       when(() => mockHttpClient.get(any())).thenAnswer(
         (_) async => http.Response(mockMessage, mockStatusCode),
       );
@@ -76,7 +73,6 @@ void main() {
         () async {
       // Arrange
       final mockExceptionMessage = faker.lorem.sentence();
-
       when(() => mockHttpClient.get(any()))
           .thenThrow(Exception(mockExceptionMessage));
 
