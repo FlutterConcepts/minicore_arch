@@ -1,6 +1,8 @@
-# MiniCore Arch Example
+# MiniCore Arch Example  
+**Available in English 🇺🇸 and Portuguese 🇧🇷**
 
 🇺🇸
+
 **MiniCore Arch** is an innovative approach created by the **Flutterando** community, based on **Clean Architecture**, designed to provide a simple yet robust way to structure Flutter projects. This project serves as a practical example of how to efficiently organize your code, reducing complexity without compromising quality and scalability.
 
 ---
@@ -104,6 +106,7 @@ Contributions are very welcome! Feel free to suggest improvements, report issues
 ---
 
 🇧🇷
+
 **MiniCore Arch** é uma abordagem inovadora criada pela comunidade do **Flutterando**, baseada no **Clean Architecture**, com o objetivo de oferecer uma maneira simples e robusta de estruturar projetos Flutter. Este projeto é um exemplo prático que demonstra como organizar seu código de forma eficiente, reduzindo a complexidade sem comprometer a qualidade e a escalabilidade.
 
 ---
@@ -209,6 +212,7 @@ Contribuições são muito bem-vindas! Sinta-se à vontade para sugerir melhoria
 ## Extras
 
 🇺🇸
+
 The term **"Interactor"** originates from English and can be understood as **"intermediary"** or **"interaction agent"**. In the context of software development, especially in architectures like **Clean Architecture** or **MVP**, the **Interactor** plays a significant role as **the layer responsible for the business logic of the application**.
 
 ---
@@ -261,6 +265,7 @@ Imagine an application that displays a car catalog:
 ---
 
 🇧🇷
+
 O termo **"Interactor"** vem do inglês e pode ser entendido como **"intermediador"** ou **"agente de interação"**. No contexto de desenvolvimento de software, especialmente em arquiteturas como **Clean Architecture** ou **MVP**, o **Interactor** desempenha um papel importante como **a camada responsável pela lógica de negócios da aplicação**.
 
 ---
