@@ -25,8 +25,7 @@ void main() {
       interactor = CarInteractorMock();
     });
 
-    testWidgets('Deve exibir corretamente os estados da página',
-        (tester) async {
+    testWidgets('Should correctly display the page states', (tester) async {
       await tester.pumpWidget(
         CarCatalogProvider(
           interactor: interactor,
@@ -47,11 +46,11 @@ void main() {
       expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
       expect(find.byKey(const Key('CarCatalogFailure')), findsNothing);
 
-      interactor.value = const CarCatalogFailure('falha');
+      interactor.value = const CarCatalogFailure('failure');
       await tester.pump();
 
       expect(find.byKey(const Key('CarCatalogFailure')), findsOneWidget);
-      expect(find.text('falha'), findsOneWidget);
+      expect(find.text('failure'), findsOneWidget);
       expect(find.byKey(const Key('CarCatalogSuccess')), findsNothing);
       expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
     });
