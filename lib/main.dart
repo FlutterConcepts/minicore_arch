@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:minicore_exemple/src/features/car/data/service_request_web.dart';
-import 'package:minicore_exemple/src/features/car/ui/car_provider.dart';
-
-import 'src/features/car/interactor/car_interactor.dart';
-import 'src/features/car/ui/car_page.dart';
+import 'package:minicore_arch_example/features/car_catalog/data/usecases/load_car_catalog_usecase_impl.dart';
+import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_interactor.dart';
+import 'package:minicore_arch_example/features/car_catalog/ui/car_catalog_page.dart';
+import 'package:minicore_arch_example/features/car_catalog/ui/car_catalog_provider.dart';
 
 void main() {
+  final httpClient = Client();
+  final loadCarCatalogUseCase =
+      LoadCarCatalogUseCaseImpl(httpClient: httpClient);
+  final carCatalogInteractor =
+      CarCatalogInteractor(loadUseCase: loadCarCatalogUseCase);
+
   runApp(
-    CarProvider(
-      carInteractor: CarInteractor(ServiceRequestWeb(Client())),
-      child: const MyApp(),
+    CarCatalogProvider(
+      interactor: carCatalogInteractor,
+      child: const App(),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MiniCore',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const CarPage(),
+    return const MaterialApp(
+      title: 'MiniCore Arch',
+      home: CarCatalogPage(),
     );
   }
 }
