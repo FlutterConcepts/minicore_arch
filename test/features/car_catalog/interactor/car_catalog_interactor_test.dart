@@ -11,51 +11,54 @@ void main() {
   late FetchCarCatalogUseCase mockFetchUseCase;
   late CarCatalogInteractor sut;
 
+  List<CarCatalogState> captureStates(CarCatalogInteractor interactor) {
+    final states = <CarCatalogState>[];
+    interactor.addListener(() {
+      states.add(interactor.value);
+    });
+    return states;
+  }
+
   setUp(() {
     mockFetchUseCase = MockFetchCarCatalogUseCase();
     sut = CarCatalogInteractor(fetchUseCase: mockFetchUseCase);
   });
 
-  test('Process fetch car catalog with success', () async {
-    // Arrange
-    when(() => mockFetchUseCase.call())
-        .thenAnswer((_) async => const CarCatalogSuccess(carCatalog: []));
-    final states = <CarCatalogState>[];
-    sut.addListener(() {
-      states.add(sut.value);
+  group('CarCatalogInteractor Tests', () {
+    test('Should emit loading and success states when fetching succeeds',
+        () async {
+      // Arrange
+      when(() => mockFetchUseCase.call())
+          .thenAnswer((_) async => const CarCatalogSuccess(carCatalog: []));
+      final states = captureStates(sut);
+
+      // Act
+      await sut.fetch();
+
+      // Assert
+      expect(states, [
+        isA<CarCatalogLoading>(),
+        isA<CarCatalogSuccess>(),
+      ]);
+      verify(() => mockFetchUseCase.call()).called(1);
     });
 
-    // Act
-    await sut.fetch();
+    test('Should emit loading and failure states when fetching fails',
+        () async {
+      // Arrange
+      when(() => mockFetchUseCase.call())
+          .thenAnswer((_) async => const CarCatalogFailure('falha'));
+      final states = captureStates(sut);
 
-    // Assert
-    expect(states, [
-      isA<CarCatalogLoading>(),
-      isA<CarCatalogSuccess>(),
-    ]);
+      // Act
+      await sut.fetch();
 
-    verify(() => mockFetchUseCase.call()).called(1);
-  });
-
-  test('Process fetch cars with failure', () async {
-    // Arrange
-    when(() => mockFetchUseCase.call())
-        .thenAnswer((_) async => const CarCatalogFailure('falha'));
-
-    final states = <CarCatalogState>[];
-    sut.addListener(() {
-      states.add(sut.value);
+      // Assert
+      expect(states, [
+        isA<CarCatalogLoading>(),
+        isA<CarCatalogFailure>(),
+      ]);
+      verify(() => mockFetchUseCase.call()).called(1);
     });
-
-    // Act
-    await sut.fetch();
-
-    // Assert
-    expect(states, [
-      isA<CarCatalogLoading>(),
-      isA<CarCatalogFailure>(),
-    ]);
-
-    verify(() => mockFetchUseCase.call()).called(1);
   });
 }

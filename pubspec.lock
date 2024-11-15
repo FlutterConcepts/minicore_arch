@@ -453,14 +453,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-  value_listenable_test:
-    dependency: "direct dev"
-    description:
-      name: value_listenable_test
-      sha256: "3c11c8e6a45b56752003369a65bdce1a84cc93a0aa6fa22b6fa282d5c08f2537"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.2"
   vector_math:
     dependency: transitive
     description:
