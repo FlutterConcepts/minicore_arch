@@ -1,3 +1,4 @@
+import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_interactor.dart';
@@ -46,11 +47,12 @@ void main() {
       expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
       expect(find.byKey(const Key('CarCatalogFailure')), findsNothing);
 
-      interactor.value = const CarCatalogFailure('failure');
+      final String errorMessage = faker.lorem.sentence();
+      interactor.value = CarCatalogFailure(errorMessage);
       await tester.pump();
 
       expect(find.byKey(const Key('CarCatalogFailure')), findsOneWidget);
-      expect(find.text('failure'), findsOneWidget);
+      expect(find.text(errorMessage), findsOneWidget);
       expect(find.byKey(const Key('CarCatalogSuccess')), findsNothing);
       expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
     });

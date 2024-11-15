@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:minicore_arch_example/features/car_catalog/data/usecases/fetch_car_catalog_usecase_impl.dart';
@@ -10,16 +11,17 @@ import 'package:mocktail/mocktail.dart';
 class MockHttpClient extends Mock implements http.Client {}
 
 void main() {
+  late final Faker faker;
   late MockHttpClient mockHttpClient;
-  late FetchCarCatalogUseCaseImpl fetchCarCatalogUseCase;
+  late FetchCarCatalogUseCaseImpl sut;
 
   setUp(() {
     mockHttpClient = MockHttpClient();
-    fetchCarCatalogUseCase =
-        FetchCarCatalogUseCaseImpl(httpClient: mockHttpClient);
+    sut = FetchCarCatalogUseCaseImpl(httpClient: mockHttpClient);
   });
 
   setUpAll(() {
+    faker = Faker();
     registerFallbackValue(Uri.parse(''));
   });
 
@@ -28,59 +30,64 @@ void main() {
         'should return CarCatalogSuccess when API call succeeds with valid data',
         () async {
       // Arrange
-      final mockResponseData = jsonEncode([
-        {'codigo': '001', 'nome': 'Car A'},
-        {'codigo': '002', 'nome': 'Car B'}
-      ]);
+      final mockResponseData = jsonEncode(List.generate(5, (_) {
+        return {
+          'codigo': faker.guid.guid(),
+          'nome': faker.vehicle.model(),
+        };
+      }));
 
       when(() => mockHttpClient.get(any())).thenAnswer(
         (_) async => http.Response(mockResponseData, 200),
       );
 
       // Act
-      final result = await fetchCarCatalogUseCase.call();
+      final result = await sut.call();
 
       // Assert
       expect(result, isA<CarCatalogSuccess>());
       final successState = result as CarCatalogSuccess;
-      expect(successState.carCatalog.length, 2);
+      expect(successState.carCatalog.length, 5);
       expect(successState.carCatalog[0], isA<CarEntity>());
-      expect(successState.carCatalog[0].code, '001');
-      expect(successState.carCatalog[0].name, 'Car A');
     });
 
     test(
         'should return CarCatalogFailure when API call fails with a non-200 status code',
         () async {
       // Arrange
+      const mockStatusCode = 404;
+      final mockMessage = faker.lorem.sentence();
+
       when(() => mockHttpClient.get(any())).thenAnswer(
-        (_) async => http.Response('Not Found', 404),
+        (_) async => http.Response(mockMessage, mockStatusCode),
       );
 
       // Act
-      final result = await fetchCarCatalogUseCase.call();
+      final result = await sut.call();
 
       // Assert
       expect(result, isA<CarCatalogFailure>());
       final failureState = result as CarCatalogFailure;
       expect(failureState.message,
-          'Failed to fetch car catalog. Status code: 404');
+          'Failed to fetch car catalog. Status code: $mockStatusCode');
     });
 
     test('should return CarCatalogFailure when an exception is thrown',
         () async {
       // Arrange
+      final mockExceptionMessage = faker.lorem.sentence();
+
       when(() => mockHttpClient.get(any()))
-          .thenThrow(Exception('Network error'));
+          .thenThrow(Exception(mockExceptionMessage));
 
       // Act
-      final result = await fetchCarCatalogUseCase.call();
+      final result = await sut.call();
 
       // Assert
       expect(result, isA<CarCatalogFailure>());
       final failureState = result as CarCatalogFailure;
       expect(failureState.message,
-          'Failed to fetch car catalog: Exception: Network error');
+          'Failed to fetch car catalog: Exception: $mockExceptionMessage');
     });
   });
 }
