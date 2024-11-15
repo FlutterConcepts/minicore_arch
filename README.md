@@ -39,7 +39,7 @@ Contributions are more than welcome! Feel free to suggest improvements, report i
 
 🇧🇷
 
-**MiniCore Arch** é uma abordagem inovadora criada pela comunidade do **Flutterando**, baseada na **Clean Architecture**, com o objetivo de oferecer uma maneira simples e robusta de estruturar projetos Flutter. Este projeto é um exemplo prático que demonstra como organizar seu código de forma eficiente, reduzindo a complexidade sem comprometer a qualidade e a escalabilidade.
+**MiniCore Arch** é uma abordagem inovadora criada pela comunidade do **Flutterando**, baseada no **Clean Architecture**, com o objetivo de oferecer uma maneira simples e robusta de estruturar projetos Flutter. Este projeto é um exemplo prático que demonstra como organizar seu código de forma eficiente, reduzindo a complexidade sem comprometer a qualidade e a escalabilidade.
 
 ---
 
