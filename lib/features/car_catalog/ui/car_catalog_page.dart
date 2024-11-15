@@ -45,6 +45,7 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
       },
       floatingActionButton: FloatingActionButton(
         onPressed: carCatalogInteractor.fetch,
+        child: const Icon(Icons.refresh),
       ),
     );
   }
