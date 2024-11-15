@@ -25,26 +25,27 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Home Page'),
+        title: const Text('MiniCore Arch Example'),
       ),
       body: switch (carCatalogInteractor.value) {
         CarCatalogLoading() => const Center(
             key: Key('CarCatalogLoading'),
             child: CircularProgressIndicator(),
           ),
-        CarCatalogSuccess(carCatalog: final List<CarEntity> cars) =>
+        CarCatalogSuccess(carCatalog: final List<CarEntity> carCatalog) =>
           ListView.builder(
             key: const Key('CarCatalogSuccess'),
-            itemCount: cars.length,
-            itemBuilder: (context, index) => Text(cars[index].name),
+            itemCount: carCatalog.length,
+            itemBuilder: (context, index) => Text(carCatalog[index].name),
           ),
         CarCatalogFailure(message: final String message) => Center(
             key: const Key('CarCatalogFailure'),
             child: Text(message),
           ),
       },
-      floatingActionButton:
-          FloatingActionButton(onPressed: carCatalogInteractor.fetch),
+      floatingActionButton: FloatingActionButton(
+        onPressed: carCatalogInteractor.fetch,
+      ),
     );
   }
 }
