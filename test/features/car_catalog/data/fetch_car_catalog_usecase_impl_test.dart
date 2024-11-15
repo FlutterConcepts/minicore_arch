@@ -4,7 +4,7 @@ import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:minicore_arch_example/features/car_catalog/data/usecases/fetch_car_catalog_usecase_impl.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_state.dart';
+import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_states.dart';
 import 'package:minicore_arch_example/features/car_catalog/interactor/entities/car_entity.dart';
 import 'package:mocktail/mocktail.dart';
 

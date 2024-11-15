@@ -2,7 +2,7 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_interactor.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_state.dart';
+import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_states.dart';
 import 'package:minicore_arch_example/features/car_catalog/interactor/usecases/fetch_car_catalog_usecase.dart';
 import 'package:minicore_arch_example/features/car_catalog/ui/car_catalog_page.dart';
 import 'package:minicore_arch_example/features/car_catalog/ui/car_catalog_provider.dart';

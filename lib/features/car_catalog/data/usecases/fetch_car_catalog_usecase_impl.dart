@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:minicore_arch_example/features/car_catalog/data/mappers/car_mapper.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_state.dart';
+import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_states.dart';
 import 'package:minicore_arch_example/features/car_catalog/interactor/entities/car_entity.dart';
 import 'package:minicore_arch_example/features/car_catalog/interactor/usecases/fetch_car_catalog_usecase.dart';
 

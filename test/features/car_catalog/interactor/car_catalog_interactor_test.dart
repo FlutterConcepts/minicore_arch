@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_interactor.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_state.dart';
+import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_states.dart';
 import 'package:minicore_arch_example/features/car_catalog/interactor/usecases/fetch_car_catalog_usecase.dart';
 import 'package:mocktail/mocktail.dart';
 
