@@ -4,12 +4,12 @@ import 'package:http/http.dart';
 import 'package:minicore_arch_example/features/car_catalog/data/mappers/car_mapper.dart';
 import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_state.dart';
 import 'package:minicore_arch_example/features/car_catalog/interactor/entities/car_entity.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/usecases/load_car_catalog_usecase.dart';
+import 'package:minicore_arch_example/features/car_catalog/interactor/usecases/fetch_car_catalog_usecase.dart';
 
-class LoadCarCatalogUseCaseImpl implements LoadCarCatalogUseCase {
+class FetchCarCatalogUseCaseImpl implements FetchCarCatalogUseCase {
   final Client httpClient;
 
-  LoadCarCatalogUseCaseImpl({required this.httpClient});
+  FetchCarCatalogUseCaseImpl({required this.httpClient});
 
   @override
   Future<CarCatalogState> call() async {
@@ -25,11 +25,11 @@ class LoadCarCatalogUseCaseImpl implements LoadCarCatalogUseCase {
         return CarCatalogSuccess(carCatalog: carCatalog);
       } else {
         return CarCatalogFailure(
-            'Failed to load car catalog. Status code: ${response.statusCode}');
+            'Failed to fetch car catalog. Status code: ${response.statusCode}');
       }
     } catch (error) {
       return CarCatalogFailure(
-          'Failed to load car catalog: ${error.toString()}');
+          'Failed to fetch car catalog: ${error.toString()}');
     }
   }
 }

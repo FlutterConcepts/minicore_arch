@@ -14,7 +14,7 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      CarCatalogProvider.of(context, listen: false).fetchCarCatalog();
+      CarCatalogProvider.of(context, listen: false).fetch();
     });
   }
 
@@ -44,7 +44,7 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
           ),
       },
       floatingActionButton:
-          FloatingActionButton(onPressed: carCatalogInteractor.fetchCarCatalog),
+          FloatingActionButton(onPressed: carCatalogInteractor.fetch),
     );
   }
 }

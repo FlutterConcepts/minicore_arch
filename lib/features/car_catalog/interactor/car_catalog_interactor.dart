@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_state.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/usecases/load_car_catalog_usecase.dart';
+import 'package:minicore_arch_example/features/car_catalog/interactor/usecases/fetch_car_catalog_usecase.dart';
 
 class CarCatalogInteractor extends ValueNotifier<CarCatalogState> {
-  final LoadCarCatalogUseCase loadUseCase;
+  final FetchCarCatalogUseCase fetchUseCase;
 
-  CarCatalogInteractor({required this.loadUseCase})
+  CarCatalogInteractor({required this.fetchUseCase})
       : super(CarCatalogLoading());
 
-  void fetchCarCatalog() async {
+  void fetch() async {
     value = CarCatalogLoading();
-    final newState = await loadUseCase.call();
+    final newState = await fetchUseCase.call();
     value = newState;
   }
 }
