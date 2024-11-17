@@ -5,8 +5,7 @@ import 'package:minicore_arch_example/features/car_catalog/interactor/usecases/f
 class CarCatalogInteractor extends ValueNotifier<CarCatalogState> {
   final FetchCarCatalogUseCase fetchUseCase;
 
-  CarCatalogInteractor({required this.fetchUseCase})
-      : super(CarCatalogLoading());
+  CarCatalogInteractor(this.fetchUseCase) : super(CarCatalogLoading());
 
   Future<void> fetch() async {
     value = CarCatalogLoading();

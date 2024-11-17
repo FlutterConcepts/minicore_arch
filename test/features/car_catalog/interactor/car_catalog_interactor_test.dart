@@ -23,7 +23,7 @@ void main() {
   setUp(() {
     // Arrange
     mockFetchUseCase = MockFetchCarCatalogUseCase();
-    sut = CarCatalogInteractor(fetchUseCase: mockFetchUseCase);
+    sut = CarCatalogInteractor(mockFetchUseCase);
   });
 
   group('CarCatalogInteractor Tests', () {
@@ -31,7 +31,7 @@ void main() {
         () async {
       // Arrange
       when(() => mockFetchUseCase.call())
-          .thenAnswer((_) async => const CarCatalogSuccess(carCatalog: []));
+          .thenAnswer((_) async => const CarCatalogSuccess([]));
       final states = captureStates(sut);
 
       // Act

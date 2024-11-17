@@ -17,7 +17,7 @@ void main() {
   setUp(() {
     // Arrange
     mockHttpClient = MockHttpClient();
-    sut = FetchCarCatalogUseCaseImpl(httpClient: mockHttpClient);
+    sut = FetchCarCatalogUseCaseImpl(mockHttpClient);
   });
 
   setUpAll(() {

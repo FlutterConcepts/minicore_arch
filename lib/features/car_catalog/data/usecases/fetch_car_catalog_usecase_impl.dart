@@ -9,7 +9,7 @@ import 'package:minicore_arch_example/features/car_catalog/interactor/usecases/f
 class FetchCarCatalogUseCaseImpl implements FetchCarCatalogUseCase {
   final http.Client httpClient;
 
-  FetchCarCatalogUseCaseImpl({required this.httpClient});
+  FetchCarCatalogUseCaseImpl(this.httpClient);
 
   @override
   Future<CarCatalogState> call() async {
@@ -22,7 +22,7 @@ class FetchCarCatalogUseCaseImpl implements FetchCarCatalogUseCase {
             .map((json) => CarMapper.fromJsonToEntity(json))
             .toList();
 
-        return CarCatalogSuccess(carCatalog: carCatalog);
+        return CarCatalogSuccess(carCatalog);
       } else {
         return CarCatalogFailure(
             'Failed to fetch car catalog. Status code: ${response.statusCode}');

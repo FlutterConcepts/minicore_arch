@@ -15,9 +15,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final httpClient = http.Client();
-    final fetchUseCase = FetchCarCatalogUseCaseImpl(httpClient: httpClient);
-    final carCatalogInteractor =
-        CarCatalogInteractor(fetchUseCase: fetchUseCase);
+    final fetchUseCase = FetchCarCatalogUseCaseImpl(httpClient);
+    final carCatalogInteractor = CarCatalogInteractor(fetchUseCase);
 
     return MaterialApp(
       title: 'MiniCore Arch',

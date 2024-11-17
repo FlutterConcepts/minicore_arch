@@ -44,7 +44,7 @@ void main() {
       expect(find.byKey(const Key('CarCatalogSuccess')), findsNothing);
 
       // Arrange
-      interactor.value = const CarCatalogSuccess(carCatalog: []);
+      interactor.value = const CarCatalogSuccess([]);
 
       // Act
       await tester.pump();

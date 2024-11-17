@@ -6,7 +6,7 @@ final class CarCatalogLoading implements CarCatalogState {}
 
 final class CarCatalogSuccess implements CarCatalogState {
   final List<CarEntity> carCatalog;
-  const CarCatalogSuccess({required this.carCatalog});
+  const CarCatalogSuccess(this.carCatalog);
 }
 
 final class CarCatalogFailure implements CarCatalogState {
