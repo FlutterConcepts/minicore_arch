@@ -43,9 +43,7 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: TextButton(
-                    onPressed: () {
-                      interactor.fetchModelsByBrand(brand.code);
-                    },
+                    onPressed: () => interactor.fetchModelsByBrand(brand.code),
                     child: Text('Código: ${brand.code} | Marca: ${brand.name}'),
                   ),
                 ),
