@@ -10,22 +10,23 @@ class MockClient extends Mock implements Client {}
 
 void main() {
   late Client mockClient;
-  late FetchCarBrandsUseCaseImpl sut;
+  late FetchCarModelsByBrandUseCaseImpl sut;
 
   setUp(() {
     mockClient = MockClient();
-    sut = FetchCarBrandsUseCaseImpl(mockClient);
+    sut = FetchCarModelsByBrandUseCaseImpl(mockClient);
   });
 
   setUpAll(() {
     registerFallbackValue(Uri.parse(''));
   });
 
-  group('FetchCarBrandsUseCase', () {
+  group('FetchCarModelsByBrandUseCase', () {
     test(
-        '''Should return CarBrandsSuccess when API call succeeds with valid data''',
+        '''Should return CarModelsSuccess when API call succeeds with valid data''',
         () async {
       // Arrange
+      const brandId = 1;
       final mockResponseData = jsonEncode(
         List.generate(5, (_) {
           return {
@@ -34,63 +35,77 @@ void main() {
           };
         }),
       );
-      when(() => mockClient.get(any())).thenAnswer(
+      when(
+        () => mockClient.get(
+          Uri.parse(
+            'https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models',
+          ),
+        ),
+      ).thenAnswer(
         (_) async => Response(mockResponseData, 200),
       );
 
       // Act
-      final result = await sut.call();
+      final result = await sut.call(brandId);
 
       // Assert
-      expect(result, isA<CarBrandsSuccess>());
-      final successState = result as CarBrandsSuccess;
-      expect(successState.carBrands.length, 5);
-      expect(successState.carBrands[0], isA<CarBrandEntity>());
+      expect(result, isA<CarModelsSuccess>());
+      final successState = result as CarModelsSuccess;
+      expect(successState.carModels.length, 5);
+      expect(successState.carModels[0], isA<CarModelEntity>());
     });
-
-    test(
-      '''Should return CarModelsSuccess when API call succeeds with valid data''',
-      () async {},
-    );
 
     test(
         '''Should return CarCatalogFailure when API call fails with a non-200 status code''',
         () async {
       // Arrange
+      const brandId = 1;
       const mockStatusCode = 404;
       final mockMessage = faker.lorem.sentence();
-      when(() => mockClient.get(any())).thenAnswer(
+      when(
+        () => mockClient.get(
+          Uri.parse(
+            'https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models',
+          ),
+        ),
+      ).thenAnswer(
         (_) async => Response(mockMessage, mockStatusCode),
       );
 
       // Act
-      final result = await sut.call();
+      final result = await sut.call(brandId);
 
       // Assert
       expect(result, isA<CarCatalogFailure>());
       final failureState = result as CarCatalogFailure;
       expect(
         failureState.message,
-        'Failed to fetch car brands catalog. Status code: $mockStatusCode',
+        'Failed to fetch car models catalog. Status code: $mockStatusCode',
       );
     });
 
-    test('should return CarCatalogFailure when an exception is thrown',
+    test('Should return CarCatalogFailure when an exception is thrown',
         () async {
       // Arrange
+      const brandId = 1;
       final mockExceptionMessage = faker.lorem.sentence();
-      when(() => mockClient.get(any()))
-          .thenThrow(Exception(mockExceptionMessage));
+      when(
+        () => mockClient.get(
+          Uri.parse(
+            'https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models',
+          ),
+        ),
+      ).thenThrow(Exception(mockExceptionMessage));
 
       // Act
-      final result = await sut.call();
+      final result = await sut.call(brandId);
 
       // Assert
       expect(result, isA<CarCatalogFailure>());
       final failureState = result as CarCatalogFailure;
       expect(
         failureState.message,
-        'Failed to fetch car brands catalog: Exception: $mockExceptionMessage',
+        'Failed to fetch car models catalog: Exception: $mockExceptionMessage',
       );
     });
   });
