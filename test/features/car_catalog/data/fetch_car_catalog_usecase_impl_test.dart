@@ -13,7 +13,6 @@ void main() {
   late FetchCarCatalogUseCaseImpl sut;
 
   setUp(() {
-    // Arrange
     mockClient = MockClient();
     sut = FetchCarCatalogUseCaseImpl(mockClient);
   });
@@ -24,7 +23,7 @@ void main() {
 
   group('FetchCarCatalogUseCase', () {
     test('''
-should return CarCatalogSuccess when API call succeeds with valid data''',
+Should return CarCatalogSuccess when API call succeeds with valid data''',
         () async {
       // Arrange
       final mockResponseData = jsonEncode(
@@ -50,7 +49,7 @@ should return CarCatalogSuccess when API call succeeds with valid data''',
     });
 
     test('''
-should return CarCatalogFailure when API call fails with a non-200 status code''',
+Should return CarCatalogFailure when API call fails with a non-200 status code''',
         () async {
       // Arrange
       const mockStatusCode = 404;

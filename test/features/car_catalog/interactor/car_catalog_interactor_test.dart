@@ -19,7 +19,6 @@ void main() {
   }
 
   setUp(() {
-    // Arrange
     mockFetchUseCase = MockFetchCarCatalogUseCase();
     sut = CarCatalogInteractor(mockFetchUseCase);
   });

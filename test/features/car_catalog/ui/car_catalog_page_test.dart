@@ -19,7 +19,6 @@ void main() {
     late MockCarInteractor mockInteractor;
 
     setUp(() {
-      // Arrange
       mockInteractor = MockCarInteractor();
     });
 
