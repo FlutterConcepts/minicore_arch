@@ -42,7 +42,7 @@ void main() {
       expect(find.byKey(const Key('CarCatalogLoading')), findsOneWidget);
       expect(find.byKey(const Key('CarCatalogFailure')), findsNothing);
       expect(find.byKey(const Key('CarBrandsSuccess')), findsNothing);
-      expect(find.byKey(const Key('CarModelsSuccess')), findsNothing);
+      expect(find.byKey(const Key('CarModelsByBrandSuccess')), findsNothing);
 
       // Arrange
       mockInteractor.value = const CarBrandsSuccess([]);
@@ -53,11 +53,11 @@ void main() {
       // Assert
       expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
       expect(find.byKey(const Key('CarBrandsSuccess')), findsOneWidget);
-      expect(find.byKey(const Key('CarModelsSuccess')), findsNothing);
+      expect(find.byKey(const Key('CarModelsByBrandSuccess')), findsNothing);
       expect(find.byKey(const Key('CarCatalogFailure')), findsNothing);
 
       // Arrange
-      mockInteractor.value = const CarModelsSuccess([]);
+      mockInteractor.value = const CarModelsByBrandSuccess([]);
 
       // Act
       await tester.pump();
@@ -65,7 +65,7 @@ void main() {
       // Assert
       expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
       expect(find.byKey(const Key('CarBrandsSuccess')), findsNothing);
-      expect(find.byKey(const Key('CarModelsSuccess')), findsOneWidget);
+      expect(find.byKey(const Key('CarModelsByBrandSuccess')), findsOneWidget);
       expect(find.byKey(const Key('CarCatalogFailure')), findsNothing);
 
       // Arrange
@@ -78,7 +78,7 @@ void main() {
       // Assert
       expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
       expect(find.byKey(const Key('CarBrandsSuccess')), findsNothing);
-      expect(find.byKey(const Key('CarModelsSuccess')), findsNothing);
+      expect(find.byKey(const Key('CarModelsByBrandSuccess')), findsNothing);
       expect(find.byKey(const Key('CarCatalogFailure')), findsOneWidget);
       expect(find.text(errorMessage), findsOneWidget);
     });

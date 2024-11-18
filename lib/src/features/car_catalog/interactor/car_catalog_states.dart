@@ -10,8 +10,8 @@ final class CarBrandsSuccess implements CarCatalogState {
   final List<CarBrandEntity> carBrands;
 }
 
-final class CarModelsSuccess implements CarCatalogState {
-  const CarModelsSuccess(this.carModels);
+final class CarModelsByBrandSuccess implements CarCatalogState {
+  const CarModelsByBrandSuccess(this.carModels);
 
   final List<CarModelEntity> carModels;
 }

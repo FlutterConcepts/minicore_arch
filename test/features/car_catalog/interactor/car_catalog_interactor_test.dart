@@ -78,12 +78,12 @@ void main() {
 
     group('fetchModelsByBrand Tests', () {
       test(
-          '''Should emit `CarCatalogLoading` followed by `CarModelsSuccess` when `fetchModelsByBrand` completes successfully for a given brand ID''',
+          '''Should emit `CarCatalogLoading` followed by `CarModelsByBrandSuccess` when `fetchModelsByBrand` completes successfully for a given brand ID''',
           () async {
         // Arrange
         const brandId = 1;
         when(() => mockFetchModelsByBrandUseCase.call(brandId))
-            .thenAnswer((_) async => const CarModelsSuccess([]));
+            .thenAnswer((_) async => const CarModelsByBrandSuccess([]));
         final states = captureStates(sut);
 
         // Act
@@ -92,7 +92,7 @@ void main() {
         // Assert
         expect(states, [
           isA<CarCatalogLoading>(),
-          isA<CarModelsSuccess>(),
+          isA<CarModelsByBrandSuccess>(),
         ]);
         verify(() => mockFetchModelsByBrandUseCase.call(brandId)).called(1);
       });

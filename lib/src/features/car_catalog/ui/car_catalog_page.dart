@@ -52,9 +52,11 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
               );
             },
           ),
-        CarModelsSuccess(carModels: final List<CarModelEntity> carModels) =>
+        CarModelsByBrandSuccess(
+          carModels: final List<CarModelEntity> carModels
+        ) =>
           ListView.builder(
-            key: const Key('CarModelsSuccess'),
+            key: const Key('CarModelsByBrandSuccess'),
             padding: const EdgeInsets.all(16),
             itemCount: carModels.length,
             itemBuilder: (context, index) {

@@ -23,7 +23,7 @@ void main() {
 
   group('FetchCarModelsByBrandUseCase', () {
     test(
-        '''Should return CarModelsSuccess when API call succeeds with valid data''',
+        '''Should return CarModelsByBrandSuccess when API call succeeds with valid data''',
         () async {
       // Arrange
       const brandId = 1;
@@ -49,8 +49,8 @@ void main() {
       final result = await sut.call(brandId);
 
       // Assert
-      expect(result, isA<CarModelsSuccess>());
-      final successState = result as CarModelsSuccess;
+      expect(result, isA<CarModelsByBrandSuccess>());
+      final successState = result as CarModelsByBrandSuccess;
       expect(successState.carModels.length, 5);
       expect(successState.carModels[0], isA<CarModelEntity>());
     });

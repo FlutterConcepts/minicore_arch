@@ -23,7 +23,7 @@ class FetchCarModelsByBrandUseCaseImpl implements FetchCarModelsByBrandUseCase {
             .map(CarMapper.fromJsonToModel)
             .toList();
 
-        return CarModelsSuccess(carModels);
+        return CarModelsByBrandSuccess(carModels);
       } else {
         return CarCatalogFailure(
           '''Failed to fetch car models catalog. Status code: ${response.statusCode}''',
