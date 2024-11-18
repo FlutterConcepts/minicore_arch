@@ -12,8 +12,7 @@ class FetchCarBrandsUseCaseImpl implements FetchCarBrandsUseCase {
   Future<CarCatalogState> call() async {
     try {
       final response = await client.get(
-        Uri.parse('https://parallelum.com.br/fipe/api/v1/carros/marcas'),
-        // Uri.parse('https://parallelum.com.br/fipe/api/v2/cars/brands'),
+        Uri.parse('https://parallelum.com.br/fipe/api/v2/cars/brands'),
       );
 
       if (response.statusCode == 200) {
