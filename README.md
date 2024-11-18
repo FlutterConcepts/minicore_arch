@@ -36,10 +36,6 @@ Follow the steps below to explore this example:
 
 ### **Layer Structure and Relationships**
 
-![MiniCore Arch Data Flow Diagram](docs/images/minicore_arch.png)
-
-![Clean Arch Data Flow Diagram](docs/images/clean_arch.png)
-
 - **Main**:
 
   - Serves as the entry point of the application and knows all layers.
@@ -60,6 +56,14 @@ Follow the steps below to explore this example:
   - Responsible for accessing external data sources, such as APIs, databases, or local services.
   - Depends on the **Interactor** layer to understand which data to provide or persist.
   - Does not interact directly with the **UI** layer, ensuring that presentation logic remains independent.
+
+### MiniCore Architecture Data Flow Diagram:
+
+![MiniCore Architecture Data Flow Diagram](docs/images/minicore_arch.png)
+
+### Clean Architecture Data Flow Diagram:
+
+![Clean Architecture Data Flow Diagram](docs/images/clean_arch.png)
 
 ---
 
@@ -153,10 +157,6 @@ Siga os passos abaixo para começar a explorar este exemplo:
 
 ### **Estrutura de Camadas e Relacionamentos**
 
-![Diagrama do Fluxo de Dados MiniCore Arch](docs/images/minicore_arch.png)
-
-![Diagrama do Fluxo de Dados Clean Arch](docs/images/clean_arch.png)
-
 - **Main**:
 
   - É o ponto de entrada da aplicação e conhece todas as camadas.
@@ -177,6 +177,14 @@ Siga os passos abaixo para começar a explorar este exemplo:
   - Responsável por acessar fontes de dados externas, como APIs, bancos de dados ou serviços locais.
   - Depende da camada **Interactor** para entender quais dados fornecer ou persistir.
   - Não interage diretamente com a camada **UI**, assegurando que a lógica de apresentação seja independente.
+
+### Diagrama do Fluxo de Dados MiniCore Architecture:
+
+![Diagrama do Fluxo de Dados MiniCore Architecture](docs/images/minicore_arch.png)
+
+### Diagrama do Fluxo de Dados Clean Architecture:
+
+![Diagrama do Fluxo de Dados Clean Architecture](docs/images/clean_arch.png)
 
 ---
 
