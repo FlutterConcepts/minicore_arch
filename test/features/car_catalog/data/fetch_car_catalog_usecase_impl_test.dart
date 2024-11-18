@@ -23,8 +23,8 @@ void main() {
   });
 
   group('FetchCarCatalogUseCase', () {
-    test(
-        'should return CarCatalogSuccess when API call succeeds with valid data',
+    test('''
+should return CarCatalogSuccess when API call succeeds with valid data''',
         () async {
       // Arrange
       final mockResponseData = jsonEncode(
@@ -49,8 +49,8 @@ void main() {
       expect(successState.carCatalog[0], isA<CarEntity>());
     });
 
-    test(
-        'should return CarCatalogFailure when API call fails with a non-200 status code',
+    test('''
+should return CarCatalogFailure when API call fails with a non-200 status code''',
         () async {
       // Arrange
       const mockStatusCode = 404;

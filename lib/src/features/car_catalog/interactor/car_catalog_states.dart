@@ -8,7 +8,8 @@ sealed class CarCatalogState {}
 
 /// Represents the loading state of the car catalog.
 ///
-/// This state indicates that the car catalog is in the process of being fetched.
+/// This state indicates that the car catalog is in the process of being
+/// fetched.
 final class CarCatalogLoading implements CarCatalogState {}
 
 /// Represents the success state of the car catalog.

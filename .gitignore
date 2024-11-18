@@ -44,4 +44,4 @@ app.*.map.json
 
 # Custom
 analysis_options.yaml
-.vscode/
+# .vscode/

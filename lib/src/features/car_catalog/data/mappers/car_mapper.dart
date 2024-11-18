@@ -7,7 +7,8 @@ import 'package:minicore_arch_example/minicore_arch_example.dart';
 class CarMapper {
   /// Converts a JSON object into a [CarEntity].
   ///
-  /// Accepts a [json] map containing the car data with keys `codigo` and `nome`.
+  /// Accepts a [json] map containing the car data with keys `codigo` and
+  /// `nome`.
   /// Returns a [CarEntity] instance with the mapped data.
   ///
   /// If the `codigo` or `nome` fields are missing or `null`, they default to an
