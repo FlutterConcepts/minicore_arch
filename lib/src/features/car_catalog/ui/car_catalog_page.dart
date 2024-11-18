@@ -35,26 +35,35 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
         CarBrandsSuccess(carBrands: final List<CarBrandEntity> carBrands) =>
           ListView.builder(
             key: const Key('CarBrandsSuccess'),
+            padding: const EdgeInsets.all(16),
             itemCount: carBrands.length,
             itemBuilder: (context, index) {
               final brand = carBrands[index];
-              return ElevatedButton(
-                onPressed: () {
-                  interactor.fetchModelsByBrand(brand.code);
-                },
-                child: Text('Código: ${brand.code} | Marca: ${brand.name}'),
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: TextButton(
+                    onPressed: () {
+                      interactor.fetchModelsByBrand(brand.code);
+                    },
+                    child: Text('Código: ${brand.code} | Marca: ${brand.name}'),
+                  ),
+                ),
               );
             },
           ),
         CarModelsSuccess(carModels: final List<CarModelEntity> carModels) =>
           ListView.builder(
             key: const Key('CarModelsSuccess'),
+            padding: const EdgeInsets.all(16),
             itemCount: carModels.length,
             itemBuilder: (context, index) {
               final model = carModels[index];
-              return ElevatedButton(
-                onPressed: () {},
-                child: Text('Código: ${model.code} | Modelo: ${model.name}'),
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text('Código: ${model.code} | Modelo: ${model.name}'),
+                ),
               );
             },
           ),
