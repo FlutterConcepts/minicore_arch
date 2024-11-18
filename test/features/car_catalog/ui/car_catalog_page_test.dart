@@ -3,23 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
-class MockCarInteractor extends ValueNotifier<CarCatalogState>
+class MockCarCatalogInteractor extends ValueNotifier<CarCatalogState>
     implements CarCatalogInteractor {
-  MockCarInteractor() : super(CarCatalogLoading());
+  MockCarCatalogInteractor() : super(CarCatalogLoading());
 
   @override
-  FetchCarBrandsUseCase get fetchBrands => throw UnimplementedError();
+  FetchCarBrandsUseCase get fetchBrandsUseCase => throw UnimplementedError();
+  @override
+  FetchCarModelsByBrandUseCase get fetchModelsByBrandUseCase =>
+      throw UnimplementedError();
 
   @override
-  Future<void> fetch() async {}
+  Future<void> fetchBrands() async {}
+  @override
+  Future<void> fetchModelsByBrand(int brandId) async {}
 }
 
 void main() {
   group('CarCatalogPage Tests', () {
-    late MockCarInteractor mockInteractor;
+    late CarCatalogInteractor mockInteractor;
 
     setUp(() {
-      mockInteractor = MockCarInteractor();
+      mockInteractor = MockCarCatalogInteractor();
     });
 
     testWidgets('Should correctly display the page states', (tester) async {
@@ -36,17 +41,31 @@ void main() {
       // Assert
       expect(find.byKey(const Key('CarCatalogLoading')), findsOneWidget);
       expect(find.byKey(const Key('CarCatalogFailure')), findsNothing);
-      expect(find.byKey(const Key('CarCatalogSuccess')), findsNothing);
+      expect(find.byKey(const Key('CarBrandsSuccess')), findsNothing);
+      expect(find.byKey(const Key('CarModelsSuccess')), findsNothing);
 
       // Arrange
-      mockInteractor.value = const CarCatalogSuccess([]);
+      mockInteractor.value = const CarBrandsSuccess([]);
 
       // Act
       await tester.pump();
 
       // Assert
       expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
-      expect(find.byKey(const Key('CarCatalogSuccess')), findsOneWidget);
+      expect(find.byKey(const Key('CarBrandsSuccess')), findsOneWidget);
+      expect(find.byKey(const Key('CarModelsSuccess')), findsNothing);
+      expect(find.byKey(const Key('CarCatalogFailure')), findsNothing);
+
+      // Arrange
+      mockInteractor.value = const CarModelsSuccess([]);
+
+      // Act
+      await tester.pump();
+
+      // Assert
+      expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
+      expect(find.byKey(const Key('CarBrandsSuccess')), findsNothing);
+      expect(find.byKey(const Key('CarModelsSuccess')), findsOneWidget);
       expect(find.byKey(const Key('CarCatalogFailure')), findsNothing);
 
       // Arrange
@@ -58,7 +77,8 @@ void main() {
 
       // Assert
       expect(find.byKey(const Key('CarCatalogLoading')), findsNothing);
-      expect(find.byKey(const Key('CarCatalogSuccess')), findsNothing);
+      expect(find.byKey(const Key('CarBrandsSuccess')), findsNothing);
+      expect(find.byKey(const Key('CarModelsSuccess')), findsNothing);
       expect(find.byKey(const Key('CarCatalogFailure')), findsOneWidget);
       expect(find.text(errorMessage), findsOneWidget);
     });

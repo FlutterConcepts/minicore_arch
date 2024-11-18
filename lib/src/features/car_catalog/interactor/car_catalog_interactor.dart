@@ -13,25 +13,27 @@ class CarCatalogInteractor extends ValueNotifier<CarCatalogState> {
   /// Requires a [FetchCarBrandsUseCase] to handle the business logic of
   /// fetching
   /// the car catalog data.
-  CarCatalogInteractor(this.fetchBrands) : super(CarCatalogLoading());
+  CarCatalogInteractor({
+    required this.fetchBrandsUseCase,
+    required this.fetchModelsByBrandUseCase,
+  }) : super(CarCatalogLoading());
 
   /// The use case responsible for fetching the car catalog data.
-  final FetchCarBrandsUseCase fetchBrands;
+  final FetchCarBrandsUseCase fetchBrandsUseCase;
+  final FetchCarModelsByBrandUseCase fetchModelsByBrandUseCase;
 
-  /// Fetches the car catalog data and updates the current [value].
-  ///
-  /// Initially sets the state to [CarCatalogLoading] before making the API
-  /// call.
-  /// After fetching the data, the state is updated with either:
-  /// - [CarCatalogSuccess] if the data fetch succeeds.
-  /// - [CarCatalogFailure] if an error occurs during the fetch process.
-  ///
-  /// A simulated delay of 2 seconds is used to mimic a real-world loading
-  /// scenario.
-  Future<void> fetch() async {
+  Future<void> fetchBrands() async {
     value = CarCatalogLoading();
     await Future.delayed(const Duration(seconds: 2), () async {
-      final newState = await fetchBrands.call();
+      final newState = await fetchBrandsUseCase.call();
+      value = newState;
+    });
+  }
+
+  Future<void> fetchModelsByBrand(int brandId) async {
+    value = CarCatalogLoading();
+    await Future.delayed(const Duration(seconds: 2), () async {
+      final newState = await fetchModelsByBrandUseCase.call(brandId);
       value = newState;
     });
   }

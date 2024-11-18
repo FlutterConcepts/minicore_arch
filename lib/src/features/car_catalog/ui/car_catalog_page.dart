@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
-/// A page that displays the car catalog.
-///
-/// The [CarCatalogPage] is a stateful widget that fetches and displays a list
-/// of cars based on the current state of the [CarCatalogInteractor]. It also
-/// provides a refresh button to refetch the car catalog.
 class CarCatalogPage extends StatefulWidget {
-  /// Creates a new instance of [CarCatalogPage].
   const CarCatalogPage({super.key});
 
   @override
@@ -19,9 +13,8 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
   void initState() {
     super.initState();
 
-    // Fetch the car catalog after the widget is built.
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await CarCatalogProvider.of(context, listen: false).fetch();
+      await CarCatalogProvider.of(context, listen: false).fetchBrands();
     });
   }
 
@@ -35,29 +28,43 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
         title: const Text('MiniCore Arch Example'),
       ),
       body: switch (interactor.value) {
-        // Displays a loading indicator while the catalog is being fetched.
         CarCatalogLoading() => const Center(
             key: Key('CarCatalogLoading'),
             child: CircularProgressIndicator(),
           ),
-        // Displays a list of cars if the catalog is fetched successfully.
-        CarCatalogSuccess(carCatalog: final List<CarBrandEntity> carCatalog) =>
+        CarBrandsSuccess(carBrands: final List<CarBrandEntity> carBrands) =>
           ListView.builder(
-            key: const Key('CarCatalogSuccess'),
-            itemCount: carCatalog.length,
-            itemBuilder: (context, index) => Text('''
-código: ${carCatalog[index].code} / marca: ${carCatalog[index].name}
-'''),
+            key: const Key('CarBrandsSuccess'),
+            itemCount: carBrands.length,
+            itemBuilder: (context, index) {
+              final brand = carBrands[index];
+              return ElevatedButton(
+                onPressed: () {
+                  interactor.fetchModelsByBrand(brand.code);
+                },
+                child: Text('Código: ${brand.code} | Marca: ${brand.name}'),
+              );
+            },
           ),
-        // Displays an error message if fetching the catalog fails.
+        CarModelsSuccess(carModels: final List<CarModelEntity> carModels) =>
+          ListView.builder(
+            key: const Key('CarModelsSuccess'),
+            itemCount: carModels.length,
+            itemBuilder: (context, index) {
+              final model = carModels[index];
+              return ElevatedButton(
+                onPressed: () {},
+                child: Text('Código: ${model.code} | Modelo: ${model.name}'),
+              );
+            },
+          ),
         CarCatalogFailure(message: final String message) => Center(
             key: const Key('CarCatalogFailure'),
             child: Text(message),
           ),
       },
       floatingActionButton: FloatingActionButton(
-        // Refetches the car catalog when pressed.
-        onPressed: interactor.fetch,
+        onPressed: interactor.fetchBrands,
         child: const Icon(Icons.refresh),
       ),
     );

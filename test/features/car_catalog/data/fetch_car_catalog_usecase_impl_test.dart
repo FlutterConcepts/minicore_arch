@@ -9,7 +9,7 @@ import 'package:mocktail/mocktail.dart';
 class MockClient extends Mock implements Client {}
 
 void main() {
-  late MockClient mockClient;
+  late Client mockClient;
   late FetchCarBrandsUseCaseImpl sut;
 
   setUp(() {
@@ -23,7 +23,7 @@ void main() {
 
   group('FetchCarBrandsUseCase', () {
     test('''
-Should return CarCatalogSuccess when API call succeeds with valid data''',
+Should return CarBrandsSuccess when API call succeeds with valid data''',
         () async {
       // Arrange
       final mockResponseData = jsonEncode(
@@ -42,11 +42,17 @@ Should return CarCatalogSuccess when API call succeeds with valid data''',
       final result = await sut.call();
 
       // Assert
-      expect(result, isA<CarCatalogSuccess>());
-      final successState = result as CarCatalogSuccess;
-      expect(successState.carCatalog.length, 5);
-      expect(successState.carCatalog[0], isA<CarBrandEntity>());
+      expect(result, isA<CarBrandsSuccess>());
+      final successState = result as CarBrandsSuccess;
+      expect(successState.carBrands.length, 5);
+      expect(successState.carBrands[0], isA<CarBrandEntity>());
     });
+
+    test(
+      '''
+Should return CarModelsSuccess when API call succeeds with valid data''',
+      () async {},
+    );
 
     test('''
 Should return CarCatalogFailure when API call fails with a non-200 status code''',

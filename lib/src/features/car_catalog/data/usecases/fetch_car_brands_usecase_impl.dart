@@ -19,7 +19,7 @@ class FetchCarBrandsUseCaseImpl implements FetchCarBrandsUseCase {
   /// Fetches the car catalog from an external API.
   ///
   /// - If the response is successful (status code 200), the car catalog is
-  ///   parsed into a list of [CarBrandEntity] and returned as a [CarCatalogSuccess].
+  ///   parsed into a list of [CarBrandEntity] and returned as a [CarBrandsSuccess].
   /// - If the response is unsuccessful, a [CarCatalogFailure] is returned
   ///   with an error message.
   /// - If an exception occurs during the request or parsing, a
@@ -35,12 +35,12 @@ class FetchCarBrandsUseCaseImpl implements FetchCarBrandsUseCase {
       );
 
       if (response.statusCode == 200) {
-        final carCatalog = (jsonDecode(response.body) as List<dynamic>)
+        final carBrands = (jsonDecode(response.body) as List<dynamic>)
             .cast<Map<String, dynamic>>()
             .map(CarMapper.fromJsonToBrand)
             .toList();
 
-        return CarCatalogSuccess(carCatalog);
+        return CarBrandsSuccess(carBrands);
       } else {
         return CarCatalogFailure(
           'Failed to fetch car catalog. Status code: ${response.statusCode}',

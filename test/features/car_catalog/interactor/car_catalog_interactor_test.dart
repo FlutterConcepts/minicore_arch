@@ -5,8 +5,12 @@ import 'package:mocktail/mocktail.dart';
 
 class MockFetchCarBrandsUseCase extends Mock implements FetchCarBrandsUseCase {}
 
+class MockFetchCarModelsByBrandUseCase extends Mock
+    implements FetchCarModelsByBrandUseCase {}
+
 void main() {
-  late MockFetchCarBrandsUseCase mockFetchBrands;
+  late FetchCarBrandsUseCase mockFetchBrandsUseCase;
+  late FetchCarModelsByBrandUseCase mockFetchModelsByBrandUseCase;
   late CarCatalogInteractor sut;
 
   List<CarCatalogState> captureStates(CarCatalogInteractor interactor) {
@@ -18,39 +22,43 @@ void main() {
   }
 
   setUp(() {
-    mockFetchBrands = MockFetchCarBrandsUseCase();
-    sut = CarCatalogInteractor(mockFetchBrands);
+    mockFetchBrandsUseCase = MockFetchCarBrandsUseCase();
+    mockFetchModelsByBrandUseCase = MockFetchCarModelsByBrandUseCase();
+    sut = CarCatalogInteractor(
+      fetchBrandsUseCase: mockFetchBrandsUseCase,
+      fetchModelsByBrandUseCase: mockFetchModelsByBrandUseCase,
+    );
   });
 
   group('CarCatalogInteractor Tests', () {
     test('Should emit loading and success states when fetching succeeds',
         () async {
       // Arrange
-      when(() => mockFetchBrands.call())
-          .thenAnswer((_) async => const CarCatalogSuccess([]));
+      when(() => mockFetchBrandsUseCase.call())
+          .thenAnswer((_) async => const CarBrandsSuccess([]));
       final states = captureStates(sut);
 
       // Act
-      await sut.fetch();
+      await sut.fetchBrands();
 
       // Assert
       expect(states, [
         isA<CarCatalogLoading>(),
-        isA<CarCatalogSuccess>(),
+        isA<CarBrandsSuccess>(),
       ]);
-      verify(() => mockFetchBrands.call()).called(1);
+      verify(() => mockFetchBrandsUseCase.call()).called(1);
     });
 
     test('Should emit loading and failure states when fetching fails',
         () async {
       // Arrange
       final errorMessage = faker.lorem.sentence();
-      when(() => mockFetchBrands.call())
+      when(() => mockFetchBrandsUseCase.call())
           .thenAnswer((_) async => CarCatalogFailure(errorMessage));
       final states = captureStates(sut);
 
       // Act
-      await sut.fetch();
+      await sut.fetchBrands();
 
       // Assert
       expect(states, [
@@ -61,7 +69,7 @@ void main() {
           errorMessage,
         ),
       ]);
-      verify(() => mockFetchBrands.call()).called(1);
+      verify(() => mockFetchBrandsUseCase.call()).called(1);
     });
   });
 }
