@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final httpClient = http.Client();
+    final httpClient = Client();
     final fetchUseCase = FetchCarCatalogUseCaseImpl(httpClient);
     final interactor = CarCatalogInteractor(fetchUseCase);
 

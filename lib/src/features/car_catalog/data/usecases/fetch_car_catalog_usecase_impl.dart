@@ -1,14 +1,31 @@
-// ignore_for_file: public_member_api_docs
-
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
+/// Implementation of [FetchCarCatalogUseCase] for fetching the car catalog.
+///
+/// This class interacts with an external API to retrieve the car catalog data
+/// and returns the result as a [CarCatalogState].
 class FetchCarCatalogUseCaseImpl implements FetchCarCatalogUseCase {
+  /// Creates an instance of [FetchCarCatalogUseCaseImpl].
+  ///
+  /// Requires an [httpClient] to perform HTTP requests.
   FetchCarCatalogUseCaseImpl(this.httpClient);
-  final http.Client httpClient;
 
+  /// The HTTP client used to make requests to the API.
+  final Client httpClient;
+
+  /// Fetches the car catalog from an external API.
+  ///
+  /// - If the response is successful (status code 200), the car catalog is
+  ///   parsed into a list of [CarEntity] and returned as a [CarCatalogSuccess].
+  /// - If the response is unsuccessful, a [CarCatalogFailure] is returned
+  ///   with an error message.
+  /// - If an exception occurs during the request or parsing, a
+  ///   [CarCatalogFailure] is returned with the error details.
+  ///
+  /// Returns a [Future] that resolves to a [CarCatalogState].
   @override
   Future<CarCatalogState> call() async {
     try {

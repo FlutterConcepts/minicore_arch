@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockHttpClient extends Mock implements http.Client {}
+class MockHttpClient extends Mock implements Client {}
 
 void main() {
   late MockHttpClient mockHttpClient;
@@ -36,7 +36,7 @@ void main() {
         }),
       );
       when(() => mockHttpClient.get(any())).thenAnswer(
-        (_) async => http.Response(mockResponseData, 200),
+        (_) async => Response(mockResponseData, 200),
       );
 
       // Act
@@ -56,7 +56,7 @@ void main() {
       const mockStatusCode = 404;
       final mockMessage = faker.lorem.sentence();
       when(() => mockHttpClient.get(any())).thenAnswer(
-        (_) async => http.Response(mockMessage, mockStatusCode),
+        (_) async => Response(mockMessage, mockStatusCode),
       );
 
       // Act
