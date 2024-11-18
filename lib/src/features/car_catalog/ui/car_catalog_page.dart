@@ -41,11 +41,13 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
             child: CircularProgressIndicator(),
           ),
         // Displays a list of cars if the catalog is fetched successfully.
-        CarCatalogSuccess(carCatalog: final List<CarEntity> carCatalog) =>
+        CarCatalogSuccess(carCatalog: final List<CarBrandEntity> carCatalog) =>
           ListView.builder(
             key: const Key('CarCatalogSuccess'),
             itemCount: carCatalog.length,
-            itemBuilder: (context, index) => Text(carCatalog[index].name),
+            itemBuilder: (context, index) => Text('''
+código: ${carCatalog[index].code} / marca: ${carCatalog[index].name}
+'''),
           ),
         // Displays an error message if fetching the catalog fails.
         CarCatalogFailure(message: final String message) => Center(

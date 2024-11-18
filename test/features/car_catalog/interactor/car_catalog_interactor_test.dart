@@ -3,11 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockFetchCarCatalogUseCase extends Mock
-    implements FetchCarCatalogUseCase {}
+class MockFetchCarBrandsUseCase extends Mock implements FetchCarBrandsUseCase {}
 
 void main() {
-  late MockFetchCarCatalogUseCase mockFetchUseCase;
+  late MockFetchCarBrandsUseCase mockFetchBrands;
   late CarCatalogInteractor sut;
 
   List<CarCatalogState> captureStates(CarCatalogInteractor interactor) {
@@ -19,15 +18,15 @@ void main() {
   }
 
   setUp(() {
-    mockFetchUseCase = MockFetchCarCatalogUseCase();
-    sut = CarCatalogInteractor(mockFetchUseCase);
+    mockFetchBrands = MockFetchCarBrandsUseCase();
+    sut = CarCatalogInteractor(mockFetchBrands);
   });
 
   group('CarCatalogInteractor Tests', () {
     test('Should emit loading and success states when fetching succeeds',
         () async {
       // Arrange
-      when(() => mockFetchUseCase.call())
+      when(() => mockFetchBrands.call())
           .thenAnswer((_) async => const CarCatalogSuccess([]));
       final states = captureStates(sut);
 
@@ -39,14 +38,14 @@ void main() {
         isA<CarCatalogLoading>(),
         isA<CarCatalogSuccess>(),
       ]);
-      verify(() => mockFetchUseCase.call()).called(1);
+      verify(() => mockFetchBrands.call()).called(1);
     });
 
     test('Should emit loading and failure states when fetching fails',
         () async {
       // Arrange
       final errorMessage = faker.lorem.sentence();
-      when(() => mockFetchUseCase.call())
+      when(() => mockFetchBrands.call())
           .thenAnswer((_) async => CarCatalogFailure(errorMessage));
       final states = captureStates(sut);
 
@@ -62,7 +61,7 @@ void main() {
           errorMessage,
         ),
       ]);
-      verify(() => mockFetchUseCase.call()).called(1);
+      verify(() => mockFetchBrands.call()).called(1);
     });
   });
 }

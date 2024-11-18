@@ -15,16 +15,16 @@ final class CarCatalogLoading implements CarCatalogState {}
 /// Represents the success state of the car catalog.
 ///
 /// This state indicates that the car catalog was successfully fetched,
-/// and it contains a list of [CarEntity].
+/// and it contains a list of [CarBrandEntity].
 final class CarCatalogSuccess implements CarCatalogState {
   /// Creates an instance of [CarCatalogSuccess].
   ///
-  /// Accepts a [carCatalog], which is a list of [CarEntity] representing
+  /// Accepts a [carCatalog], which is a list of [CarBrandEntity] representing
   /// the fetched car catalog data.
   const CarCatalogSuccess(this.carCatalog);
 
   /// The list of car entities retrieved from the car catalog.
-  final List<CarEntity> carCatalog;
+  final List<CarBrandEntity> carCatalog;
 }
 
 /// Represents the failure state of the car catalog.

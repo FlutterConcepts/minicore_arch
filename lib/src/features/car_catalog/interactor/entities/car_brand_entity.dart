@@ -1,10 +1,10 @@
 /// Represents a car entity with a unique code and a name.
-class CarEntity {
-  /// Creates a [CarEntity] with the specified [code] and [name].
+class CarBrandEntity {
+  /// Creates a [CarBrandEntity] with the specified [code] and [name].
   ///
   /// The [code] is a unique identifier for the car.
   /// The [name] is the descriptive name of the car.
-  CarEntity({
+  CarBrandEntity({
     required this.code,
     required this.name,
   });

@@ -10,18 +10,18 @@ class MockClient extends Mock implements Client {}
 
 void main() {
   late MockClient mockClient;
-  late FetchCarCatalogUseCaseImpl sut;
+  late FetchCarBrandsUseCaseImpl sut;
 
   setUp(() {
     mockClient = MockClient();
-    sut = FetchCarCatalogUseCaseImpl(mockClient);
+    sut = FetchCarBrandsUseCaseImpl(mockClient);
   });
 
   setUpAll(() {
     registerFallbackValue(Uri.parse(''));
   });
 
-  group('FetchCarCatalogUseCase', () {
+  group('FetchCarBrandsUseCase', () {
     test('''
 Should return CarCatalogSuccess when API call succeeds with valid data''',
         () async {
@@ -45,7 +45,7 @@ Should return CarCatalogSuccess when API call succeeds with valid data''',
       expect(result, isA<CarCatalogSuccess>());
       final successState = result as CarCatalogSuccess;
       expect(successState.carCatalog.length, 5);
-      expect(successState.carCatalog[0], isA<CarEntity>());
+      expect(successState.carCatalog[0], isA<CarBrandEntity>());
     });
 
     test('''

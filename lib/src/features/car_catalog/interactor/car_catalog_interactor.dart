@@ -10,13 +10,13 @@ import 'package:minicore_arch_example/minicore_arch_example.dart';
 class CarCatalogInteractor extends ValueNotifier<CarCatalogState> {
   /// Creates a new instance of [CarCatalogInteractor].
   ///
-  /// Requires a [FetchCarCatalogUseCase] to handle the business logic of
+  /// Requires a [FetchCarBrandsUseCase] to handle the business logic of
   /// fetching
   /// the car catalog data.
-  CarCatalogInteractor(this.fetchUseCase) : super(CarCatalogLoading());
+  CarCatalogInteractor(this.fetchBrands) : super(CarCatalogLoading());
 
   /// The use case responsible for fetching the car catalog data.
-  final FetchCarCatalogUseCase fetchUseCase;
+  final FetchCarBrandsUseCase fetchBrands;
 
   /// Fetches the car catalog data and updates the current [value].
   ///
@@ -31,7 +31,7 @@ class CarCatalogInteractor extends ValueNotifier<CarCatalogState> {
   Future<void> fetch() async {
     value = CarCatalogLoading();
     await Future.delayed(const Duration(seconds: 2), () async {
-      final newState = await fetchUseCase.call();
+      final newState = await fetchBrands.call();
       value = newState;
     });
   }

@@ -24,10 +24,10 @@ class App extends StatelessWidget {
     final client = Client();
 
     // Use case for fetching the car catalog.
-    final fetchUseCase = FetchCarCatalogUseCaseImpl(client);
+    final fetchBrands = FetchCarBrandsUseCaseImpl(client);
 
     // Interactor for managing the state of the car catalog.
-    final interactor = CarCatalogInteractor(fetchUseCase);
+    final interactor = CarCatalogInteractor(fetchBrands);
 
     return MaterialApp(
       title: 'MiniCore Arch',
