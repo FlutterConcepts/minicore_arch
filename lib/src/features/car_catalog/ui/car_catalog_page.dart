@@ -1,7 +1,7 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:flutter/material.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_states.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/entities/car_entity.dart';
-import 'package:minicore_arch_example/features/car_catalog/ui/car_catalog_provider.dart';
+import 'package:minicore_arch_example/minicore_arch_example.dart';
 
 class CarCatalogPage extends StatefulWidget {
   const CarCatalogPage({super.key});

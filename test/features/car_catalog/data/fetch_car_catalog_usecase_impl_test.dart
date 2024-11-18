@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
-import 'package:minicore_arch_example/features/car_catalog/data/usecases/fetch_car_catalog_usecase_impl.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_states.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/entities/car_entity.dart';
+import 'package:minicore_arch_example/minicore_arch_example.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockHttpClient extends Mock implements http.Client {}
@@ -29,12 +27,14 @@ void main() {
         'should return CarCatalogSuccess when API call succeeds with valid data',
         () async {
       // Arrange
-      final mockResponseData = jsonEncode(List.generate(5, (_) {
-        return {
-          'codigo': faker.guid.guid(),
-          'nome': faker.vehicle.model(),
-        };
-      }));
+      final mockResponseData = jsonEncode(
+        List.generate(5, (_) {
+          return {
+            'codigo': faker.guid.guid(),
+            'nome': faker.vehicle.model(),
+          };
+        }),
+      );
       when(() => mockHttpClient.get(any())).thenAnswer(
         (_) async => http.Response(mockResponseData, 200),
       );
@@ -65,8 +65,10 @@ void main() {
       // Assert
       expect(result, isA<CarCatalogFailure>());
       final failureState = result as CarCatalogFailure;
-      expect(failureState.message,
-          'Failed to fetch car catalog. Status code: $mockStatusCode');
+      expect(
+        failureState.message,
+        'Failed to fetch car catalog. Status code: $mockStatusCode',
+      );
     });
 
     test('should return CarCatalogFailure when an exception is thrown',
@@ -82,8 +84,10 @@ void main() {
       // Assert
       expect(result, isA<CarCatalogFailure>());
       final failureState = result as CarCatalogFailure;
-      expect(failureState.message,
-          'Failed to fetch car catalog: Exception: $mockExceptionMessage');
+      expect(
+        failureState.message,
+        'Failed to fetch car catalog: Exception: $mockExceptionMessage',
+      );
     });
   });
 }

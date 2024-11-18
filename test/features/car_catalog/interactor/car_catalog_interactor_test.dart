@@ -1,8 +1,6 @@
 import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_interactor.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/car_catalog_states.dart';
-import 'package:minicore_arch_example/features/car_catalog/interactor/usecases/fetch_car_catalog_usecase.dart';
+import 'package:minicore_arch_example/minicore_arch_example.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockFetchCarCatalogUseCase extends Mock
@@ -48,7 +46,7 @@ void main() {
     test('Should emit loading and failure states when fetching fails',
         () async {
       // Arrange
-      final String errorMessage = faker.lorem.sentence();
+      final errorMessage = faker.lorem.sentence();
       when(() => mockFetchUseCase.call())
           .thenAnswer((_) async => CarCatalogFailure(errorMessage));
       final states = captureStates(sut);
@@ -60,9 +58,10 @@ void main() {
       expect(states, [
         isA<CarCatalogLoading>(),
         isA<CarCatalogFailure>().having(
-            (e) => e.message, // Corrige o acesso à mensagem
-            'failure message',
-            errorMessage),
+          (e) => e.message, // Corrige o acesso à mensagem
+          'failure message',
+          errorMessage,
+        ),
       ]);
       verify(() => mockFetchUseCase.call()).called(1);
     });
