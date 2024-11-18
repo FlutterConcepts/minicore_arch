@@ -31,92 +31,96 @@ void main() {
   });
 
   group('CarCatalogInteractor Tests', () {
-    test(
-        '''Should emit `CarCatalogLoading` followed by `CarBrandsSuccess` when `fetchBrands` completes successfully''',
-        () async {
-      // Arrange
-      when(() => mockFetchBrandsUseCase.call())
-          .thenAnswer((_) async => const CarBrandsSuccess([]));
-      final states = captureStates(sut);
+    group('fetchBrands Tests', () {
+      test(
+          '''Should emit `CarCatalogLoading` followed by `CarBrandsSuccess` when `fetchBrands` completes successfully''',
+          () async {
+        // Arrange
+        when(() => mockFetchBrandsUseCase.call())
+            .thenAnswer((_) async => const CarBrandsSuccess([]));
+        final states = captureStates(sut);
 
-      // Act
-      await sut.fetchBrands();
+        // Act
+        await sut.fetchBrands();
 
-      // Assert
-      expect(states, [
-        isA<CarCatalogLoading>(),
-        isA<CarBrandsSuccess>(),
-      ]);
-      verify(() => mockFetchBrandsUseCase.call()).called(1);
+        // Assert
+        expect(states, [
+          isA<CarCatalogLoading>(),
+          isA<CarBrandsSuccess>(),
+        ]);
+        verify(() => mockFetchBrandsUseCase.call()).called(1);
+      });
+
+      test(
+          '''Should emit `CarCatalogLoading` followed by `CarCatalogFailure` with an appropriate error message when `fetchBrands` fails''',
+          () async {
+        // Arrange
+        final errorMessage = faker.lorem.sentence();
+        when(() => mockFetchBrandsUseCase.call())
+            .thenAnswer((_) async => CarCatalogFailure(errorMessage));
+        final states = captureStates(sut);
+
+        // Act
+        await sut.fetchBrands();
+
+        // Assert
+        expect(states, [
+          isA<CarCatalogLoading>(),
+          isA<CarCatalogFailure>().having(
+            (e) => e.message,
+            'failure message',
+            errorMessage,
+          ),
+        ]);
+        verify(() => mockFetchBrandsUseCase.call()).called(1);
+      });
     });
 
-    test(
-        '''Should emit `CarCatalogLoading` followed by `CarCatalogFailure` with an appropriate error message when `fetchBrands` fails''',
-        () async {
-      // Arrange
-      final errorMessage = faker.lorem.sentence();
-      when(() => mockFetchBrandsUseCase.call())
-          .thenAnswer((_) async => CarCatalogFailure(errorMessage));
-      final states = captureStates(sut);
+    group('fetchModelsByBrand Tests', () {
+      test(
+          '''Should emit `CarCatalogLoading` followed by `CarModelsSuccess` when `fetchModelsByBrand` completes successfully for a given brand ID''',
+          () async {
+        // Arrange
+        const brandId = 1;
+        when(() => mockFetchModelsByBrandUseCase.call(brandId))
+            .thenAnswer((_) async => const CarModelsSuccess([]));
+        final states = captureStates(sut);
 
-      // Act
-      await sut.fetchBrands();
+        // Act
+        await sut.fetchModelsByBrand(brandId);
 
-      // Assert
-      expect(states, [
-        isA<CarCatalogLoading>(),
-        isA<CarCatalogFailure>().having(
-          (e) => e.message,
-          'failure message',
-          errorMessage,
-        ),
-      ]);
-      verify(() => mockFetchBrandsUseCase.call()).called(1);
-    });
+        // Assert
+        expect(states, [
+          isA<CarCatalogLoading>(),
+          isA<CarModelsSuccess>(),
+        ]);
+        verify(() => mockFetchModelsByBrandUseCase.call(brandId)).called(1);
+      });
 
-    test(
-        '''Should emit `CarCatalogLoading` followed by `CarModelsSuccess` when `fetchModelsByBrand` completes successfully for a given brand ID''',
-        () async {
-      // Arrange
-      const brandId = 1;
-      when(() => mockFetchModelsByBrandUseCase.call(brandId))
-          .thenAnswer((_) async => const CarModelsSuccess([]));
-      final states = captureStates(sut);
+      test(
+          '''Should emit `CarCatalogLoading` followed by `CarCatalogFailure` with an appropriate error message when `fetchModelsByBrand` fails''',
+          () async {
+        // Arrange
+        const brandId = 1;
+        final errorMessage = faker.lorem.sentence();
+        when(() => mockFetchModelsByBrandUseCase.call(brandId))
+            .thenAnswer((_) async => CarCatalogFailure(errorMessage));
+        final states = captureStates(sut);
 
-      // Act
-      await sut.fetchModelsByBrand(brandId);
+        // Act
+        await sut.fetchModelsByBrand(brandId);
 
-      // Assert
-      expect(states, [
-        isA<CarCatalogLoading>(),
-        isA<CarModelsSuccess>(),
-      ]);
-      verify(() => mockFetchModelsByBrandUseCase.call(brandId)).called(1);
-    });
-
-    test(
-        '''Should emit `CarCatalogLoading` followed by `CarCatalogFailure` with an appropriate error message when `fetchModelsByBrand` fails''',
-        () async {
-      // Arrange
-      const brandId = 1;
-      final errorMessage = faker.lorem.sentence();
-      when(() => mockFetchModelsByBrandUseCase.call(brandId))
-          .thenAnswer((_) async => CarCatalogFailure(errorMessage));
-      final states = captureStates(sut);
-
-      // Act
-      await sut.fetchModelsByBrand(brandId);
-
-      // Assert
-      expect(states, [
-        isA<CarCatalogLoading>(),
-        isA<CarCatalogFailure>().having(
-          (e) => e.message,
-          'failure message',
-          errorMessage,
-        ),
-      ]);
-      verify(() => mockFetchModelsByBrandUseCase.call(brandId)).called(1);
+        // Assert
+        expect(states, [
+          isA<CarCatalogLoading>(),
+          isA<CarCatalogFailure>().having(
+            (e) => e.message,
+            'failure message',
+            errorMessage,
+          ),
+        ]);
+        verify(() => mockFetchModelsByBrandUseCase.call(brandId)).called(1);
+      });
     });
   });
 }
