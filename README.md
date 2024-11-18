@@ -266,13 +266,13 @@ Imagine an application that displays a car catalog:
 
 - **UI**:
 
-  - A "Fetch Cars" button is clicked.
+  - A "Fetch Car Brands" button is clicked.
   - The UI sends a request to the **Interactor**.
 
 - **Interactor**:
 
   - Receives the request from the UI.
-  - Decides to call the "Fetch Car Catalog" use case.
+  - Decides to call the "Fetch Car Brands" use case.
   - Processes the result and returns it to the UI.
 
 - **Data**:
@@ -327,13 +327,13 @@ Imagine um aplicativo que exibe um catálogo de carros:
 
 - **UI**:
 
-  - Um botão "Buscar carros" é clicado.
+  - Um botão "Buscar marcas de carros" é clicado.
   - A UI envia uma solicitação para o **Interactor**.
 
 - **Interactor**:
 
   - Recebe a solicitação da UI.
-  - Decide chamar o caso de uso de "Buscar catálogo de carros".
+  - Decide chamar o caso de uso de "Buscar marcas de carros".
   - Processa o resultado e retorna para a UI.
 
 - **Data**:
