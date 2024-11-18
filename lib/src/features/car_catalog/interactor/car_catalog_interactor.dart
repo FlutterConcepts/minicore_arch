@@ -9,7 +9,9 @@ class CarCatalogInteractor extends ValueNotifier<CarCatalogState> {
 
   Future<void> fetch() async {
     value = CarCatalogLoading();
-    final newState = await fetchUseCase.call();
-    value = newState;
+    await Future.delayed(const Duration(seconds: 2), () async {
+      final newState = await fetchUseCase.call();
+      value = newState;
+    });
   }
 }
