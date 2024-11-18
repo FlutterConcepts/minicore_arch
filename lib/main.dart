@@ -21,10 +21,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // HTTP client used for API requests.
-    final httpClient = Client();
+    final client = Client();
 
     // Use case for fetching the car catalog.
-    final fetchUseCase = FetchCarCatalogUseCaseImpl(httpClient);
+    final fetchUseCase = FetchCarCatalogUseCaseImpl(client);
 
     // Interactor for managing the state of the car catalog.
     final interactor = CarCatalogInteractor(fetchUseCase);

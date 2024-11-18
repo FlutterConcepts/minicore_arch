@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
-class CarInteractorMock extends ValueNotifier<CarCatalogState>
+class MockCarInteractor extends ValueNotifier<CarCatalogState>
     implements CarCatalogInteractor {
-  CarInteractorMock() : super(CarCatalogLoading());
+  MockCarInteractor() : super(CarCatalogLoading());
 
   @override
   FetchCarCatalogUseCase get fetchUseCase => throw UnimplementedError();
@@ -16,18 +16,18 @@ class CarInteractorMock extends ValueNotifier<CarCatalogState>
 
 void main() {
   group('CarCatalogPage Tests', () {
-    late CarInteractorMock interactor;
+    late MockCarInteractor mockInteractor;
 
     setUp(() {
       // Arrange
-      interactor = CarInteractorMock();
+      mockInteractor = MockCarInteractor();
     });
 
     testWidgets('Should correctly display the page states', (tester) async {
       // Act
       await tester.pumpWidget(
         CarCatalogProvider(
-          interactor: interactor,
+          interactor: mockInteractor,
           child: const MaterialApp(
             home: CarCatalogPage(),
           ),
@@ -40,7 +40,7 @@ void main() {
       expect(find.byKey(const Key('CarCatalogSuccess')), findsNothing);
 
       // Arrange
-      interactor.value = const CarCatalogSuccess([]);
+      mockInteractor.value = const CarCatalogSuccess([]);
 
       // Act
       await tester.pump();
@@ -52,7 +52,7 @@ void main() {
 
       // Arrange
       final errorMessage = faker.lorem.sentence();
-      interactor.value = CarCatalogFailure(errorMessage);
+      mockInteractor.value = CarCatalogFailure(errorMessage);
 
       // Act
       await tester.pump();

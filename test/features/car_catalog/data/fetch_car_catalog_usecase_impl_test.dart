@@ -6,16 +6,16 @@ import 'package:http/http.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockHttpClient extends Mock implements Client {}
+class MockClient extends Mock implements Client {}
 
 void main() {
-  late MockHttpClient mockHttpClient;
+  late MockClient mockClient;
   late FetchCarCatalogUseCaseImpl sut;
 
   setUp(() {
     // Arrange
-    mockHttpClient = MockHttpClient();
-    sut = FetchCarCatalogUseCaseImpl(mockHttpClient);
+    mockClient = MockClient();
+    sut = FetchCarCatalogUseCaseImpl(mockClient);
   });
 
   setUpAll(() {
@@ -35,7 +35,7 @@ should return CarCatalogSuccess when API call succeeds with valid data''',
           };
         }),
       );
-      when(() => mockHttpClient.get(any())).thenAnswer(
+      when(() => mockClient.get(any())).thenAnswer(
         (_) async => Response(mockResponseData, 200),
       );
 
@@ -55,7 +55,7 @@ should return CarCatalogFailure when API call fails with a non-200 status code''
       // Arrange
       const mockStatusCode = 404;
       final mockMessage = faker.lorem.sentence();
-      when(() => mockHttpClient.get(any())).thenAnswer(
+      when(() => mockClient.get(any())).thenAnswer(
         (_) async => Response(mockMessage, mockStatusCode),
       );
 
@@ -75,7 +75,7 @@ should return CarCatalogFailure when API call fails with a non-200 status code''
         () async {
       // Arrange
       final mockExceptionMessage = faker.lorem.sentence();
-      when(() => mockHttpClient.get(any()))
+      when(() => mockClient.get(any()))
           .thenThrow(Exception(mockExceptionMessage));
 
       // Act

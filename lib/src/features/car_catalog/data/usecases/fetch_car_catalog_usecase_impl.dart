@@ -10,11 +10,11 @@ import 'package:minicore_arch_example/minicore_arch_example.dart';
 class FetchCarCatalogUseCaseImpl implements FetchCarCatalogUseCase {
   /// Creates an instance of [FetchCarCatalogUseCaseImpl].
   ///
-  /// Requires an [httpClient] to perform HTTP requests.
-  FetchCarCatalogUseCaseImpl(this.httpClient);
+  /// Requires an [client] to perform HTTP requests.
+  FetchCarCatalogUseCaseImpl(this.client);
 
   /// The HTTP client used to make requests to the API.
-  final Client httpClient;
+  final Client client;
 
   /// Fetches the car catalog from an external API.
   ///
@@ -29,7 +29,7 @@ class FetchCarCatalogUseCaseImpl implements FetchCarCatalogUseCase {
   @override
   Future<CarCatalogState> call() async {
     try {
-      final response = await httpClient.get(
+      final response = await client.get(
         Uri.parse('https://parallelum.com.br/fipe/api/v1/carros/marcas'),
       );
 

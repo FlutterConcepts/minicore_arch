@@ -30,8 +30,7 @@ class CarCatalogProvider extends InheritedNotifier<CarCatalogInteractor> {
   /// - [context] is the [BuildContext] used to locate the provider in the
   /// widget tree.
   /// - [listen] determines whether the caller should be rebuilt when the
-  /// interactor
-  ///   notifies its listeners. Defaults to `true`.
+  /// interactor notifies its listeners. Defaults to `true`.
   ///
   /// Throws an error if no [CarCatalogProvider] is found in the widget tree.
   static CarCatalogInteractor of(BuildContext context, {bool listen = true}) {

@@ -7,7 +7,7 @@ class MockFetchCarCatalogUseCase extends Mock
     implements FetchCarCatalogUseCase {}
 
 void main() {
-  late FetchCarCatalogUseCase mockFetchUseCase;
+  late MockFetchCarCatalogUseCase mockFetchUseCase;
   late CarCatalogInteractor sut;
 
   List<CarCatalogState> captureStates(CarCatalogInteractor interactor) {
