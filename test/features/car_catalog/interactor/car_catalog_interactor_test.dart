@@ -64,7 +64,7 @@ void main() {
       expect(states, [
         isA<CarCatalogLoading>(),
         isA<CarCatalogFailure>().having(
-          (e) => e.message, // Corrige o acesso à mensagem
+          (e) => e.message,
           'failure message',
           errorMessage,
         ),
