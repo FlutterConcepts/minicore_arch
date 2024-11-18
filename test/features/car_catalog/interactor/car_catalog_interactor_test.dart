@@ -31,7 +31,8 @@ void main() {
   });
 
   group('CarCatalogInteractor Tests', () {
-    test('Should emit loading and success states when fetching succeeds',
+    test(
+        '''Should emit loading and CarBrandsSuccess state when fetching succeeds''',
         () async {
       // Arrange
       when(() => mockFetchBrandsUseCase.call())
@@ -47,6 +48,26 @@ void main() {
         isA<CarBrandsSuccess>(),
       ]);
       verify(() => mockFetchBrandsUseCase.call()).called(1);
+    });
+
+    test(
+        '''Should emit loading and CarModelsSuccess state when fetching succeeds''',
+        () async {
+      // Arrange
+      const brandId = 1;
+      when(() => mockFetchModelsByBrandUseCase.call(brandId))
+          .thenAnswer((_) async => const CarModelsSuccess([]));
+      final states = captureStates(sut);
+
+      // Act
+      await sut.fetchModelsByBrand(brandId);
+
+      // Assert
+      expect(states, [
+        isA<CarCatalogLoading>(),
+        isA<CarModelsSuccess>(),
+      ]);
+      verify(() => mockFetchModelsByBrandUseCase.call(brandId)).called(1);
     });
 
     test('Should emit loading and failure states when fetching fails',
