@@ -36,6 +36,10 @@ Follow the steps below to explore this example:
 
 ### **Layer Structure and Relationships**
 
+![MiniCore Arch Data Flow Diagram](docs/images/minicore_arch.png)
+
+![Clean Arch Data Flow Diagram](docs/images/clean_arch.png)
+
 - **Main**:
 
   - Serves as the entry point of the application and knows all layers.
@@ -148,6 +152,10 @@ Siga os passos abaixo para começar a explorar este exemplo:
 ## **Explicação do Core de Cada Módulo**
 
 ### **Estrutura de Camadas e Relacionamentos**
+
+![Diagrama do Fluxo de Dados MiniCore Arch](docs/images/minicore_arch.png)
+
+![Diagrama do Fluxo de Dados Clean Arch](docs/images/clean_arch.png)
 
 - **Main**:
 
