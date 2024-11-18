@@ -22,8 +22,8 @@ void main() {
   });
 
   group('FetchCarBrandsUseCase', () {
-    test('''
-Should return CarBrandsSuccess when API call succeeds with valid data''',
+    test(
+        '''Should return CarBrandsSuccess when API call succeeds with valid data''',
         () async {
       // Arrange
       final mockResponseData = jsonEncode(
@@ -49,13 +49,12 @@ Should return CarBrandsSuccess when API call succeeds with valid data''',
     });
 
     test(
-      '''
-Should return CarModelsSuccess when API call succeeds with valid data''',
+      '''Should return CarModelsSuccess when API call succeeds with valid data''',
       () async {},
     );
 
-    test('''
-Should return CarCatalogFailure when API call fails with a non-200 status code''',
+    test(
+        '''Should return CarCatalogFailure when API call fails with a non-200 status code''',
         () async {
       // Arrange
       const mockStatusCode = 404;

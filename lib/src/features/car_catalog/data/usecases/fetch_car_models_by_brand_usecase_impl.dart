@@ -12,8 +12,9 @@ class FetchCarModelsByBrandUseCaseImpl implements FetchCarModelsByBrandUseCase {
   Future<CarCatalogState> call(int brandId) async {
     try {
       final response = await client.get(
-        Uri.parse('''
-https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models'''),
+        Uri.parse(
+          '''https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models''',
+        ),
       );
 
       if (response.statusCode == 200) {
@@ -25,12 +26,12 @@ https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models'''),
         return CarModelsSuccess(carModels);
       } else {
         return CarCatalogFailure(
-          'Failed to fetch car catalog. Status code: ${response.statusCode}',
+          '''Failed to fetch car models catalog. Status code: ${response.statusCode}''',
         );
       }
     } catch (error) {
       return CarCatalogFailure(
-        'Failed to fetch car catalog: $error',
+        'Failed to fetch car models catalog: $error',
       );
     }
   }

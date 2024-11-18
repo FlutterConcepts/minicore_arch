@@ -25,12 +25,12 @@ class FetchCarBrandsUseCaseImpl implements FetchCarBrandsUseCase {
         return CarBrandsSuccess(carBrands);
       } else {
         return CarCatalogFailure(
-          'Failed to fetch car catalog. Status code: ${response.statusCode}',
+          '''Failed to fetch car brands catalog. Status code: ${response.statusCode}''',
         );
       }
     } catch (error) {
       return CarCatalogFailure(
-        'Failed to fetch car catalog: $error',
+        'Failed to fetch car brands catalog: $error',
       );
     }
   }
