@@ -29,8 +29,8 @@ void main() {
       final mockResponseData = jsonEncode(
         List.generate(5, (_) {
           return {
-            'codigo': faker.guid.guid(),
-            'nome': faker.vehicle.model(),
+            'code': faker.randomGenerator.integer(1000, min: 1).toString(),
+            'name': faker.vehicle.model(),
           };
         }),
       );
@@ -71,7 +71,7 @@ void main() {
       final failureState = result as CarCatalogFailure;
       expect(
         failureState.message,
-        'Failed to fetch car catalog. Status code: $mockStatusCode',
+        'Failed to fetch car brands catalog. Status code: $mockStatusCode',
       );
     });
 
@@ -90,7 +90,7 @@ void main() {
       final failureState = result as CarCatalogFailure;
       expect(
         failureState.message,
-        'Failed to fetch car catalog: Exception: $mockExceptionMessage',
+        'Failed to fetch car brands catalog: Exception: $mockExceptionMessage',
       );
     });
   });
