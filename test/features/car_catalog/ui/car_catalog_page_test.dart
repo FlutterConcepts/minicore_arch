@@ -20,7 +20,7 @@ class MockCarCatalogInteractor extends ValueNotifier<CarCatalogState>
 }
 
 void main() {
-  group('CarCatalogPage Tests', () {
+  group('CarCatalogPage Tests |', () {
     late CarCatalogInteractor mockInteractor;
 
     setUp(() {

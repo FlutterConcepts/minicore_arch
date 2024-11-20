@@ -30,7 +30,7 @@ void main() {
     );
   });
 
-  group('CarCatalogInteractor Tests', () {
+  group('CarCatalogInteractor Tests |', () {
     group('fetchBrands Tests', () {
       test(
           '''Should emit `CarCatalogLoading` followed by `CarBrandsSuccess` when `fetchBrands` completes successfully''',
@@ -76,7 +76,7 @@ void main() {
       });
     });
 
-    group('fetchModelsByBrand Tests', () {
+    group('fetchModelsByBrand Tests |', () {
       test(
           '''Should emit `CarCatalogLoading` followed by `CarModelsByBrandSuccess` when `fetchModelsByBrand` completes successfully for a given brand ID''',
           () async {

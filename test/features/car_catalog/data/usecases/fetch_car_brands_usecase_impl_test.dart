@@ -21,7 +21,7 @@ void main() {
     registerFallbackValue(Uri.parse(''));
   });
 
-  group('FetchCarBrandsUseCase', () {
+  group('FetchCarBrandsUseCase |', () {
     test(
         '''Should return CarBrandsSuccess when API call succeeds with valid data''',
         () async {
