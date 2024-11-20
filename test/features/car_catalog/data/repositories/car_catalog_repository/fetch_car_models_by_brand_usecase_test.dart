@@ -10,11 +10,11 @@ class MockClient extends Mock implements Client {}
 
 void main() {
   late Client mockClient;
-  late CarCatalogRepository sut;
+  late CarCatalogRepository sutRepository;
 
   setUp(() {
     mockClient = MockClient();
-    sut = ParallelumCarCatalogRepository(mockClient);
+    sutRepository = ParallelumCarCatalogRepository(mockClient);
   });
 
   setUpAll(() {
@@ -46,7 +46,7 @@ void main() {
       );
 
       // Act
-      final result = await sut.fetchCarModelsByBrandUseCase(brandId);
+      final result = await sutRepository.fetchCarModelsByBrandUseCase(brandId);
 
       // Assert
       expect(result, isA<CarModelsByBrandSuccess>());
@@ -73,7 +73,7 @@ void main() {
       );
 
       // Act
-      final result = await sut.fetchCarModelsByBrandUseCase(brandId);
+      final result = await sutRepository.fetchCarModelsByBrandUseCase(brandId);
 
       // Assert
       expect(result, isA<CarCatalogFailure>());
@@ -98,7 +98,7 @@ void main() {
       ).thenThrow(Exception(mockExceptionMessage));
 
       // Act
-      final result = await sut.fetchCarModelsByBrandUseCase(brandId);
+      final result = await sutRepository.fetchCarModelsByBrandUseCase(brandId);
 
       // Assert
       expect(result, isA<CarCatalogFailure>());
