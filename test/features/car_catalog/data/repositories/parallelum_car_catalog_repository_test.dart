@@ -10,11 +10,16 @@ class MockClient extends Mock implements Client {}
 
 void main() {
   late Client mockClient;
+  late String baseUrl;
   late CarCatalogRepository sut;
 
   setUp(() {
     mockClient = MockClient();
-    sut = ParallelumCarCatalogRepository(mockClient);
+    baseUrl = faker.internet.httpsUrl();
+    sut = ParallelumCarCatalogRepository(
+      mockClient,
+      baseUrl: baseUrl,
+    );
   });
 
   setUpAll(() {
@@ -34,9 +39,8 @@ void main() {
           };
         }),
       );
-      when(() => mockClient.get(any())).thenAnswer(
-        (_) async => Response(mockResponseData, 200),
-      );
+      when(() => mockClient.get(any()))
+          .thenAnswer((_) async => Response(mockResponseData, 200));
 
       // Act
       final result = await sut.fetchCarBrands();
@@ -105,11 +109,7 @@ void main() {
         }),
       );
       when(
-        () => mockClient.get(
-          Uri.parse(
-            'https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models',
-          ),
-        ),
+        () => mockClient.get(Uri.parse('$baseUrl/cars/brands/$brandId/models')),
       ).thenAnswer(
         (_) async => Response(mockResponseData, 200),
       );
@@ -132,11 +132,7 @@ void main() {
       const mockStatusCode = 404;
       final mockMessage = faker.lorem.sentence();
       when(
-        () => mockClient.get(
-          Uri.parse(
-            'https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models',
-          ),
-        ),
+        () => mockClient.get(Uri.parse('$baseUrl/cars/brands/$brandId/models')),
       ).thenAnswer(
         (_) async => Response(mockMessage, mockStatusCode),
       );
@@ -159,11 +155,7 @@ void main() {
       const brandId = 1;
       final mockExceptionMessage = faker.lorem.sentence();
       when(
-        () => mockClient.get(
-          Uri.parse(
-            'https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models',
-          ),
-        ),
+        () => mockClient.get(Uri.parse('$baseUrl/cars/brands/$brandId/models')),
       ).thenThrow(Exception(mockExceptionMessage));
 
       // Act

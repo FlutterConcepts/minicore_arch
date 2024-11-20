@@ -4,16 +4,18 @@ import 'package:http/http.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
 class ParallelumCarCatalogRepository implements CarCatalogRepository {
-  ParallelumCarCatalogRepository(this._client);
+  ParallelumCarCatalogRepository(
+    this._client, {
+    required this.baseUrl,
+  });
 
   final Client _client;
+  final String baseUrl;
 
   @override
   Future<CarCatalogState> fetchCarBrands() async {
     try {
-      final response = await _client.get(
-        Uri.parse('https://parallelum.com.br/fipe/api/v2/cars/brands'),
-      );
+      final response = await _client.get(Uri.parse('$baseUrl/cars/brands'));
 
       if (response.statusCode == 200) {
         final carBrands = (jsonDecode(response.body) as List<dynamic>)
@@ -37,11 +39,8 @@ class ParallelumCarCatalogRepository implements CarCatalogRepository {
   @override
   Future<CarCatalogState> fetchCarModelsByBrand(int brandId) async {
     try {
-      final response = await _client.get(
-        Uri.parse(
-          '''https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models''',
-        ),
-      );
+      final response =
+          await _client.get(Uri.parse('$baseUrl/cars/brands/$brandId/models'));
 
       if (response.statusCode == 200) {
         final carModels = (jsonDecode(response.body) as List<dynamic>)

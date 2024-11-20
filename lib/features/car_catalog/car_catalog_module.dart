@@ -10,7 +10,7 @@ class CarCatalogModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final client = Client();
-    final repository = ParallelumCarCatalogRepository(client);
+    final repository = ParallelumCarCatalogRepository(client, baseUrl: baseUrl);
     final interactor = CarCatalogInteractor(repository);
 
     return CarCatalogProvider(
