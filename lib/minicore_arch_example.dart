@@ -1,1 +1,1 @@
-export 'src/features/car_catalog/car_catalog.dart';
+export 'features/car_catalog/car_catalog.dart';
