@@ -10,9 +10,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'MiniCore Arch',
-      home: CarCatalogModule(),
+      initialRoute: '/carCatalog',
+      routes: {
+        '/carCatalog': (context) => const CarCatalogModule(),
+      },
     );
   }
 }
