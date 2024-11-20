@@ -1,2 +1,11 @@
 export 'core/constants/env.dart';
-export 'features/car_catalog/car_catalog.dart';
+export 'features/car_catalog/car_catalog_module.dart';
+export 'features/car_catalog/data/mappers/car_mapper.dart';
+export 'features/car_catalog/data/repositories/parallelum_car_catalog_repository.dart';
+export 'features/car_catalog/interactor/car_catalog_interactor.dart';
+export 'features/car_catalog/interactor/car_catalog_states.dart';
+export 'features/car_catalog/interactor/entities/car_brand_entity.dart';
+export 'features/car_catalog/interactor/entities/car_model_entity.dart';
+export 'features/car_catalog/interactor/repositories/car_catalog_repository.dart';
+export 'features/car_catalog/ui/car_catalog_page.dart';
+export 'features/car_catalog/ui/car_catalog_provider.dart';
