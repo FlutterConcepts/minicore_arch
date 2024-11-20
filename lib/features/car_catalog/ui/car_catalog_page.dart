@@ -36,7 +36,7 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
             key: const Key('CarBrandsSuccess'),
             padding: const EdgeInsets.all(16),
             itemCount: carBrands.length,
-            itemBuilder: (context, index) {
+            itemBuilder: (_, index) {
               final brand = carBrands[index];
               return Center(
                 child: Padding(
@@ -57,7 +57,7 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
             key: const Key('CarModelsByBrandSuccess'),
             padding: const EdgeInsets.all(16),
             itemCount: carModels.length,
-            itemBuilder: (context, index) {
+            itemBuilder: (_, index) {
               final model = carModels[index];
               return Center(
                 child: Padding(

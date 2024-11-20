@@ -14,7 +14,7 @@ class App extends StatelessWidget {
       title: 'MiniCore Arch',
       initialRoute: CarCatalogModule.initialRoute,
       routes: {
-        CarCatalogModule.initialRoute: (context) => const CarCatalogModule(),
+        CarCatalogModule.initialRoute: (_) => const CarCatalogModule(),
       },
     );
   }
