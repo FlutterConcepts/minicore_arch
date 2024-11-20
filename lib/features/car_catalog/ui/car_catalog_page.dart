@@ -14,7 +14,7 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await CarCatalogProvider.of(context, listen: false).fetchBrands();
+      await CarCatalogProvider.of(context, listen: false).fetchCarBrands();
     });
   }
 
@@ -43,7 +43,8 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: TextButton(
-                    onPressed: () => interactor.fetchModelsByBrand(brand.code),
+                    onPressed: () =>
+                        interactor.fetchCarModelsByBrand(brand.code),
                     child: Text('Código: ${brand.code} | Marca: ${brand.name}'),
                   ),
                 ),
@@ -73,7 +74,7 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
           ),
       },
       floatingActionButton: FloatingActionButton(
-        onPressed: interactor.fetchBrands,
+        onPressed: interactor.fetchCarBrands,
         child: const Icon(Icons.refresh),
       ),
     );

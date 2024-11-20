@@ -2,26 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
 class CarCatalogInteractor extends ValueNotifier<CarCatalogState> {
-  CarCatalogInteractor({
-    required this.fetchBrandsUseCase,
-    required this.fetchModelsByBrandUseCase,
-  }) : super(CarCatalogLoading());
+  CarCatalogInteractor(this.repository) : super(CarCatalogLoading());
 
-  final FetchCarBrandsUseCase fetchBrandsUseCase;
-  final FetchCarModelsByBrandUseCase fetchModelsByBrandUseCase;
+  final CarCatalogRepository repository;
 
-  Future<void> fetchBrands() async {
+  Future<void> fetchCarBrands() async {
     value = CarCatalogLoading();
     await Future.delayed(const Duration(seconds: 1), () async {
-      final newState = await fetchBrandsUseCase.call();
+      final newState = await repository.fetchCarBrandsUseCase();
       value = newState;
     });
   }
 
-  Future<void> fetchModelsByBrand(int brandId) async {
+  Future<void> fetchCarModelsByBrand(int brandId) async {
     value = CarCatalogLoading();
     await Future.delayed(const Duration(seconds: 1), () async {
-      final newState = await fetchModelsByBrandUseCase.call(brandId);
+      final newState = await repository.fetchCarModelsByBrandUseCase(brandId);
       value = newState;
     });
   }

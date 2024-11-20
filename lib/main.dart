@@ -12,14 +12,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final client = Client();
-
-    final fetchBrandsUseCase = FetchCarBrandsUseCaseImpl(client);
-    final fetchModelsByBrandUseCase = FetchCarModelsByBrandUseCaseImpl(client);
-
-    final interactor = CarCatalogInteractor(
-      fetchBrandsUseCase: fetchBrandsUseCase,
-      fetchModelsByBrandUseCase: fetchModelsByBrandUseCase,
-    );
+    final carCatalogRepository = ParallelumCarCatalogRepository(client);
+    final interactor = CarCatalogInteractor(carCatalogRepository);
 
     return MaterialApp(
       title: 'MiniCore Arch',

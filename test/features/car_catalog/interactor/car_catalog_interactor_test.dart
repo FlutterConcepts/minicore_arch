@@ -3,14 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockFetchCarBrandsUseCase extends Mock implements FetchCarBrandsUseCase {}
-
-class MockFetchCarModelsByBrandUseCase extends Mock
-    implements FetchCarModelsByBrandUseCase {}
+class MockCarCatalogRepository extends Mock implements CarCatalogRepository {}
 
 void main() {
-  late FetchCarBrandsUseCase mockFetchBrandsUseCase;
-  late FetchCarModelsByBrandUseCase mockFetchModelsByBrandUseCase;
+  late CarCatalogRepository repository;
   late CarCatalogInteractor sut;
 
   List<CarCatalogState> captureStates(CarCatalogInteractor interactor) {
@@ -22,46 +18,42 @@ void main() {
   }
 
   setUp(() {
-    mockFetchBrandsUseCase = MockFetchCarBrandsUseCase();
-    mockFetchModelsByBrandUseCase = MockFetchCarModelsByBrandUseCase();
-    sut = CarCatalogInteractor(
-      fetchBrandsUseCase: mockFetchBrandsUseCase,
-      fetchModelsByBrandUseCase: mockFetchModelsByBrandUseCase,
-    );
+    repository = MockCarCatalogRepository();
+    sut = CarCatalogInteractor(repository);
   });
 
   group('CarCatalogInteractor Tests |', () {
-    group('fetchBrands Tests', () {
+    group('fetchCarBrands Tests', () {
       test(
-          '''Should emit `CarCatalogLoading` followed by `CarBrandsSuccess` when `fetchBrands` completes successfully''',
+          '''Should emit `CarCatalogLoading` followed by `CarBrandsSuccess` when `fetchCarBrands` completes successfully''',
           () async {
         // Arrange
-        when(() => mockFetchBrandsUseCase.call())
+        when(repository.fetchCarBrandsUseCase)
             .thenAnswer((_) async => const CarBrandsSuccess([]));
         final states = captureStates(sut);
 
         // Act
-        await sut.fetchBrands();
+        await sut.fetchCarBrands();
 
         // Assert
         expect(states, [
           isA<CarCatalogLoading>(),
           isA<CarBrandsSuccess>(),
         ]);
-        verify(() => mockFetchBrandsUseCase.call()).called(1);
+        verify(repository.fetchCarBrandsUseCase).called(1);
       });
 
       test(
-          '''Should emit `CarCatalogLoading` followed by `CarCatalogFailure` with an appropriate error message when `fetchBrands` fails''',
+          '''Should emit `CarCatalogLoading` followed by `CarCatalogFailure` with an appropriate error message when `fetchCarBrands` fails''',
           () async {
         // Arrange
         final errorMessage = faker.lorem.sentence();
-        when(() => mockFetchBrandsUseCase.call())
+        when(repository.fetchCarBrandsUseCase)
             .thenAnswer((_) async => CarCatalogFailure(errorMessage));
         final states = captureStates(sut);
 
         // Act
-        await sut.fetchBrands();
+        await sut.fetchCarBrands();
 
         // Assert
         expect(states, [
@@ -72,7 +64,7 @@ void main() {
             errorMessage,
           ),
         ]);
-        verify(() => mockFetchBrandsUseCase.call()).called(1);
+        verify(repository.fetchCarBrandsUseCase).called(1);
       });
     });
 
@@ -82,19 +74,20 @@ void main() {
           () async {
         // Arrange
         const brandId = 1;
-        when(() => mockFetchModelsByBrandUseCase.call(brandId))
+        when(() => repository.fetchCarModelsByBrandUseCase(brandId))
             .thenAnswer((_) async => const CarModelsByBrandSuccess([]));
         final states = captureStates(sut);
 
         // Act
-        await sut.fetchModelsByBrand(brandId);
+        await sut.fetchCarModelsByBrand(brandId);
 
         // Assert
         expect(states, [
           isA<CarCatalogLoading>(),
           isA<CarModelsByBrandSuccess>(),
         ]);
-        verify(() => mockFetchModelsByBrandUseCase.call(brandId)).called(1);
+        verify(() => repository.fetchCarModelsByBrandUseCase(brandId))
+            .called(1);
       });
 
       test(
@@ -103,12 +96,12 @@ void main() {
         // Arrange
         const brandId = 1;
         final errorMessage = faker.lorem.sentence();
-        when(() => mockFetchModelsByBrandUseCase.call(brandId))
+        when(() => repository.fetchCarModelsByBrandUseCase(brandId))
             .thenAnswer((_) async => CarCatalogFailure(errorMessage));
         final states = captureStates(sut);
 
         // Act
-        await sut.fetchModelsByBrand(brandId);
+        await sut.fetchCarModelsByBrand(brandId);
 
         // Assert
         expect(states, [
@@ -119,7 +112,8 @@ void main() {
             errorMessage,
           ),
         ]);
-        verify(() => mockFetchModelsByBrandUseCase.call(brandId)).called(1);
+        verify(() => repository.fetchCarModelsByBrandUseCase(brandId))
+            .called(1);
       });
     });
   });
