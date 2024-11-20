@@ -31,7 +31,7 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
             key: Key('CarCatalogLoading'),
             child: CircularProgressIndicator(),
           ),
-        CarBrandsSuccess(carBrands: final List<CarBrandEntity> carBrands) =>
+        CarBrandsSuccess(carBrands: final List<CarBrandModel> carBrands) =>
           ListView.builder(
             key: const Key('CarBrandsSuccess'),
             padding: const EdgeInsets.all(16),
@@ -51,7 +51,7 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
             },
           ),
         CarModelsByBrandSuccess(
-          carModels: final List<CarModelEntity> carModels
+          carModels: final List<CarSpecModel> carModels
         ) =>
           ListView.builder(
             key: const Key('CarModelsByBrandSuccess'),

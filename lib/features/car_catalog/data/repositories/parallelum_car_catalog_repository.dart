@@ -20,7 +20,7 @@ class ParallelumCarCatalogRepository implements CarCatalogRepository {
       if (response.statusCode == 200) {
         final carBrands = (jsonDecode(response.body) as List<dynamic>)
             .cast<Map<String, dynamic>>()
-            .map(CarMapper.fromJsonToBrand)
+            .map(CarBrandModel.fromJson)
             .toList();
 
         return CarBrandsSuccess(carBrands);
@@ -45,7 +45,7 @@ class ParallelumCarCatalogRepository implements CarCatalogRepository {
       if (response.statusCode == 200) {
         final carModels = (jsonDecode(response.body) as List<dynamic>)
             .cast<Map<String, dynamic>>()
-            .map(CarMapper.fromJsonToModel)
+            .map(CarSpecModel.fromJson)
             .toList();
 
         return CarModelsByBrandSuccess(carModels);

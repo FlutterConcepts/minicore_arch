@@ -49,7 +49,7 @@ void main() {
       expect(result, isA<CarBrandsSuccess>());
       final successState = result as CarBrandsSuccess;
       expect(successState.carBrands.length, 5);
-      expect(successState.carBrands[0], isA<CarBrandEntity>());
+      expect(successState.carBrands[0], isA<CarBrandModel>());
     });
 
     test(
@@ -121,7 +121,7 @@ void main() {
       expect(result, isA<CarModelsByBrandSuccess>());
       final successState = result as CarModelsByBrandSuccess;
       expect(successState.carModels.length, 5);
-      expect(successState.carModels[0], isA<CarModelEntity>());
+      expect(successState.carModels[0], isA<CarSpecModel>());
     });
 
     test(
