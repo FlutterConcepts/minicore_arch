@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
 void main() {
@@ -11,16 +10,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final client = Client();
-    final carCatalogRepository = ParallelumCarCatalogRepository(client);
-    final interactor = CarCatalogInteractor(carCatalogRepository);
-
-    return MaterialApp(
+    return const MaterialApp(
       title: 'MiniCore Arch',
-      home: CarCatalogProvider(
-        interactor: interactor,
-        child: const CarCatalogPage(),
-      ),
+      home: CarCatalogModule(),
     );
   }
 }

@@ -1,3 +1,4 @@
+export 'car_catalog_module.dart';
 export 'data/mappers/car_mapper.dart';
 export 'data/repositories/parallelum_car_catalog_repository.dart';
 export 'interactor/car_catalog_interactor.dart';
