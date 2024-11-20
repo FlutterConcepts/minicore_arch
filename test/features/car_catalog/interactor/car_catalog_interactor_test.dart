@@ -28,7 +28,7 @@ void main() {
           '''Should emit `CarCatalogLoading` followed by `CarBrandsSuccess` when `fetchCarBrands` completes successfully''',
           () async {
         // Arrange
-        when(repository.fetchCarBrandsUseCase)
+        when(repository.fetchCarBrands)
             .thenAnswer((_) async => const CarBrandsSuccess([]));
         final states = captureStates(sut);
 
@@ -40,7 +40,7 @@ void main() {
           isA<CarCatalogLoading>(),
           isA<CarBrandsSuccess>(),
         ]);
-        verify(repository.fetchCarBrandsUseCase).called(1);
+        verify(repository.fetchCarBrands).called(1);
       });
 
       test(
@@ -48,7 +48,7 @@ void main() {
           () async {
         // Arrange
         final errorMessage = faker.lorem.sentence();
-        when(repository.fetchCarBrandsUseCase)
+        when(repository.fetchCarBrands)
             .thenAnswer((_) async => CarCatalogFailure(errorMessage));
         final states = captureStates(sut);
 
@@ -64,7 +64,7 @@ void main() {
             errorMessage,
           ),
         ]);
-        verify(repository.fetchCarBrandsUseCase).called(1);
+        verify(repository.fetchCarBrands).called(1);
       });
     });
 
@@ -74,7 +74,7 @@ void main() {
           () async {
         // Arrange
         const brandId = 1;
-        when(() => repository.fetchCarModelsByBrandUseCase(brandId))
+        when(() => repository.fetchCarModelsByBrand(brandId))
             .thenAnswer((_) async => const CarModelsByBrandSuccess([]));
         final states = captureStates(sut);
 
@@ -86,8 +86,7 @@ void main() {
           isA<CarCatalogLoading>(),
           isA<CarModelsByBrandSuccess>(),
         ]);
-        verify(() => repository.fetchCarModelsByBrandUseCase(brandId))
-            .called(1);
+        verify(() => repository.fetchCarModelsByBrand(brandId)).called(1);
       });
 
       test(
@@ -96,7 +95,7 @@ void main() {
         // Arrange
         const brandId = 1;
         final errorMessage = faker.lorem.sentence();
-        when(() => repository.fetchCarModelsByBrandUseCase(brandId))
+        when(() => repository.fetchCarModelsByBrand(brandId))
             .thenAnswer((_) async => CarCatalogFailure(errorMessage));
         final states = captureStates(sut);
 
@@ -112,8 +111,7 @@ void main() {
             errorMessage,
           ),
         ]);
-        verify(() => repository.fetchCarModelsByBrandUseCase(brandId))
-            .called(1);
+        verify(() => repository.fetchCarModelsByBrand(brandId)).called(1);
       });
     });
   });

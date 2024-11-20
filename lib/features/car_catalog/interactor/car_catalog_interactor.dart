@@ -9,7 +9,7 @@ class CarCatalogInteractor extends ValueNotifier<CarCatalogState> {
   Future<void> fetchCarBrands() async {
     value = CarCatalogLoading();
     await Future.delayed(const Duration(seconds: 1), () async {
-      final newState = await repository.fetchCarBrandsUseCase();
+      final newState = await repository.fetchCarBrands();
       value = newState;
     });
   }
@@ -17,7 +17,7 @@ class CarCatalogInteractor extends ValueNotifier<CarCatalogState> {
   Future<void> fetchCarModelsByBrand(int brandId) async {
     value = CarCatalogLoading();
     await Future.delayed(const Duration(seconds: 1), () async {
-      final newState = await repository.fetchCarModelsByBrandUseCase(brandId);
+      final newState = await repository.fetchCarModelsByBrand(brandId);
       value = newState;
     });
   }

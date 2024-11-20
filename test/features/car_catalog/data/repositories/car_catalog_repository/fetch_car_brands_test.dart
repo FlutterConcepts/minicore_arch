@@ -21,12 +21,11 @@ void main() {
     registerFallbackValue(Uri.parse(''));
   });
 
-  group('fetchCarModelsByBrandUseCase Tests |', () {
+  group('fetchCarBrands Tests |', () {
     test(
-        '''Should return CarModelsByBrandSuccess when API call succeeds with valid data''',
+        '''Should return CarBrandsSuccess when API call succeeds with valid data''',
         () async {
       // Arrange
-      const brandId = 1;
       final mockResponseData = jsonEncode(
         List.generate(5, (_) {
           return {
@@ -35,77 +34,58 @@ void main() {
           };
         }),
       );
-      when(
-        () => mockClient.get(
-          Uri.parse(
-            'https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models',
-          ),
-        ),
-      ).thenAnswer(
+      when(() => mockClient.get(any())).thenAnswer(
         (_) async => Response(mockResponseData, 200),
       );
 
       // Act
-      final result = await sutRepository.fetchCarModelsByBrandUseCase(brandId);
+      final result = await sutRepository.fetchCarBrands();
 
       // Assert
-      expect(result, isA<CarModelsByBrandSuccess>());
-      final successState = result as CarModelsByBrandSuccess;
-      expect(successState.carModels.length, 5);
-      expect(successState.carModels[0], isA<CarModelEntity>());
+      expect(result, isA<CarBrandsSuccess>());
+      final successState = result as CarBrandsSuccess;
+      expect(successState.carBrands.length, 5);
+      expect(successState.carBrands[0], isA<CarBrandEntity>());
     });
 
     test(
         '''Should return CarCatalogFailure when API call fails with a non-200 status code''',
         () async {
       // Arrange
-      const brandId = 1;
       const mockStatusCode = 404;
       final mockMessage = faker.lorem.sentence();
-      when(
-        () => mockClient.get(
-          Uri.parse(
-            'https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models',
-          ),
-        ),
-      ).thenAnswer(
+      when(() => mockClient.get(any())).thenAnswer(
         (_) async => Response(mockMessage, mockStatusCode),
       );
 
       // Act
-      final result = await sutRepository.fetchCarModelsByBrandUseCase(brandId);
+      final result = await sutRepository.fetchCarBrands();
 
       // Assert
       expect(result, isA<CarCatalogFailure>());
       final failureState = result as CarCatalogFailure;
       expect(
         failureState.message,
-        'Failed to fetch car models catalog. Status code: $mockStatusCode',
+        'Failed to fetch car brands catalog. Status code: $mockStatusCode',
       );
     });
 
-    test('Should return CarCatalogFailure when an exception is thrown',
+    test('should return CarCatalogFailure when an exception is thrown',
         () async {
       // Arrange
-      const brandId = 1;
       final mockExceptionMessage = faker.lorem.sentence();
-      when(
-        () => mockClient.get(
-          Uri.parse(
-            'https://fipe.parallelum.com.br/api/v2/cars/brands/$brandId/models',
-          ),
-        ),
-      ).thenThrow(Exception(mockExceptionMessage));
+      when(() => mockClient.get(any()))
+          .thenThrow(Exception(mockExceptionMessage));
 
       // Act
-      final result = await sutRepository.fetchCarModelsByBrandUseCase(brandId);
+      final result = await sutRepository.fetchCarBrands();
 
       // Assert
       expect(result, isA<CarCatalogFailure>());
       final failureState = result as CarCatalogFailure;
       expect(
         failureState.message,
-        'Failed to fetch car models catalog: Exception: $mockExceptionMessage',
+        'Failed to fetch car brands catalog: Exception: $mockExceptionMessage',
       );
     });
   });

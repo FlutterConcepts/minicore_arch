@@ -9,7 +9,7 @@ class ParallelumCarCatalogRepository implements CarCatalogRepository {
   final Client _client;
 
   @override
-  Future<CarCatalogState> fetchCarBrandsUseCase() async {
+  Future<CarCatalogState> fetchCarBrands() async {
     try {
       final response = await _client.get(
         Uri.parse('https://parallelum.com.br/fipe/api/v2/cars/brands'),
@@ -35,7 +35,7 @@ class ParallelumCarCatalogRepository implements CarCatalogRepository {
   }
 
   @override
-  Future<CarCatalogState> fetchCarModelsByBrandUseCase(int brandId) async {
+  Future<CarCatalogState> fetchCarModelsByBrand(int brandId) async {
     try {
       final response = await _client.get(
         Uri.parse(
