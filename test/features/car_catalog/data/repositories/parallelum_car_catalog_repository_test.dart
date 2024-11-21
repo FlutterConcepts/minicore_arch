@@ -11,7 +11,7 @@ class MockClient extends Mock implements Client {}
 void main() {
   late Client mockClient;
   late String baseUrl;
-  late CarCatalogRepository sut;
+  late ParallelumCarCatalogRepository sut;
 
   setUp(() {
     mockClient = MockClient();

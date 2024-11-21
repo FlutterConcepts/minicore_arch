@@ -3,10 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockCarCatalogRepository extends Mock implements CarCatalogRepository {}
+class MockFetchCarBrandsUseCase extends Mock implements FetchCarBrandsUseCase {}
+
+class MockFetchCarModelsByBrandUseCase extends Mock
+    implements FetchCarModelsByBrandUseCase {}
 
 void main() {
-  late CarCatalogRepository repository;
+  late FetchCarBrandsUseCase mockFetchCarBrandsUseCase;
+  late FetchCarModelsByBrandUseCase mockFetchCarModelsByBrandUseCase;
   late CarCatalogInteractor sut;
 
   List<CarCatalogState> captureStates(CarCatalogInteractor interactor) {
@@ -18,17 +22,21 @@ void main() {
   }
 
   setUp(() {
-    repository = MockCarCatalogRepository();
-    sut = CarCatalogInteractor(repository);
+    mockFetchCarBrandsUseCase = MockFetchCarBrandsUseCase();
+    mockFetchCarModelsByBrandUseCase = MockFetchCarModelsByBrandUseCase();
+    sut = CarCatalogInteractor(
+      fetchCarBrandsUseCase: mockFetchCarBrandsUseCase,
+      fetchCarModelsByBrandUseCase: mockFetchCarModelsByBrandUseCase,
+    );
   });
 
-  group('CarCatalogInteractor Tests |', () {
+  group('CarCatalogInteractor Tests', () {
     group('fetchCarBrands Tests', () {
       test(
           '''Should emit `CarCatalogLoading` followed by `CarBrandsSuccess` when `fetchCarBrands` completes successfully''',
           () async {
         // Arrange
-        when(repository.fetchCarBrands)
+        when(() => mockFetchCarBrandsUseCase.call(null))
             .thenAnswer((_) async => const CarBrandsSuccess([]));
         final states = captureStates(sut);
 
@@ -40,7 +48,7 @@ void main() {
           isA<CarCatalogLoading>(),
           isA<CarBrandsSuccess>(),
         ]);
-        verify(repository.fetchCarBrands).called(1);
+        verify(() => mockFetchCarBrandsUseCase.call(null)).called(1);
       });
 
       test(
@@ -48,7 +56,7 @@ void main() {
           () async {
         // Arrange
         final errorMessage = faker.lorem.sentence();
-        when(repository.fetchCarBrands)
+        when(() => mockFetchCarBrandsUseCase.call(null))
             .thenAnswer((_) async => CarCatalogFailure(errorMessage));
         final states = captureStates(sut);
 
@@ -64,17 +72,17 @@ void main() {
             errorMessage,
           ),
         ]);
-        verify(repository.fetchCarBrands).called(1);
+        verify(() => mockFetchCarBrandsUseCase.call(null)).called(1);
       });
     });
 
-    group('fetchModelsByBrand Tests |', () {
+    group('fetchCarModelsByBrand Tests', () {
       test(
-          '''Should emit `CarCatalogLoading` followed by `CarModelsByBrandSuccess` when `fetchModelsByBrand` completes successfully for a given brand ID''',
+          '''Should emit `CarCatalogLoading` followed by `CarModelsByBrandSuccess` when `fetchCarModelsByBrand` completes successfully for a given brand ID''',
           () async {
         // Arrange
         const brandId = 1;
-        when(() => repository.fetchCarModelsByBrand(brandId))
+        when(() => mockFetchCarModelsByBrandUseCase.call(brandId))
             .thenAnswer((_) async => const CarModelsByBrandSuccess([]));
         final states = captureStates(sut);
 
@@ -86,16 +94,16 @@ void main() {
           isA<CarCatalogLoading>(),
           isA<CarModelsByBrandSuccess>(),
         ]);
-        verify(() => repository.fetchCarModelsByBrand(brandId)).called(1);
+        verify(() => mockFetchCarModelsByBrandUseCase.call(brandId)).called(1);
       });
 
       test(
-          '''Should emit `CarCatalogLoading` followed by `CarCatalogFailure` with an appropriate error message when `fetchModelsByBrand` fails''',
+          '''Should emit `CarCatalogLoading` followed by `CarCatalogFailure` with an appropriate error message when `fetchCarModelsByBrand` fails''',
           () async {
         // Arrange
         const brandId = 1;
         final errorMessage = faker.lorem.sentence();
-        when(() => repository.fetchCarModelsByBrand(brandId))
+        when(() => mockFetchCarModelsByBrandUseCase.call(brandId))
             .thenAnswer((_) async => CarCatalogFailure(errorMessage));
         final states = captureStates(sut);
 
@@ -111,7 +119,7 @@ void main() {
             errorMessage,
           ),
         ]);
-        verify(() => repository.fetchCarModelsByBrand(brandId)).called(1);
+        verify(() => mockFetchCarModelsByBrandUseCase.call(brandId)).called(1);
       });
     });
   });

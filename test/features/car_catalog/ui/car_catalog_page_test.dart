@@ -9,7 +9,11 @@ class MockCarCatalogInteractor extends ValueNotifier<CarCatalogState>
   MockCarCatalogInteractor() : super(CarCatalogLoading());
 
   @override
-  CarCatalogRepository get repository => throw UnimplementedError();
+  FetchCarBrandsUseCase get fetchCarBrandsUseCase => throw UnimplementedError();
+
+  @override
+  FetchCarModelsByBrandUseCase get fetchCarModelsByBrandUseCase =>
+      throw UnimplementedError();
 
   @override
   Future<void> fetchCarBrands() async {}
