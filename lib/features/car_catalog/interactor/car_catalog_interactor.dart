@@ -13,16 +13,14 @@ class CarCatalogInteractor extends Interactor<CarCatalogState> {
   Future<void> fetchCarBrands() async {
     value = CarCatalogLoading();
     await Future.delayed(const Duration(seconds: 1), () async {
-      final newState = await fetchCarBrandsUseCase(null);
-      value = newState;
+      value = await fetchCarBrandsUseCase(null);
     });
   }
 
   Future<void> fetchCarModelsByBrand(int brandId) async {
     value = CarCatalogLoading();
     await Future.delayed(const Duration(seconds: 1), () async {
-      final newState = await fetchCarModelsByBrandUseCase(brandId);
-      value = newState;
+      value = await fetchCarModelsByBrandUseCase(brandId);
     });
   }
 }
