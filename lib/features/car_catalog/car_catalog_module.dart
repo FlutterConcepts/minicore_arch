@@ -1,21 +1,24 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
-class CarCatalogModule extends StatelessWidget {
-  const CarCatalogModule({super.key});
-
-  static const initialRoute = '/carCatalog';
+class CarCatalogModule extends Module {
+  static const String parentPath =
+      AppModule.parentPath + AppModule.carCatalogPath;
 
   @override
-  Widget build(BuildContext context) {
-    final client = Client();
-    final repository = ParallelumCarCatalogRepository(client, baseUrl: baseUrl);
-    final interactor = CarCatalogInteractor(repository);
-
-    return CarCatalogProvider(
-      interactor: interactor,
-      child: const CarCatalogPage(),
+  void binds(Injector i) {
+    i.addLazySingleton<Client>(Client.new);
+    i.addLazySingleton<ParallelumCarCatalogRepository>(
+      () => ParallelumCarCatalogRepository(i.get<Client>(), baseUrl: baseUrl),
     );
+    i.addLazySingleton<CarCatalogInteractor>(
+      () => CarCatalogInteractor(i.get<ParallelumCarCatalogRepository>()),
+    );
+  }
+
+  @override
+  void routes(RouteManager r) {
+    r.child('/', child: (_) => const CarCatalogPage());
   }
 }

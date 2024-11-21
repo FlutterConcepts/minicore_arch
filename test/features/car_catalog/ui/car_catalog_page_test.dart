@@ -1,5 +1,6 @@
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
@@ -21,14 +22,20 @@ void main() {
     late CarCatalogInteractor mockInteractor;
 
     setUp(() {
+      Modular.bindModule(AppModule());
       mockInteractor = MockCarCatalogInteractor();
+      Modular.replaceInstance<CarCatalogInteractor>(mockInteractor);
+    });
+
+    tearDown(() {
+      Modular.dispose();
     });
 
     testWidgets('Should correctly display the page states', (tester) async {
       // Act
       await tester.pumpWidget(
-        CarCatalogProvider(
-          interactor: mockInteractor,
+        ModularApp(
+          module: AppModule(),
           child: const MaterialApp(
             home: CarCatalogPage(),
           ),
