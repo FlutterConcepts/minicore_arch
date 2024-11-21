@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:minicore/minicore.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
-class CarCatalogInteractor extends ValueNotifier<CarCatalogState> {
+class CarCatalogInteractor extends Interactor<CarCatalogState> {
   CarCatalogInteractor(this.repository) : super(CarCatalogLoading());
 
   final CarCatalogRepository repository;

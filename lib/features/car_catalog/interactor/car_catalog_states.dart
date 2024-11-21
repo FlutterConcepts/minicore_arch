@@ -1,6 +1,7 @@
+import 'package:minicore/minicore.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
-sealed class CarCatalogState {}
+sealed class CarCatalogState extends State {}
 
 final class CarCatalogLoading implements CarCatalogState {}
 
