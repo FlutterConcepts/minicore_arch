@@ -6,7 +6,7 @@ class CarSpecModel {
 
   factory CarSpecModel.fromJson(Map<String, dynamic> json) {
     return CarSpecModel(
-      code: json['code'] as int,
+      code: int.parse(json['code'] as String),
       name: json['name'] as String,
     );
   }
