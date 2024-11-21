@@ -58,14 +58,14 @@ class _CarCatalogPageState extends State<CarCatalogPage> {
                 },
               ),
             CarModelsByBrandSuccess(
-              carModels: final List<CarSpecModel> carModels
+              carSpecs: final List<CarSpecModel> carSpecs
             ) =>
               ListView.builder(
                 key: const Key('CarModelsByBrandSuccess'),
                 padding: const EdgeInsets.all(16),
-                itemCount: carModels.length,
+                itemCount: carSpecs.length,
                 itemBuilder: (_, index) {
-                  final model = carModels[index];
+                  final model = carSpecs[index];
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(8),

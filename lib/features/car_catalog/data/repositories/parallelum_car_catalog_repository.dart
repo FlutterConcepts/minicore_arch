@@ -35,7 +35,7 @@ class ParallelumCarCatalogRepository {
     }
   }
 
-  Future<(List<CarSpecModel>? carModels, String? errorMessage)>
+  Future<(List<CarSpecModel>? carSpecs, String? errorMessage)>
       fetchCarModelsByBrand(
     int brandId,
   ) async {
@@ -44,12 +44,12 @@ class ParallelumCarCatalogRepository {
           await _client.get(Uri.parse('$baseUrl/cars/brands/$brandId/models'));
 
       if (response.statusCode == 200) {
-        final carModels = (jsonDecode(response.body) as List<dynamic>)
+        final carSpecs = (jsonDecode(response.body) as List<dynamic>)
             .cast<Map<String, dynamic>>()
             .map(CarSpecModel.fromJson)
             .toList();
 
-        return (carModels, null);
+        return (carSpecs, null);
       } else {
         return (
           null,

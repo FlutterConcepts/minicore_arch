@@ -111,12 +111,11 @@ void main() {
       );
 
       // Act
-      final (carModels, errorMessage) =
-          await sut.fetchCarModelsByBrand(brandId);
+      final (carSpecs, errorMessage) = await sut.fetchCarModelsByBrand(brandId);
 
       // Assert
-      expect(carModels, isA<List<CarSpecModel>>());
-      expect(carModels!.length, 5);
+      expect(carSpecs, isA<List<CarSpecModel>>());
+      expect(carSpecs!.length, 5);
     });
 
     test(
@@ -132,11 +131,10 @@ void main() {
       );
 
       // Act
-      final (carModels, errorMessage) =
-          await sut.fetchCarModelsByBrand(brandId);
+      final (carSpecs, errorMessage) = await sut.fetchCarModelsByBrand(brandId);
 
       // Assert
-      expect(carModels, isNull);
+      expect(carSpecs, isNull);
       expect(
         errorMessage,
         'Failed to fetch car models catalog. Status code: $mockStatusCode',
@@ -152,11 +150,10 @@ void main() {
       ).thenThrow(Exception(mockExceptionMessage));
 
       // Act
-      final (carModels, errorMessage) =
-          await sut.fetchCarModelsByBrand(brandId);
+      final (carSpecs, errorMessage) = await sut.fetchCarModelsByBrand(brandId);
 
       // Assert
-      expect(carModels, isNull);
+      expect(carSpecs, isNull);
       expect(
         errorMessage,
         'Failed to fetch car models catalog: Exception: $mockExceptionMessage',

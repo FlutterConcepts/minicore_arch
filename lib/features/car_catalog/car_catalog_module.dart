@@ -15,8 +15,8 @@ class CarCatalogModule extends Module {
     i.add<FetchCarBrandsUseCaseImpl>(
       () => FetchCarBrandsUseCaseImpl(i.get<ParallelumCarCatalogRepository>()),
     );
-    i.add<FetchCarModelsByBrandUseCaseImpl>(
-      () => FetchCarModelsByBrandUseCaseImpl(
+    i.add<FetchCarBrandsUseCaseImpl>(
+      () => FetchCarBrandsUseCaseImpl(
         i.get<ParallelumCarCatalogRepository>(),
       ),
     );

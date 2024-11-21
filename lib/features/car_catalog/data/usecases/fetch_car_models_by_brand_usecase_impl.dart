@@ -8,16 +8,18 @@ class FetchCarModelsByBrandUseCaseImpl implements FetchCarModelsByBrandUseCase {
   @override
   Future<CarCatalogState> call(int brandId) async {
     try {
-      final (carModels, errorMessage) =
+      final (carSpecs, errorMessage) =
           await repository.fetchCarModelsByBrand(brandId);
 
       if (errorMessage != null) {
         return CarCatalogFailure(errorMessage);
       } else {
-        return CarModelsByBrandSuccess(carModels!);
+        return CarModelsByBrandSuccess(carSpecs!);
       }
     } catch (error) {
-      return CarCatalogFailure('$error');
+      return CarCatalogFailure(
+        'Failed to fetch car models catalog: $error',
+      );
     }
   }
 }
