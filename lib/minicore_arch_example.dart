@@ -1,4 +1,4 @@
-export 'core/constants/env.dart';
+export 'core/constants.dart';
 export 'features/car_catalog/car_catalog_module.dart';
 export 'features/car_catalog/data/repositories/parallelum_car_catalog_repository.dart';
 export 'features/car_catalog/interactor/car_catalog_interactor.dart';
