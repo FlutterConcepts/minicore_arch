@@ -1,3 +1,5 @@
+export 'package:minicore_arch_example/app_module.dart';
+export 'package:minicore_arch_example/app_wrap_widget.dart';
 export 'package:minicore_arch_example/core/constants.dart';
 export 'package:minicore_arch_example/features/car_catalog/car_catalog_module.dart';
 export 'package:minicore_arch_example/features/car_catalog/data/repositories/parallelum_car_catalog_repository.dart';
@@ -10,5 +12,3 @@ export 'package:minicore_arch_example/features/car_catalog/interactor/models/car
 export 'package:minicore_arch_example/features/car_catalog/interactor/usecases/fetch_car_brands_usecase.dart';
 export 'package:minicore_arch_example/features/car_catalog/interactor/usecases/fetch_car_models_by_brand_usecase.dart';
 export 'package:minicore_arch_example/features/car_catalog/ui/car_catalog_page.dart';
-export 'package:minicore_arch_example/main/configuration/app_module.dart';
-export 'package:minicore_arch_example/main/ui/app_wrap_widget.dart';
