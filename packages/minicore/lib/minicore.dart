@@ -6,8 +6,8 @@ abstract class FutureUseCase<T extends State, Params> {
   Future<T> call(Params params);
 }
 
-abstract class UseCase<T extends State> {
-  T call(dynamic params);
+abstract class UseCase<T extends State, Params> {
+  T call(Params params);
 }
 
 abstract class Interactor<T extends State> extends ValueNotifier<T> {
