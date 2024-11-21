@@ -28,7 +28,7 @@ void main() {
 
   group('fetchCarBrands Tests |', () {
     test(
-        '''Should return CarBrandsSuccess when API call succeeds with valid data''',
+        'Should return CarBrandsSuccess when API call succeeds with valid data',
         () async {
       // Arrange
       final mockResponseData = jsonEncode(
@@ -48,12 +48,13 @@ void main() {
       // Assert
       expect(result, isA<CarBrandsSuccess>());
       final successState = result as CarBrandsSuccess;
+      expect(successState.carBrands, isA<List<CarBrandModel>>());
       expect(successState.carBrands.length, 5);
-      expect(successState.carBrands[0], isA<CarBrandModel>());
+      verify(() => mockClient.get(any())).called(1);
     });
 
     test(
-        '''Should return CarCatalogFailure when API call fails with a non-200 status code''',
+        'Should return CarCatalogFailure when API call fails with a non-200 status code',
         () async {
       // Arrange
       const mockStatusCode = 404;
@@ -72,6 +73,7 @@ void main() {
         failureState.message,
         'Failed to fetch car brands catalog. Status code: $mockStatusCode',
       );
+      verify(() => mockClient.get(any())).called(1);
     });
 
     test('should return CarCatalogFailure when an exception is thrown',
@@ -91,12 +93,13 @@ void main() {
         failureState.message,
         'Failed to fetch car brands catalog: Exception: $mockExceptionMessage',
       );
+      verify(() => mockClient.get(any())).called(1);
     });
   });
 
   group('fetchCarModelsByBrand Tests |', () {
     test(
-        '''Should return CarModelsByBrandSuccess when API call succeeds with valid data''',
+        'Should return CarModelsByBrandSuccess when API call succeeds with valid data',
         () async {
       // Arrange
       const brandId = 1;
@@ -120,12 +123,13 @@ void main() {
       // Assert
       expect(result, isA<CarModelsByBrandSuccess>());
       final successState = result as CarModelsByBrandSuccess;
+      expect(successState.carModels, isA<List<CarSpecModel>>());
       expect(successState.carModels.length, 5);
-      expect(successState.carModels[0], isA<CarSpecModel>());
+      verify(() => mockClient.get(any())).called(1);
     });
 
     test(
-        '''Should return CarCatalogFailure when API call fails with a non-200 status code''',
+        'Should return CarCatalogFailure when API call fails with a non-200 status code',
         () async {
       // Arrange
       const brandId = 1;
@@ -147,6 +151,7 @@ void main() {
         failureState.message,
         'Failed to fetch car models catalog. Status code: $mockStatusCode',
       );
+      verify(() => mockClient.get(any())).called(1);
     });
 
     test('Should return CarCatalogFailure when an exception is thrown',
@@ -168,6 +173,7 @@ void main() {
         failureState.message,
         'Failed to fetch car models catalog: Exception: $mockExceptionMessage',
       );
+      verify(() => mockClient.get(any())).called(1);
     });
   });
 }

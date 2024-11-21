@@ -26,7 +26,7 @@ class ParallelumCarCatalogRepository implements CarCatalogRepository {
         return CarBrandsSuccess(carBrands);
       } else {
         return CarCatalogFailure(
-          '''Failed to fetch car brands catalog. Status code: ${response.statusCode}''',
+          'Failed to fetch car brands catalog. Status code: ${response.statusCode}',
         );
       }
     } catch (error) {
@@ -51,7 +51,7 @@ class ParallelumCarCatalogRepository implements CarCatalogRepository {
         return CarModelsByBrandSuccess(carModels);
       } else {
         return CarCatalogFailure(
-          '''Failed to fetch car models catalog. Status code: ${response.statusCode}''',
+          'Failed to fetch car models catalog. Status code: ${response.statusCode}',
         );
       }
     } catch (error) {
