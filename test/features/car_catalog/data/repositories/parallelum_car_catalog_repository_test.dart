@@ -9,6 +9,7 @@ import 'package:mocktail/mocktail.dart';
 class MockClient extends Mock implements Client {}
 
 void main() {
+  const brandId = 1;
   late Client mockClient;
   late String baseUrl;
   late ParallelumCarCatalogRepository sut;
@@ -28,7 +29,7 @@ void main() {
 
   group('fetchCarBrands Tests |', () {
     test(
-        '''Should return CarBrandsSuccess when API call succeeds with valid data''',
+        'Should return CarBrandsSuccess when API call succeeds with valid data',
         () async {
       // Arrange
       final mockResponseData = jsonEncode(
@@ -43,17 +44,15 @@ void main() {
           .thenAnswer((_) async => Response(mockResponseData, 200));
 
       // Act
-      final result = await sut.fetchCarBrands();
+      final (carBrands, errorMessage) = await sut.fetchCarBrands();
 
       // Assert
-      expect(result, isA<CarBrandsSuccess>());
-      final successState = result as CarBrandsSuccess;
-      expect(successState.carBrands.length, 5);
-      expect(successState.carBrands[0], isA<CarBrandModel>());
+      expect(carBrands, isA<List<CarBrandModel>>());
+      expect(carBrands!.length, 5);
     });
 
     test(
-        '''Should return CarCatalogFailure when API call fails with a non-200 status code''',
+        'Should return CarCatalogFailure when API call fails with a non-200 status code',
         () async {
       // Arrange
       const mockStatusCode = 404;
@@ -63,13 +62,12 @@ void main() {
       );
 
       // Act
-      final result = await sut.fetchCarBrands();
+      final (carBrands, errorMessage) = await sut.fetchCarBrands();
 
       // Assert
-      expect(result, isA<CarCatalogFailure>());
-      final failureState = result as CarCatalogFailure;
+      expect(carBrands, isNull);
       expect(
-        failureState.message,
+        errorMessage,
         'Failed to fetch car brands catalog. Status code: $mockStatusCode',
       );
     });
@@ -82,13 +80,12 @@ void main() {
           .thenThrow(Exception(mockExceptionMessage));
 
       // Act
-      final result = await sut.fetchCarBrands();
+      final (carBrands, errorMessage) = await sut.fetchCarBrands();
 
       // Assert
-      expect(result, isA<CarCatalogFailure>());
-      final failureState = result as CarCatalogFailure;
+      expect(carBrands, isNull);
       expect(
-        failureState.message,
+        errorMessage,
         'Failed to fetch car brands catalog: Exception: $mockExceptionMessage',
       );
     });
@@ -96,10 +93,9 @@ void main() {
 
   group('fetchCarModelsByBrand Tests |', () {
     test(
-        '''Should return CarModelsByBrandSuccess when API call succeeds with valid data''',
+        'Should return CarModelsByBrandSuccess when API call succeeds with valid data',
         () async {
       // Arrange
-      const brandId = 1;
       final mockResponseData = jsonEncode(
         List.generate(5, (_) {
           return {
@@ -115,20 +111,18 @@ void main() {
       );
 
       // Act
-      final result = await sut.fetchCarModelsByBrand(brandId);
+      final (carModels, errorMessage) =
+          await sut.fetchCarModelsByBrand(brandId);
 
       // Assert
-      expect(result, isA<CarModelsByBrandSuccess>());
-      final successState = result as CarModelsByBrandSuccess;
-      expect(successState.carModels.length, 5);
-      expect(successState.carModels[0], isA<CarSpecModel>());
+      expect(carModels, isA<List<CarSpecModel>>());
+      expect(carModels!.length, 5);
     });
 
     test(
-        '''Should return CarCatalogFailure when API call fails with a non-200 status code''',
+        'Should return CarCatalogFailure when API call fails with a non-200 status code',
         () async {
       // Arrange
-      const brandId = 1;
       const mockStatusCode = 404;
       final mockMessage = faker.lorem.sentence();
       when(
@@ -138,13 +132,13 @@ void main() {
       );
 
       // Act
-      final result = await sut.fetchCarModelsByBrand(brandId);
+      final (carModels, errorMessage) =
+          await sut.fetchCarModelsByBrand(brandId);
 
       // Assert
-      expect(result, isA<CarCatalogFailure>());
-      final failureState = result as CarCatalogFailure;
+      expect(carModels, isNull);
       expect(
-        failureState.message,
+        errorMessage,
         'Failed to fetch car models catalog. Status code: $mockStatusCode',
       );
     });
@@ -152,20 +146,19 @@ void main() {
     test('Should return CarCatalogFailure when an exception is thrown',
         () async {
       // Arrange
-      const brandId = 1;
       final mockExceptionMessage = faker.lorem.sentence();
       when(
         () => mockClient.get(Uri.parse('$baseUrl/cars/brands/$brandId/models')),
       ).thenThrow(Exception(mockExceptionMessage));
 
       // Act
-      final result = await sut.fetchCarModelsByBrand(brandId);
+      final (carModels, errorMessage) =
+          await sut.fetchCarModelsByBrand(brandId);
 
       // Assert
-      expect(result, isA<CarCatalogFailure>());
-      final failureState = result as CarCatalogFailure;
+      expect(carModels, isNull);
       expect(
-        failureState.message,
+        errorMessage,
         'Failed to fetch car models catalog: Exception: $mockExceptionMessage',
       );
     });

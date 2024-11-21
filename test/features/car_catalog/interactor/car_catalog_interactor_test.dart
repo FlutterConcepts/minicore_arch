@@ -33,7 +33,7 @@ void main() {
   group('CarCatalogInteractor Tests', () {
     group('fetchCarBrands Tests', () {
       test(
-          '''Should emit `CarCatalogLoading` followed by `CarBrandsSuccess` when `fetchCarBrands` completes successfully''',
+          'Should emit `CarCatalogLoading` followed by `CarBrandsSuccess` when `fetchCarBrands` completes successfully',
           () async {
         // Arrange
         when(() => mockFetchCarBrandsUseCase.call(null))
@@ -52,7 +52,7 @@ void main() {
       });
 
       test(
-          '''Should emit `CarCatalogLoading` followed by `CarCatalogFailure` with an appropriate error message when `fetchCarBrands` fails''',
+          'Should emit `CarCatalogLoading` followed by `CarCatalogFailure` with an appropriate error message when `fetchCarBrands` fails',
           () async {
         // Arrange
         final errorMessage = faker.lorem.sentence();
@@ -78,7 +78,7 @@ void main() {
 
     group('fetchCarModelsByBrand Tests', () {
       test(
-          '''Should emit `CarCatalogLoading` followed by `CarModelsByBrandSuccess` when `fetchCarModelsByBrand` completes successfully for a given brand ID''',
+          'Should emit `CarCatalogLoading` followed by `CarModelsByBrandSuccess` when `fetchCarModelsByBrand` completes successfully for a given brand ID',
           () async {
         // Arrange
         const brandId = 1;
@@ -98,7 +98,7 @@ void main() {
       });
 
       test(
-          '''Should emit `CarCatalogLoading` followed by `CarCatalogFailure` with an appropriate error message when `fetchCarModelsByBrand` fails''',
+          'Should emit `CarCatalogLoading` followed by `CarCatalogFailure` with an appropriate error message when `fetchCarModelsByBrand` fails',
           () async {
         // Arrange
         const brandId = 1;

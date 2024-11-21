@@ -12,7 +12,8 @@ class ParallelumCarCatalogRepository {
   final Client _client;
   final String baseUrl;
 
-  Future<CarCatalogState> fetchCarBrands() async {
+  Future<(List<CarBrandModel>? carBrands, String? errorMessage)>
+      fetchCarBrands() async {
     try {
       final response = await _client.get(Uri.parse('$baseUrl/cars/brands'));
 
@@ -22,20 +23,22 @@ class ParallelumCarCatalogRepository {
             .map(CarBrandModel.fromJson)
             .toList();
 
-        return CarBrandsSuccess(carBrands);
+        return (carBrands, null);
       } else {
-        return CarCatalogFailure(
-          '''Failed to fetch car brands catalog. Status code: ${response.statusCode}''',
+        return (
+          null,
+          'Failed to fetch car brands catalog. Status code: ${response.statusCode}'
         );
       }
     } catch (error) {
-      return CarCatalogFailure(
-        'Failed to fetch car brands catalog: $error',
-      );
+      return (null, 'Failed to fetch car brands catalog: $error');
     }
   }
 
-  Future<CarCatalogState> fetchCarModelsByBrand(int brandId) async {
+  Future<(List<CarSpecModel>? carModels, String? errorMessage)>
+      fetchCarModelsByBrand(
+    int brandId,
+  ) async {
     try {
       final response =
           await _client.get(Uri.parse('$baseUrl/cars/brands/$brandId/models'));
@@ -46,16 +49,15 @@ class ParallelumCarCatalogRepository {
             .map(CarSpecModel.fromJson)
             .toList();
 
-        return CarModelsByBrandSuccess(carModels);
+        return (carModels, null);
       } else {
-        return CarCatalogFailure(
-          '''Failed to fetch car models catalog. Status code: ${response.statusCode}''',
+        return (
+          null,
+          'Failed to fetch car models catalog. Status code: ${response.statusCode}'
         );
       }
     } catch (error) {
-      return CarCatalogFailure(
-        'Failed to fetch car models catalog: $error',
-      );
+      return (null, 'Failed to fetch car models catalog: $error');
     }
   }
 }
