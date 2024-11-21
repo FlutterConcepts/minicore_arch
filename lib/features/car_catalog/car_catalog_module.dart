@@ -8,12 +8,23 @@ class CarCatalogModule extends Module {
 
   @override
   void binds(Injector i) {
-    i.addLazySingleton<Client>(Client.new);
-    i.addLazySingleton<ParallelumCarCatalogRepository>(
+    i.add<Client>(Client.new);
+    i.add<ParallelumCarCatalogRepository>(
       () => ParallelumCarCatalogRepository(i.get<Client>(), baseUrl: baseUrl),
     );
-    i.addLazySingleton<CarCatalogInteractor>(
-      () => CarCatalogInteractor(i.get<ParallelumCarCatalogRepository>()),
+    i.add<FetchCarBrandsUseCaseImpl>(
+      () => FetchCarBrandsUseCaseImpl(i.get<ParallelumCarCatalogRepository>()),
+    );
+    i.add<FetchCarModelsByBrandUseCaseImpl>(
+      () => FetchCarModelsByBrandUseCaseImpl(
+        i.get<ParallelumCarCatalogRepository>(),
+      ),
+    );
+    i.add<CarCatalogInteractor>(
+      () => CarCatalogInteractor(
+        fetchCarBrandsUseCase: i.get<FetchCarBrandsUseCaseImpl>(),
+        fetchCarModelsByBrandUseCase: i.get<FetchCarModelsByBrandUseCaseImpl>(),
+      ),
     );
   }
 

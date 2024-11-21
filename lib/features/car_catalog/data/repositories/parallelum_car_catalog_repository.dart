@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:minicore_arch_example/minicore_arch_example.dart';
 
-class ParallelumCarCatalogRepository implements CarCatalogRepository {
+class ParallelumCarCatalogRepository {
   ParallelumCarCatalogRepository(
     this._client, {
     required this.baseUrl,
@@ -12,7 +12,6 @@ class ParallelumCarCatalogRepository implements CarCatalogRepository {
   final Client _client;
   final String baseUrl;
 
-  @override
   Future<CarCatalogState> fetchCarBrands() async {
     try {
       final response = await _client.get(Uri.parse('$baseUrl/cars/brands'));
@@ -36,7 +35,6 @@ class ParallelumCarCatalogRepository implements CarCatalogRepository {
     }
   }
 
-  @override
   Future<CarCatalogState> fetchCarModelsByBrand(int brandId) async {
     try {
       final response =
